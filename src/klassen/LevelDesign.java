@@ -378,7 +378,7 @@ public class LevelDesign implements Runnable
       }
     }
     
-    map[28][84]=new Arrow(brightness, 1, -1100, -550, this);
+    map[28][82]=new Arrow(brightness, 1, -1100, -550, this);
     
     player.setMap(map);
     bg.setMap(map);
