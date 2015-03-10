@@ -26,11 +26,11 @@ public class MusicPlayer implements Runnable {
     public MusicPlayer(String path) {
         //"C:\\Users\\Christian\\Desktop\\TheGame\\src\\sounds\\CanonInD.mp3"
         try {
-            System.out.println("Enter");
+//            System.out.println("Enter");
             File file = new File(path);
 //            FileInputStream fis = new FileInputStream(file);
 //            BufferedInputStream bis = new BufferedInputStream(fis);
-            System.out.println("Leave");
+//            System.out.println("Leave");
             Player player = new Player(new FileInputStream(file));
             this.player = player;
         } catch (IOException ex) {
