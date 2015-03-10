@@ -339,287 +339,32 @@ public class LevelDesign implements Runnable
     clear();
     GameObjects map[][]=new GameObjects[100][100];
     
-    for (int i = 0; i < map.length; i++) 
+    for (int i = 0; i < 10; i++)
     {
-      for (int j = 0; j < map.length; j++) 
+      for (int j = 0; j < 10; j++)
       {
+        map[i][j]=new Wand(brightness);
+      }
+    }
+    
+    for (int i = 0; i < 2; i++) 
+    {
+      for (int j = 0; j < 3; j++) 
+      {
+        for (int k = 0; k < map.length-1; k+=2) 
+        {
+          for (int l = 0; l < map.length-2; l+=3) 
+          {
+            map[i+k][j+l]=new Tree(brightness,i,j);
+          }
+        }
+      }
+    }
+    for (int i = 20; i < map.length-20; i++) {
+      for (int j = 15; j < map[0].length-16; j++) {
         map[i][j]=new Gras(brightness);
       }
     }
-    
-    
-   // Baum Part 1
-    
-    for (int i = 0; i < 2; i++) 
-    {
-      for (int j = 0; j < 3; j++) 
-      {
-        for (int k = 0; k < 10; k+=3) 
-        {
-          map[i+40][j+70-k]=new Tree(brightness,i,j);
-        }
-      }
-    }
-     
-     //Baum Part 2
-     
-      for (int i = 0; i < 2; i++) 
-    {
-      for (int j = 0; j < 3; j++) 
-      {
-        for (int k = 0; k < 18; k+=3) 
-        {
-          map[i+40-k][j+61]=new Tree(brightness,i,j);
-        }
-      }
-    }
-
-      // Baum Part 3
-       for (int i = 0; i < 2; i++) 
-    {
-      for (int j = 0; j < 3; j++) 
-      {
-        for (int k = 0; k < 32; k+=3) 
-        {
-          map[i+25][j+61-k]=new Tree(brightness,i,j);
-        }
-      }
-    }
-      
-// Baum Part 3
-       for (int i = 0; i < 2; i++) 
-    {
-      for (int j = 0; j < 3; j++) 
-      {
-        for (int k = 0; k < 26; k+=3) 
-        {
-          map[i+25][j+61-k]=new Tree(brightness,i,j);
-        }
-      }
-    }
-       
-    //Baum Part 4   
-    
-        for (int i = 0; i < 2; i++) 
-    {
-      for (int j = 0; j < 3; j++) 
-      {
-        for (int k = 0; k < 15; k+=3) 
-        {
-          map[i+25+k][j+31]=new Tree(brightness,i,j);
-        }
-      }
-    }
-       
-        //Baum Part 5
-      for (int i = 0; i < 2; i++) 
-    {
-      for (int j = 0; j < 3; j++) 
-      {
-        for (int k = 0; k < 15; k+=3) 
-        {
-          map[i+25+k][j+31]=new Tree(brightness,i,j);
-        }
-      }
-    }
-     
-     // Baum Part 6
-     
-      for (int i = 0; i < 2; i++) 
-    {
-      for (int j = 0; j < 3; j++) 
-      {
-        for (int k = 0; k < 24; k+=3) 
-        {
-          map[i+50][j+22+k]=new Tree(brightness,i,j);
-        }
-      }
-    }
-     
-       // Baum Part 7
-     
-      for (int i = 0; i < 2; i++) 
-    {
-      for (int j = 0; j < 3; j++) 
-      {
-        for (int k = 0; k < 16; k+=3) 
-        {
-          map[i+50-k][j+46]=new Tree(brightness,i,j);
-        }
-      }
-    }
-      
-       // Baum Part 8
-     
-      for (int i = 0; i < 2; i++) 
-    {
-      for (int j = 0; j < 3; j++) 
-      {
-        for (int k = 0; k < 6; k+=3) 
-        {
-          map[i+35][j+46+k]=new Tree(brightness,i,j);
-        }
-      }
-    }
-      
-       // Baum Part 9
-     
-      for (int i = 0; i < 2; i++) 
-    {
-      for (int j = 0; j < 3; j++) 
-      {
-        for (int k = 0; k < 18; k+=3) 
-        {
-          map[i+35+k][j+52]=new Tree(brightness,i,j);
-        }
-      }
-    }
-      
-       // Baum Part 10
-     
-      for (int i = 0; i < 2; i++) 
-    {
-      for (int j = 0; j < 3; j++) 
-      {
-        for (int k = 0; k < 12; k+=3) 
-        {
-          map[i+53][j+52+k]=new Tree(brightness,i,j);
-        }
-      }
-    }
-      
-      // Baum Part 11
-      
-      for (int i = 0; i < 2; i++) 
-    {
-      for (int j = 0; j < 3; j++) 
-      {
-        for (int k = 0; k < 9; k+=3) 
-        {
-          map[i+53+k][j+64]=new Tree(brightness,i,j);
-        }
-      }
-    }
-      
-      
-      // Baum Part 12
-      
-      for (int i = 0; i < 2; i++) 
-    {
-      for (int j = 0; j < 3; j++) 
-      {
-        for (int k = 0; k < 24; k+=3) 
-        {
-          map[i+59][j+64-k]=new Tree(brightness,i,j);
-        }
-      }
-    }
-      
-      //Baum part 13
-       for (int i = 0; i < 2; i++) 
-    {
-      for (int j = 0; j < 3; j++) 
-      {
-        for (int k = 0; k < 12; k+=3) 
-        {
-          map[i+59+k][j+43]=new Tree(brightness,i,j);
-        }
-      }
-    }
-      
-      
-      
-    //Baum Sperre Untenlinks 
-     for (int i = 0; i < 2; i++) 
-    {
-      for (int j = 0; j < 3; j++) 
-      {
-        for (int k = 0; k < 20; k+=3) 
-        {
-          map[i+k+10][j+71]=new Tree(brightness,i,j);
-        }
-      }
-    }
-    // baum unten rechts
-     for (int i = 0; i < 2; i++) 
-    {
-      for (int j = 0; j < 3; j++) 
-      {
-        for (int k = 0; k < 30; k+=3) 
-        {
-          map[i+k+40][j+71]=new Tree(brightness,i,j);
-        }
-      }
-    }
-     // Baum Links
-       for (int i = 0; i < 2; i++) 
-    {
-      for (int j = 0; j < 3; j++) 
-      {
-        for (int k = 0; k < 51; k+=3) 
-        {
-          map[i+10][j+k+19]=new Tree(brightness,i,j);
-        }
-      }
-    }
-
-       // Baum Rechts oben
-    for (int i = 0; i < 2; i++) 
-    {
-      for (int j = 0; j < 3; j++) 
-      {
-        for (int k = 0; k < 25; k+=3) 
-        {
-          map[i+70][j+k+19]=new Tree(brightness,i,j);
-        }
-      }
-    }
-       
-       // Baum Rechts unten
-    for (int i = 0; i < 2; i++) 
-    {
-      for (int j = 0; j < 3; j++) 
-      {
-        for (int k = 0; k < 20; k+=3) 
-        {
-          map[i+70][j+k+53]=new Tree(brightness,i,j);
-        }
-      }
-    }
-    
-    // Baum Oben rechts 
-    for (int i = 0; i < 2; i++) 
-    {
-      for (int j = 0; j < 3; j++) 
-      {
-        for (int k = 0; k < 28; k+=3) 
-        {
-          map[i+10+k][j+19]=new Tree(brightness,i,j);
-        }
-      }
-    }
-       
-       // Baum Oben links
-       for (int i = 0; i < 2; i++) 
-    {
-      for (int j = 0; j < 3; j++) 
-      {
-        for (int k = 0; k < 20; k+=3) 
-        {
-          map[i+50+k][j+19]=new Tree(brightness,i,j);
-        }
-      }
-    }
-    
-    for (int i = 0; i < 10; i++) 
-    {
-      map[i+30][72]=new Arrow(brightness,1, -723f, -276f,this);
-    }
-    for (int i = 0; i < 11; i++) 
-    {
-      map[39+i][20]=new Arrow(brightness, 0, -600, -600, this);
-    }
-    
      
     
     Background.x=startX+400;
@@ -632,6 +377,8 @@ public class LevelDesign implements Runnable
         map[i][j].setBrightness(-100);
       }
     }
+    
+    map[28][84]=new Arrow(brightness, 1, -1100, -550, this);
     
     player.setMap(map);
     bg.setMap(map);

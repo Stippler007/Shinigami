@@ -238,7 +238,6 @@ public class Player {
     speedX=0;
     speedY=0;
     
-    
     if(KL.keys[KeyEvent.VK_A])
     {
       speedX=speed*tslf;
