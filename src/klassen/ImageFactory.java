@@ -84,24 +84,29 @@ public class ImageFactory {
   }
   private void loadPlayer() throws IOException
   {
-      for (int i = 0; i < 3; i++) {
-          looks.put("PlayerHinten"+i, ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/player/player/player/character_hinten_0"+i+".png")));
-      }
-      for (int i = 0; i < 3; i++) {
-          looks.put("PlayerRechts"+i, ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/player/player/player/character_seite_rechts_0"+i+".png")));
-      }
-      for (int i = 0; i < 3; i++) {
-          looks.put("PlayerLinks"+i, ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/player/player/player/character_seite_0"+i+".png")));
-      }
-      for (int i = 0; i < 3; i++) {
-          looks.put("PlayerVorne"+i, ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/player/player/player/character_vorne_0"+i+".png")));
-      }
-      for (int i = 0; i < 6; i++) {
-          looks.put("BasicShot_0"+i, ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/player/player/basicSpritzer/BasicShot_0"+i+".png")));
-      }
-      for (int i = 0; i < 1; i++) {
-          looks.put("BasicShot", ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/player/player/basicSpritzer/BasicShot"+i+".png")));
-      }
+    for (int i = 0; i < 3; i++) {
+        looks.put("PlayerHinten"+i, ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/player/player/player/character_hinten_0"+i+".png")));
+    }
+    for (int i = 0; i < 3; i++) {
+        looks.put("PlayerRechts"+i, ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/player/player/player/character_seite_rechts_0"+i+".png")));
+    }
+    for (int i = 0; i < 3; i++) {
+        looks.put("PlayerLinks"+i, ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/player/player/player/character_seite_0"+i+".png")));
+    }
+    for (int i = 0; i < 3; i++) {
+        looks.put("PlayerVorne"+i, ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/player/player/player/character_vorne_0"+i+".png")));
+    }
+    for (int i = 0; i < 6; i++) {
+        looks.put("BasicShot_0"+i, ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/player/player/basicSpritzer/BasicShot_0"+i+".png")));
+    }
+    for (int i = 0; i < 1; i++) {
+        looks.put("BasicShot", ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/player/player/basicSpritzer/BasicShot"+i+".png")));
+    }
+    for (int i = 0; i < 10; i++)
+    {
+      looks.put("IceShot"+i, ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/player/player/iceShot/Ice_Shot_0"+i+".png")));
+    }
+    looks.put("IceShot10", ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/player/player/iceShot/Ice_Shot_10.png")));
   }
   private void loadGameObjects() throws IOException
   {
