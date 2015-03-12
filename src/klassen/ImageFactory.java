@@ -49,7 +49,7 @@ public class ImageFactory {
       loadGameObjects();
       loadNPC();
     } catch (IOException ex) {
-      System.out.println("funkt nicht");
+      System.out.println("ImageFactory: Error Occured: "+ ex);
     }
   }
   private void loadMinions() throws IOException
