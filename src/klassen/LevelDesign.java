@@ -111,6 +111,9 @@ public class LevelDesign implements Runnable {
             case 3:
                 route101(startX, startY);
                 break;
+            case 4:
+                route202(startX, startY);
+                break;
         }
         pause = false;
     }
@@ -322,7 +325,39 @@ public class LevelDesign implements Runnable {
                 map[j][i] = new Arrow(brightness, 1, -700, -250, this);
             }
         }
+        
+        for (int i = 0; i <= 15; i++)  {
+            for (int j = 73; j < 79; j++) {
+                map[j][i] = new Arrow(brightness, 4, -1000, -300, this);
+            }
+        }
 
+        player.setMap(map);
+        bg.setMap(map);
+        for (NPC npc : npcs) {
+            npc.setMap(map);
+        }
+    }
+    
+    public void route202(float startX, float startY) {
+        clear();
+        GameObjects map[][] = new GameObjects[100][100];
+        
+        for (int i = 0; i < 100; i++) {
+            for (int j = 0; j < 100; j++) {
+                map[i][j] = new Gras(brightness);
+            }
+        }
+        
+        Background.x = startX + 400;
+        Background.y = startY + 300;
+
+        for (int i = 0; i < map.length - 1; i++) {
+            for (int j = 0; j < map.length - 1; j++) {
+                map[i][j].setBrightness(-100);
+            }
+        }
+        
         player.setMap(map);
         bg.setMap(map);
         for (NPC npc : npcs) {
