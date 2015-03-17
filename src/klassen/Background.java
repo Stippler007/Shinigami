@@ -34,8 +34,8 @@ public class Background
     
   public void update(float tslf)
   {
-    System.out.format("X Koordinate: %f    Y Koordinate %f Block-X: %f     Block-Y: %f\n",
-            Background.x-400,Background.y-300,Background.x/25-(800/2/25),Background.y/25-(600/2/25));
+//    System.out.format("X Koordinate: %f    Y Koordinate %f Block-X: %f     Block-Y: %f\n",
+//            Background.x-400,Background.y-300,Background.x/25-(800/2/25),Background.y/25-(600/2/25));
     
     x+=Player.speedX;
     y+=Player.speedY;

@@ -5,21 +5,28 @@
  */
 package klassen;
 
-import klassen.karte.haus.Haus;
 import java.awt.Rectangle;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import static klassen.Background.x;
 import static klassen.Background.y;
-import klassen.karte.GameObjects;
 import klassen.karte.*;
+import klassen.karte.GameObjects;
 import klassen.karte.arrow.Arrow;
 import klassen.karte.carpet.Carpet_Full;
 import klassen.karte.carpet.FootCarpet;
+import klassen.karte.fence.FenceSeite;
+import klassen.karte.fence.FenceVorneLinks;
+import klassen.karte.fence.*;
 import klassen.karte.flowers.BlueFlower;
 import klassen.karte.flowers.YellowFlower;
 import klassen.karte.haus.Door;
+import klassen.karte.haus.Haus;
 import klassen.minion.Minion;
 import klassen.minion.hundeGhoul.Hund;
 import klassen.npc.Guard;
@@ -116,6 +123,58 @@ public class LevelDesign implements Runnable {
                 break;
         }
         pause = false;
+    }
+    
+    private void dumpMap(GameObjects[][] map, String name) throws FileNotFoundException, IOException {
+        File f = new File(getClass().getResource("../level/").getPath()+name+".lvl");
+        f.createNewFile(); 
+        System.out.println(f);
+        PrintWriter pw = new PrintWriter(f);
+        pw.println(name+":"+map.length+"x"+map.length);
+        for (int i = 0; i < map.length; i++) {
+            for (int j = 0; j < map.length; j++) {
+                GameObjects go = map[j][i];
+                
+                if(go instanceof Boden) {
+                    pw.print("b");
+                } else if(go instanceof Gras) {
+                    pw.print("g");
+                } else if(go instanceof Tree) {
+                    pw.print("t");
+                } else if(go instanceof Wand) {
+                    pw.print("W");
+                } else if(go instanceof Weg) {
+                    pw.print("w");
+                } else if(go instanceof Door) {
+                    pw.print("d");
+                } else if(go instanceof Haus) {
+                    pw.print("h");
+                } else if(go instanceof BlueFlower) {
+                    pw.print("B");
+                } else if(go instanceof YellowFlower) {
+                    pw.print("Y");
+                } else if(go instanceof Carpet_Full) {
+                    pw.print("c");
+                } else if(go instanceof FootCarpet) {
+                    pw.print("f");
+                } else if(go instanceof Arrow) {
+                    pw.print("a");
+                } else if(go instanceof FenceSeite) {
+                    pw.print("S");
+                } else if(go instanceof FenceVorneLinks) {
+                    pw.print("L");
+                } else if(go instanceof FenceVorneMid) {
+                    pw.print("M");
+                } else if(go instanceof FenceVorneRechts) {
+                    pw.print("R");
+                } else {
+                    pw.print("X");
+                    System.out.println("Unknown, null:"+(go == null));
+                }
+            }
+            pw.println();
+        }
+        pw.close();
     }
 
     public void tutorial(float startX, float startY, GameObjects map[][]) {
@@ -284,8 +343,14 @@ public class LevelDesign implements Runnable {
         for (NPC npc : npcs) {
             npc.setMap(map);
         }
+        
+        try {
+            dumpMap(map, "tutorial");
+        } catch (Exception ex) {
+            System.out.println("Error: "+ex.getMessage());
+        }
     }
-
+    
     public void route101(float startX, float startY) {
         clear();
         GameObjects map[][] = new GameObjects[100][100];
@@ -328,7 +393,7 @@ public class LevelDesign implements Runnable {
         
         for (int i = 0; i <= 15; i++)  {
             for (int j = 73; j < 79; j++) {
-                map[j][i] = new Arrow(brightness, 4, -1000, -300, this);
+                map[j][i] = new Arrow(brightness, 4, -1800, -300, this);
             }
         }
 
@@ -337,14 +402,26 @@ public class LevelDesign implements Runnable {
         for (NPC npc : npcs) {
             npc.setMap(map);
         }
+        
+        try {
+            dumpMap(map, "route101");
+        } catch (Exception ex) {
+            System.out.println("Error: route101 "+ex.getMessage());
+        }
     }
     
     public void route202(float startX, float startY) {
         clear();
         GameObjects map[][] = new GameObjects[100][100];
         
-        for (int i = 0; i < 100; i++) {
-            for (int j = 0; j < 100; j++) {
+        for (int i = 0; i < map.length-50; i++) {
+            for (int j = 0; j < map.length-75; j++) {
+                map[i][j] = new Tree(brightness, i, j);
+            }
+        }
+        
+        for (int i = 20; i < map.length-20; i++) {
+            for (int j = 20; j < map.length-20; j++) {
                 map[i][j] = new Gras(brightness);
             }
         }
@@ -362,6 +439,12 @@ public class LevelDesign implements Runnable {
         bg.setMap(map);
         for (NPC npc : npcs) {
             npc.setMap(map);
+        }
+        
+        try {
+            dumpMap(map, "route202");
+        } catch (Exception ex) {
+            System.out.println("Error: "+ex.getMessage());
         }
     }
 
@@ -414,7 +497,12 @@ public class LevelDesign implements Runnable {
         for (NPC npc : npcs) {
             npc.setMap(map);
         }
-
+        
+        try {
+            dumpMap(map, "haus");
+        } catch (Exception ex) {
+            System.out.println("Error: "+ex.getMessage());
+        }
     }
 
     public void test(float startX, float startY) {
@@ -460,6 +548,12 @@ public class LevelDesign implements Runnable {
         bg.setMap(map);
         for (NPC npc : npcs) {
             npc.setMap(map);
+        }
+        
+        try {
+            dumpMap(map, "test");
+        } catch (Exception ex) {
+            System.out.println("Error: "+ex.getMessage());
         }
     }
 
