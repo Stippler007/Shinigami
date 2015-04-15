@@ -125,6 +125,10 @@ public class LevelDesign implements Runnable {
         pause = false;
     }
     
+    private void buildMap(int id) {
+        
+    }
+    
     private void dumpMap(GameObjects[][] map, String name) throws FileNotFoundException, IOException {
         File f = new File(getClass().getResource("../level/").getPath()+name+".lvl");
         f.createNewFile(); 
