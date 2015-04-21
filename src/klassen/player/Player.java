@@ -113,7 +113,7 @@ public class Player {
             break;
         case FLAMESHOT: updateFlameShot(tslf);
             break;
-        case ICESHOT:;
+        case ICESHOT:updateIceShot(tslf);
             break;
         case ENERGYSHOT:;
             break;
@@ -173,6 +173,24 @@ public class Player {
     if(ML.leftMousePressed&&realodTime>maxRealodTime)
     {
       playerSpritzer.add(new FireShot((float)(400-8),(float)(300-8),
+                                      (float)(speed)*2,damage,this,playerSpritzer,minions));
+      realodTime-=maxRealodTime;
+    }
+    if(realodTime<=maxRealodTime)
+    {
+      realodTime+=tslf;
+    }
+  }
+  private void updateIceShot(float tslf)
+  {
+    move=false;
+    speedX=0;
+    speedY=0;
+    move(tslf);
+    moveCockBack(tslf);
+    if(ML.leftMousePressed&&realodTime>maxRealodTime)
+    {
+      playerSpritzer.add(new IceShot((float)(400-8),(float)(300-8),
                                       (float)(speed)*2,damage,this,playerSpritzer,minions));
       realodTime-=maxRealodTime;
     }
