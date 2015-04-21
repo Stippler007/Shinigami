@@ -25,7 +25,7 @@ import klassen.karte.GameObjects;
 import klassen.listener.KL;
 import klassen.minion.Minion;
 import klassen.minion.MinionSpritzer;
-import klassen.minion.hundeGhoul.Hund;
+import klassen.boss.Hund;
 import klassen.npc.NPC;
 import klassen.npc.Sign;
 import klassen.player.BasicShot;

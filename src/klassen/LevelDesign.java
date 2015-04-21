@@ -28,7 +28,7 @@ import klassen.karte.flowers.YellowFlower;
 import klassen.karte.haus.Door;
 import klassen.karte.haus.Haus;
 import klassen.minion.Minion;
-import klassen.minion.hundeGhoul.Hund;
+import klassen.boss.Hund;
 import klassen.npc.Guard;
 import klassen.npc.NPC;
 import klassen.npc.OldMan;

@@ -7,7 +7,7 @@ package klassen.karte;
 
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
-import klassen.minion.hundeGhoul.Hund;
+import klassen.boss.Hund;
 import klassen.player.Player;
 
 /**
