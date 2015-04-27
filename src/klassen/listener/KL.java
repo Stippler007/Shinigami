@@ -61,6 +61,10 @@ public class KL implements KeyListener{
     {
       player.setShot(Shots.FLAMESHOT);
     }
+    if(e.getKeyCode()==KeyEvent.VK_3)
+    {
+      player.setShot(Shots.ICESHOT);
+    }
   }
 
   @Override

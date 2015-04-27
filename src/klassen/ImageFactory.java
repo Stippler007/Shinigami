@@ -38,6 +38,9 @@ public class ImageFactory {
       for (int i = 0; i < 14; i++) {
           looks.put("FireShot"+i, ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/player/player/fireShot/Fire_Shot_0"+i+".png")));
       }
+      for (int i = 0; i <= 10; i++) {
+          looks.put("IceShot"+i, ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/player/player/iceShot/Ice_Shot_0"+i+".png")));
+      }
       for (int i = 0; i < 1; i++) {
           looks.put("BasicShot"+i, ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/player/player/basicSpritzer/BasicShot"+i+".png")));
       }
@@ -102,11 +105,6 @@ public class ImageFactory {
     for (int i = 0; i < 1; i++) {
         looks.put("BasicShot", ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/player/player/basicSpritzer/BasicShot"+i+".png")));
     }
-    for (int i = 0; i < 10; i++)
-    {
-      looks.put("IceShot"+i, ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/player/player/iceShot/Ice_Shot_0"+i+".png")));
-    }
-    looks.put("IceShot10", ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/player/player/iceShot/Ice_Shot_10.png")));
   }
   private void loadGameObjects() throws IOException
   {

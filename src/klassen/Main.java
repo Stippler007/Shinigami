@@ -14,6 +14,10 @@ import klassen.karte.GameObjects;
 import klassen.listener.KL;
 import klassen.minion.Minion;
 import klassen.minion.MinionSpritzer;
+<<<<<<< HEAD
+=======
+import klassen.boss.Hund;
+>>>>>>> origin/master
 import klassen.npc.NPC;
 import klassen.player.BasicShot;
 import klassen.player.FireShot;

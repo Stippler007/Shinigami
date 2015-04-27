@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package klassen.minion.hundeGhoul;
+package klassen.boss;
 
 import java.awt.Color;
 import java.awt.Graphics2D;

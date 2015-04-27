@@ -7,7 +7,10 @@ package klassen.player;
 
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
+import java.util.LinkedList;
 import klassen.ImageFactory;
+import klassen.listener.MML;
+import klassen.minion.Minion;
 
 /**
  *
@@ -15,31 +18,119 @@ import klassen.ImageFactory;
  */
 public class IceShot extends PlayerSpritzer
 {
-  private static BufferedImage looks[]=new BufferedImage[10];
-  private BufferedImage look;
+  private boolean alive=true;
   
-  static
+  private BufferedImage look[]=new BufferedImage[10];
+  private LinkedList<PlayerSpritzer> spritzers;
+  private LinkedList<Minion> minions;
+  
+  private int zielX;
+  private int zielY;
+  private int n;
+  
+   
+  
+  public IceShot(float x, float y, float speed, float damage,Player player,LinkedList<PlayerSpritzer> spritzers,LinkedList<Minion> minions)
   {
-    for (int i = 0; i < looks.length; i++)
-    {
-      looks[i]=ImageFactory.getIF().getLook("Ice_Shot_0"+i);
-    }
-  }
-  public IceShot(float x, float y, Rectangle bounding, float damage)
-  {
+    super(x, y, new Rectangle((int)x, (int)y,ImageFactory.getIF().getLook("IceShot0").getWidth(),
+            ImageFactory.getIF().getLook("IceShot0").getHeight()), damage);
+    this.spritzers=spritzers;
     
-    super(x, y, bounding, damage);
+    for (int i = 0; i < look.length; i++)
+    {
+      look[i]=ImageFactory.getIF().getLook("IceShot"+i);
+    }
+    
+    super.speed=speed;
+    n=2;
+    
+    super.damage=damage;
+    int zielX=MML.x-7;
+    int zielY=MML.y-7;
+    speedX=zielX-x;
+    speedY=zielY-y;
+    float maxSpeed=Math.abs(speedX)+Math.abs(speedY);
+    speedX/=maxSpeed;
+    speedY/=maxSpeed;
+    speedX*=speed;
+    speedY*=speed;
+    this.minions=minions;
+    
+    maxAnimationTime=0.3f;
   }
 
-  @Override
-  public void update(float tslf)
+  public IceShot(float x, float y, float speedX, float speedY, int n, float damage,LinkedList<PlayerSpritzer> spritzers) 
   {
-    super.update(tslf);
+    super(x, y, new Rectangle((int)x, (int)y,ImageFactory.getIF().getLook("IceShot0").getWidth(),
+            ImageFactory.getIF().getLook("IceShot0").getHeight()), damage/2);
+    for (int i = 0; i < look.length; i++)
+    {
+      look[i]=ImageFactory.getIF().getLook("IceShot"+i);
+    }
+    this.n=n;
+    super.speedX=speedX;
+    super.speedY=speedY;
+    super.damage=damage/2;
+    this.spritzers=spritzers;
   }
   
+  @Override
+  public void update(float tslf) 
+  {
+    x+=speedX*tslf;
+    y+=speedY*tslf;
+    
+    if(minions!=null)
+    {
+      for (Minion m:minions)
+      {
+        if(m.getBounding().intersects(bounding))
+        {
+          explode();
+        }
+      }
+    }
+    
+    if(alive&&animationTime>maxAnimationTime)
+    {
+      explode();
+    }
+    else
+    {
+      animationTime+=tslf;
+    }
+    
+    super.update(tslf);
+  }
+  private void explode()
+  {
+    if(n>0)
+      {
+        for(float x1 = 0; x1 <= Math.PI * 2; x1 += Math.PI / 3)
+        {
+          float speedX = (float)Math.cos(x1) * 300;
+          float speedY = (float)Math.sin(x1) * 300;
+          spritzers.add(new IceShot(x,y,speedX/3,speedY/3,n-1,damage/2,spritzers));
+        }
+      }
+      else
+      {
+        animationTime-=maxAnimationTime;
+      }
+      alive=false;
+  }
   @Override
   public BufferedImage getLook()
   {
-    return look;
+    for (int i = 0; i < look.length; i++) 
+    {
+      if(animationTime<(float)maxAnimationTime/(look.length-1)*(i+1))return look[i];
+    }
+    return look[look.length-1];
+  }
+
+  public boolean isAlive()
+  {
+    return alive;
   }
 }

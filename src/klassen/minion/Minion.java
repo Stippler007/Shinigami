@@ -12,7 +12,7 @@ import java.awt.image.BufferedImage;
 import java.util.LinkedList;
 import klassen.Background;
 import klassen.karte.GameObjects;
-import klassen.minion.hundeGhoul.Hund;
+import klassen.boss.Hund;
 import klassen.player.BasicShot;
 import klassen.player.FireShot;
 import klassen.player.Player;
