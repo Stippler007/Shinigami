@@ -5,19 +5,15 @@
  */
 package klassen;
 
-import java.awt.Rectangle;
-import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.util.LinkedList;
-import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JFileChooser;
-import static klassen.Background.x;
-import static klassen.Background.y;
 import klassen.karte.*;
 import klassen.karte.GameObjects;
 import klassen.karte.arrow.Arrow;
@@ -36,10 +32,7 @@ import klassen.npc.Guard;
 import klassen.npc.NPC;
 import klassen.npc.OldMan;
 import klassen.npc.Sign;
-import klassen.player.FireShot;
 import klassen.player.Player;
-import static klassen.player.Player.speedX;
-import static klassen.player.Player.speedY;
 import klassen.player.PlayerSpritzer;
 
 /**
@@ -128,7 +121,7 @@ public class LevelDesign implements Runnable {
         pause = false;
     }
     
-    public void buildMap(int id) {
+    public void buildMap(int id, float startX, float startY) {
         clear();
         
         String name = "";
@@ -136,7 +129,7 @@ public class LevelDesign implements Runnable {
         
         switch(id) {
             case 0:
-                
+                name = "test";
                 break;
             case 1:
                 name = "tutorial";
@@ -152,99 +145,118 @@ public class LevelDesign implements Runnable {
                 break;
         }
         
-        File f = new File(getClass().getResource("../level/").getPath()+name+".lvl");
+        GameObjects[][] map;
+        File f = new File(getClass().getResource("../level/").getPath()+name+".map");
+        
         try {
-            Scanner sc = new Scanner(f);
-            String level = sc.nextLine();
-            String[] info = level.split(":");
-            String[] size = info[1].split("x");
-            int width = Integer.parseInt(size[0]);
-            int height = Integer.parseInt(size[1]);
-            
-            System.out.println(level);
-            
-            GameObjects[][] map = new GameObjects[width][height];
-            
-            int i = 0;
-            int j = 0;
-            while(sc.hasNext()) {
-                String row = sc.nextLine();
-                j = 0;
-                for(char c : row.toCharArray()) {
-                    switch(c) {
-                        case 'b':
-                            map[i][j] = new Boden(brightness);
-                            break;
-                        case 'g':
-                            map[i][j] = new Gras(brightness);
-                            break;
-                        case 't':
-                            map[i][j] = new Tree(brightness, i, j);
-                            break;
-                        case 'W':
-                            map[i][j] = new Wand(brightness);
-                            break;
-                        case 'w':
-                            map[i][j] = new Weg(brightness);
-                            break;
-                        case 'd':
-                            map[i][j] = new Door(brightness, i, j, this, i, j, id);
-                            break;
-                        case 'h':
-                            map[i][j] = new Haus(brightness, i, j);
-                            break;
-                        case 'B':
-                            map[i][j] = new BlueFlower(brightness);
-                            break;
-                        case 'Y':
-                            map[i][j] = new YellowFlower(brightness);
-                            break;
-                        case 'c':
-                            //map[i][j] = new Carpet_Full(brightness, i, j);
-                            map[i][j] = new Gras(brightness);
-                            break;
-                        case 'f':
-                            //map[i][j] = new FootCarpet(brightness, i, j, 30, 30, id, this);
-                            map[i][j] = new Gras(brightness);
-                            break;
-                        case 'a':
-                            map[i][j] = new Arrow(brightness, id, backX, backY, this);
-                            break;
-                        case 'S':
-                            map[i][j] = new FenceSeite(brightness);
-                            break;
-                        case 'L':
-                            map[i][j] = new FenceVorneLinks(brightness);
-                            break;
-                        case 'M':
-                            map[i][j] = new FenceVorneMid(brightness);
-                            break;
-                        case 'R':
-                            map[i][j] = new FenceVorneRechts(brightness);
-                            break;
-                        case 'X':
-                            map[i][j] = new Gras(brightness);
-                            break;
-                        default:
-                            break;
-                    }
-                    j++;
-                }
-                i++;
-            }
-            sc.close();
-            
-            player.setMap(map);
-            bg.setMap(map);
-            for (NPC npc : npcs) {
-                npc.setMap(map);
-            }
-            Background.x = 0;
-            Background.y = 0;
-        } catch (Exception ex) {
-            
+            ObjectInputStream ois = new ObjectInputStream(new FileInputStream(f));
+            map = (GameObjects[][]) ois.readObject();
+            ois.close();
+        } catch(Exception ex) {
+            System.out.println(ex.getMessage());
+            return;
         }
         
+        player.setMap(map);
+        bg.setMap(map);
+        for (NPC npc : npcs) {
+            npc.setMap(map);
+        }
+        Background.x = 0;
+        Background.y = 0;
+        
+//        try {
+//            Scanner sc = new Scanner(f);
+//            String level = sc.nextLine();
+//            String[] info = level.split(":");
+//            String[] size = info[1].split("x");
+//            int width = Integer.parseInt(size[0]);
+//            int height = Integer.parseInt(size[1]);
+//            
+//            System.out.println(level);
+//            
+//            GameObjects[][] map = new GameObjects[width][height];
+//            
+//            int i = 0;
+//            int j = 0;
+//            while(sc.hasNext()) {
+//                String row = sc.nextLine();
+//                j = 0;
+//                for(char c : row.toCharArray()) {
+//                    switch(c) {
+//                        case 'b':
+//                            map[i][j] = new Boden(brightness);
+//                            break;
+//                        case 'g':
+//                            map[i][j] = new Gras(brightness);
+//                            break;
+//                        case 't':
+//                            map[i][j] = new Tree(brightness, i, j);
+//                            break;
+//                        case 'W':
+//                            map[i][j] = new Wand(brightness);
+//                            break;
+//                        case 'w':
+//                            map[i][j] = new Weg(brightness);
+//                            break;
+//                        case 'd':
+//                            map[i][j] = new Door(brightness, i, j, this, i, j, id);
+//                            break;
+//                        case 'h':
+//                            map[i][j] = new Haus(brightness, i, j);
+//                            break;
+//                        case 'B':
+//                            map[i][j] = new BlueFlower(brightness);
+//                            break;
+//                        case 'Y':
+//                            map[i][j] = new YellowFlower(brightness);
+//                            break;
+//                        case 'c':
+//                            //map[i][j] = new Carpet_Full(brightness, i, j);
+//                            map[i][j] = new Gras(brightness);
+//                            break;
+//                        case 'f':
+//                            //map[i][j] = new FootCarpet(brightness, i, j, 30, 30, id, this);
+//                            map[i][j] = new Gras(brightness);
+//                            break;
+//                        case 'a':
+//                            map[i][j] = new Arrow(brightness, id, backX, backY, this);
+//                            break;
+//                        case 'S':
+//                            map[i][j] = new FenceSeite(brightness);
+//                            break;
+//                        case 'L':
+//                            map[i][j] = new FenceVorneLinks(brightness);
+//                            break;
+//                        case 'M':
+//                            map[i][j] = new FenceVorneMid(brightness);
+//                            break;
+//                        case 'R':
+//                            map[i][j] = new FenceVorneRechts(brightness);
+//                            break;
+//                        case 'X':
+//                            map[i][j] = new Gras(brightness);
+//                            break;
+//                        default:
+//                            break;
+//                    }
+//                    j++;
+//                }
+//                i++;
+//            }
+//            sc.close();
+//            
+//            player.setMap(map);
+//            bg.setMap(map);
+//            for (NPC npc : npcs) {
+//                npc.setMap(map);
+//            }
+//            Background.x = 0;
+//            Background.y = 0;
+//        } catch (Exception ex) {
+//            
+//        }
+//        
     }
     
     private void dumpMap(GameObjects[][] map, String name) throws FileNotFoundException, IOException {
@@ -254,7 +266,7 @@ public class LevelDesign implements Runnable {
         PrintWriter pw = new PrintWriter(f);
         pw.println(name+":"+map.length+"x"+map[0].length);
         for (int i = 0; i < map.length; i++) {
-            for (int j = 0; j < map.length; j++) {
+            for (int j = 0; j < map[i].length; j++) {
                 GameObjects go = map[j][i];
                 
                 if(go instanceof Boden) {
@@ -297,6 +309,13 @@ public class LevelDesign implements Runnable {
             pw.println();
         }
         pw.close();
+        
+        File fs = new File(getClass().getResource("../level/").getPath()+name+".map");
+        fs.createNewFile();
+        
+        ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(fs));
+        oos.writeObject(map);
+        oos.close();
     }
 
     public void tutorial(float startX, float startY, GameObjects map[][]) {

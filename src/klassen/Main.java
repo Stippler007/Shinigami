@@ -5,29 +5,16 @@
  */
 package klassen;
 
-import java.awt.DisplayMode;
-import java.awt.GraphicsDevice;
-import java.awt.GraphicsEnvironment;
-import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.LinkedList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import static klassen.Background.x;
-import static klassen.Background.y;
 import klassen.boss.Boss;
 import klassen.boss.BossSpritzer;
 import klassen.karte.GameObjects;
 import klassen.listener.KL;
 import klassen.minion.Minion;
 import klassen.minion.MinionSpritzer;
-import klassen.minion.hundeGhoul.Hund;
 import klassen.npc.NPC;
-import klassen.npc.Sign;
 import klassen.player.BasicShot;
 import klassen.player.FireShot;
 import klassen.player.Player;

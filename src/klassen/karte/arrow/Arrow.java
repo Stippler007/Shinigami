@@ -39,6 +39,7 @@ public class Arrow extends GameObjects
   public void playerSteppedOn(Player player) 
   {
     ld.loadLevel(id, startX, startY);
+    //ld.buildMap(id);
   }
   
   @Override

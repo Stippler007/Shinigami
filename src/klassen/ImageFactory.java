@@ -20,7 +20,7 @@ import javax.imageio.ImageIO;
 public class ImageFactory {
 
   private static ImageFactory imageFactory;
-
+  
   private HashMap<String,BufferedImage> looks=new HashMap<String, BufferedImage>();
   
   

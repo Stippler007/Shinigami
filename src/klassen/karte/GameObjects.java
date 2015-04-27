@@ -7,6 +7,7 @@ package klassen.karte;
 
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
+import java.io.Serializable;
 import klassen.minion.hundeGhoul.Hund;
 import klassen.player.Player;
 
@@ -14,7 +15,7 @@ import klassen.player.Player;
  *
  * @author Christian
  */
-public abstract class GameObjects {
+public abstract class GameObjects implements Serializable {
   
   protected int brightness=0;
   protected boolean brightnessChanged;
