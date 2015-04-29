@@ -7,12 +7,7 @@ package klassen.karte;
 
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
-<<<<<<< HEAD
 import java.io.Serializable;
-import klassen.minion.hundeGhoul.Hund;
-=======
-import klassen.boss.Hund;
->>>>>>> origin/master
 import klassen.player.Player;
 
 /**
