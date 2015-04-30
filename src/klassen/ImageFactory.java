@@ -149,6 +149,7 @@ public class ImageFactory {
     }
     looks.put("Ground_Wood_Planks", ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/gameObjects/haus/boden/Ground_Wood_Planks.png")));
     looks.put("Haus", ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/gameObjects/haus/Haus.jpg")));
+    looks.put("Haus2", ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/gameObjects/haus/Haus2.png")));
     looks.put("Tree", ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/gameObjects/tree/Tree.jpg")));
     looks.put("FootCarpet", ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/gameObjects/carpet/Foot_Carpet.png")));
   }
