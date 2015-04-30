@@ -80,29 +80,10 @@ public abstract class Boss
   }
   public void update(float tslf)
   {
-    if(aggro)
-    {
-      playerSpritzerCollision(tslf);
-
-      speedX*=tslf;
-      speedY*=tslf;
-
-      x+=speedX;
-      y+=speedY;
-
-      bounding.x=(int)x;
-      bounding.y=(int)y;
-    }
-    else if(aggroBox.intersects(player.getBounding()))
-    {
-      aggro=true;
-      aggroBox=null;
-    }
-    else
-    {
-      aggroBox.x=(int)x-300;
-      aggroBox.y=(int)y-200;
-    }
+    x+=speedX*tslf;
+    y+=speedY*tslf;
+    
+    playerSpritzerCollision(tslf);
     collideMap(tslf);
     bounding.x=(int)x;
     bounding.y=(int)y;
@@ -162,6 +143,22 @@ public abstract class Boss
         i++;
       }
     }
+  }
+  protected void moveZiel(float zielX,float zielY)
+  {
+    float speedX = (zielX) - (x+bounding.width/2);
+    float speedY = (zielY) - (y+bounding.height/2);
+    
+    float help = (float)Math.sqrt(speedX*speedX+speedY*speedY);
+    
+    speedX/=help;
+    speedY/=help;
+    
+    speedX*=speed;
+    speedY*=speed;
+    
+    this.speedX=speedX;
+    this.speedY=speedY;
   }
   public void collideMap(float tslf)
   {
