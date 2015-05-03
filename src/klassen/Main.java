@@ -14,6 +14,7 @@ import klassen.karte.GameObjects;
 import klassen.listener.KL;
 import klassen.minion.Minion;
 import klassen.minion.MinionSpritzer;
+import klassen.minion.hundeGhoul.HundeGhoul;
 import klassen.npc.NPC;
 import klassen.player.BasicShot;
 import klassen.player.FireShot;
@@ -61,6 +62,10 @@ public class Main
     // ld.loadLevel(0, -800, -800);
     ld.loadLevel(2, -582, -529);
 //    ld.buildMap(4);
+     ld.loadLevel(0, -800, -800);
+//     boss.add(new HundeGhoul(tslf, tslf, tslf, bg.getMap() player, tslf, minions, playerSpritzers));
+//    ld.loadLevel(2, -582, -529);
+    //ld.buildMap(2);
     
     
 //    minions.add(new Hund(1000,1000,100,bg.getMap(),player,playerSpritzers));

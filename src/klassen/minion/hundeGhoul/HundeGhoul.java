@@ -24,7 +24,7 @@ public class HundeGhoul extends Boss
   private float x;
   private float y;
   
-  private static BufferedImage look[]=new BufferedImage[3];
+  private static BufferedImage look[]=new BufferedImage[2];
   
   private float speed;
   
@@ -33,11 +33,14 @@ public class HundeGhoul extends Boss
   
   private LinkedList<Minion> minions;
   
+  private float attackPatternSwitchTimer=0;
+  private float attackPatternSwitchTimerMax=30;
+  
   static
   {
-    for (BufferedImage look:look)
+    for (int i = 1; i <= look.length; i++)
     {
-      
+      look[i]=ImageFactory.getIF().getLook("BigMamaVorne0"+i);
     }
   }
   public HundeGhoul(float x, float y, float speed,GameObjects map[][],Player player, float maxAnimationTime, LinkedList<Minion> minions,LinkedList<PlayerSpritzer> playerSpritzers)
@@ -51,6 +54,40 @@ public class HundeGhoul extends Boss
     this.minions = minions;
   }
 
+  @Override
+  public void update(float tslf)
+  {
+    if(attackPatternSwitchTimer<attackPatternSwitchTimerMax/3)
+    {
+      attackPattern1();
+    }
+    else if(attackPatternSwitchTimer<attackPatternSwitchTimerMax/3*2)
+    {
+      attackPattern2();
+    }
+    else if(attackPatternSwitchTimer<attackPatternSwitchTimerMax/3*3)
+    {
+      attackPattern3();
+    }
+    else
+    {
+      attackPatternSwitchTimer-=attackPatternSwitchTimerMax;
+    }
+    super.update(tslf);
+  }
+  private void attackPattern1()
+  {
+    // Er bewegt sich nicht und schießt Kegelförmig auf dich
+    
+  }
+  private void attackPattern2()
+  {
+    // Er geht in die Mitte und macht rundschüsse
+  }
+  private void attackPattern3()
+  {
+    moveZiel(player.getBounding().x+player.getBounding().width/2, player.getBounding().y+player.getBounding().height/2);
+  }
   @Override
   public BufferedImage getLook()
   {
