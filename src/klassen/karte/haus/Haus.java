@@ -19,7 +19,7 @@ import klassen.karte.GameObjects;
 public class Haus extends GameObjects
 {
   private static BufferedImage look;
-  private BufferedImage lookChanged;
+  private transient BufferedImage lookChanged;
   
   private int x;
   private int y;

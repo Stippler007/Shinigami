@@ -6,6 +6,7 @@
 
 package klassen.minion.evilguard;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
@@ -40,23 +41,23 @@ public class EvilGuard extends Minion {
           {
             for (int i = 1; i < look.length+1; i++)
             {
-              look[i-1]=ImageFactory.getIF().getLook("EvilGuard_seite_0"+i);
+              look[i-1]=ImageFactory.getIF().getLook("Guard_seite_0"+i);
             }
           }
           else if(turn>=Math.PI*0.25&&turn<=Math.PI*0.5){
             for (int i = 1; i < look.length+1; i++) {
-              look[i-1]=ImageFactory.getIF().getLook("EvilGuard_vorne_0"+i);
+              look[i-1]=ImageFactory.getIF().getLook("Guard_vorne_0"+i);
             }
           }
           else if(turn>=Math.PI*0.50&&turn<=Math.PI*1){
             for (int i = 1; i < look.length+1; i++) {
-              look[i-1]=ImageFactory.getIF().getLook("EvilGuard_seite2_0"+i);
+              look[i-1]=ImageFactory.getIF().getLook("Guard_seite2_0"+i);
             }
           }
           else{
             for (int i = 1; i < look.length+1; i++) 
             {
-              look[i-1]=ImageFactory.getIF().getLook("EvilGuard_hinten_0"+i);
+              look[i-1]=ImageFactory.getIF().getLook("Guard_hinten_0"+i);
             }
           }
         }
@@ -72,11 +73,16 @@ public class EvilGuard extends Minion {
 
     @Override
     public void draw(Graphics2D g) {
-        super.draw(g); 
+        drawHealthBar(g);
+        g.rotate( getTurn(),  bounding.x+bounding.width/2,  bounding.y+bounding.height/2);
+        g.drawImage(getLook(), null, getBounding().x, getBounding().y);
+        g.rotate(-getTurn(),  bounding.x+bounding.width/2,  bounding.y+bounding.height/2);
     }
     
     @Override
     public void update(float tslf) {
+        x += Player.speedX;
+        y += Player.speedY;
         
         
         

@@ -60,7 +60,7 @@ public class Main
     // SpawnX -582 SpawnY -529
     // ld.loadLevel(0, -800, -800);
     ld.loadLevel(2, -582, -529);
-    //ld.buildMap(2);
+//    ld.buildMap(4);
     
     
 //    minions.add(new Hund(1000,1000,100,bg.getMap(),player,playerSpritzers));

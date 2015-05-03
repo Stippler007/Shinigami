@@ -17,7 +17,7 @@ import klassen.ImageFactory;
 public class Tree extends GameObjects
 {
   private static BufferedImage look;
-  private BufferedImage lookChanged=null;
+  private transient BufferedImage lookChanged=null;
   
   private int x;
   private int y;

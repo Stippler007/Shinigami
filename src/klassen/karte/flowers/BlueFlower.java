@@ -19,7 +19,7 @@ public class BlueFlower extends GameObjects
 {
   
   private static BufferedImage look[]=new BufferedImage[1];
-  private BufferedImage lookChanged[]=null;
+  private transient BufferedImage lookChanged[]=null;
   
   private float animationTime=0f;
   private final float maxAnimationTime=1f;

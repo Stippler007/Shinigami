@@ -18,12 +18,12 @@ import klassen.player.Player;
  */
 public class Arrow extends GameObjects
 {
-  private LevelDesign ld;
+  private transient LevelDesign ld;
   private int id;
   private float startX;
   private float startY;
    
-  private BufferedImage look;
+  private transient BufferedImage look;
   
   public Arrow(int brightness,int id,float startX,float startY,LevelDesign ld)
   {

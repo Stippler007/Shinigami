@@ -15,7 +15,7 @@ import klassen.player.Player;
 public class Gras extends GameObjects
 {
   private static BufferedImage look;
-  private BufferedImage lookChanged=null;
+  private transient BufferedImage lookChanged=null;
 
   static
   {

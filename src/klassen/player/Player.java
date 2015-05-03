@@ -206,7 +206,7 @@ public class Player {
       for (int j = (int)(Background.y/25*-1)+10; j < (int)(Background.y/25*-1)+14; j++) 
       {
         Rectangle help1=new Rectangle(bounding.x-(int)(speedX),bounding.y-(int)(speedY),bounding.width,bounding.height);
-        
+          System.out.println(i+" "+j);
         if(map[i][j].isSolid()&&help1.intersects(map[i][j].getBounding()))
         {
           Rectangle help2=map[i][j].getBounding();

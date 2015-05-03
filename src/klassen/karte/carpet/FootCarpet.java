@@ -20,7 +20,7 @@ public class FootCarpet extends GameObjects
   //Passwort asdf1234
   private LevelDesign ld;
   private int id;
-  private BufferedImage look;
+  private transient BufferedImage look;
   private float backX;
   private float backY;
   

@@ -15,7 +15,7 @@ import klassen.karte.GameObjects;
  */
 public class Carpet_Full extends GameObjects
 {
-  private BufferedImage look;
+  private transient BufferedImage look;
   
   public Carpet_Full(int brightness,int x,int y)
   {
