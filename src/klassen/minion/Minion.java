@@ -173,7 +173,7 @@ public abstract class Minion
       for (int j = (int)((Background.y+y)/25*-1)-2; j < (int)((Background.y+y)/25*-1)+26; j++) 
       {
         Rectangle help1=new Rectangle(bounding.x+(int)(speedX),bounding.y+(int)(speedY),bounding.width,bounding.height);
-          System.out.println(i+" "+j);
+//          System.out.println(i+" "+j);
         if(map[i][j].isSolid()&&help1.intersects(map[i][j].getBounding()))
         {
           Rectangle help2=map[i][j].getBounding();
