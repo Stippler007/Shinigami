@@ -7,6 +7,7 @@
 package klassen;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
@@ -146,27 +147,27 @@ public class LevelEditor extends JFrame {
     enum GO {
         GRAS , WAND, WEG, TREE, BODEN;
         
-        private static Map<GO, GameObjects> m;
+        private static Map<GO, GameObjects[][]> m;
         
-        public static Map<GO, GameObjects> getMapping(LevelPanel lp) {
+        public static Map<GO, GameObjects[][]> getMapping(LevelPanel lp) {
             m = new HashMap<>();
 
             for(GO g : GO.values()) {
                 switch(g) {
                     case BODEN:
-                        m.put(g, new Boden(lp.brightness));
+                        m.put(g, new GameObjects[][]{{new Boden(lp.brightness)}});
                         break;
                     case GRAS:
-                        m.put(g, new Gras(lp.brightness));
+                        m.put(g, new GameObjects[][]{{new Gras(lp.brightness)}});
                         break;
                     case TREE:
-                        m.put(g, new Tree(lp.brightness, 0, 0));
+                        m.put(g, new GameObjects[][]{{new Tree(lp.brightness, 0, 0), new Tree(lp.brightness, 0, 1), new Tree(lp.brightness, 0, 2)}, {new Tree(lp.brightness, 1, 0), new Tree(lp.brightness, 1, 1), new Tree(lp.brightness, 1, 2)}});
                         break;
                     case WAND:
-                        m.put(g, new Wand(lp.brightness));
+                        m.put(g, new GameObjects[][]{{new Wand(lp.brightness)}});
                         break;
                     case WEG:
-                        m.put(g, new Weg(lp.brightness));
+                        m.put(g, new GameObjects[][]{{new Weg(lp.brightness)}});
                         break;
                 }
             }
@@ -176,16 +177,19 @@ public class LevelEditor extends JFrame {
     }
     
     class LevelPanel extends JPanel {
-        private int width;
-        private int height;
+        private int width = 0;
+        private int height = 0;
         int brightness;
         GameObjects[][] map;
-        private GO currentGO;
+        private GO currentGO = GO.WAND;
+        private GO defaultGO = GO.WAND;
         
         private int padding = 10;
         private double scale = 1;
         private double translationX = 0;
         private double translationY = 0;
+        private int mouseX;
+        private int mouseY;
         
         public LevelPanel() {
             MouseAdapter ma = new MouseAdapter() {
@@ -196,6 +200,10 @@ public class LevelEditor extends JFrame {
                 public void mouseMoved(MouseEvent e) {
                     x0 = e.getX();
                     y0 = e.getY();
+                    mouseX = (int) e.getX();//((e.getX()-padding-translationX)/(25*scale));
+                    mouseY = (int) e.getY();//((e.getY()-padding-translationY)/(25*scale));
+                    System.out.println(mouseX+" "+mouseY);
+                    LevelEditor.this.repaint();
                 }
 
                 @Override
@@ -229,14 +237,25 @@ public class LevelEditor extends JFrame {
 
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    int i = (int) ((e.getX()-padding-translationX)/(25*scale));
-                    int j = (int) ((e.getY()-padding-translationY)/(25*scale));
-                    System.out.println(i+" "+j+" "+e.getButton());
+                    int x = (int) ((e.getX()-padding-translationX)/(25*scale));
+                    int y = (int) ((e.getY()-padding-translationY)/(25*scale));
+                    System.out.println(x+" "+y+" "+e.getButton());
 
+                    GameObjects[][] go = GO.getMapping(lp).get(currentGO);
+                    
+                    if(x < 0 || y < 0 || x > width-go.length || y > height-go[0].length) {
+                        return;
+                    }
+                    
                     if(e.getButton() == 1) {
-                        map[i][j] = GO.getMapping(lp).get(currentGO);
+//                        map[x][y] = GO.getMapping(lp).get(currentGO)[0][0];
+                        for (int k = 0; k < go.length; k++) {
+                            for (int l = 0; l < go[k].length; l++) {
+                                map[x+k][y+l] = go[k][l];
+                            }
+                        }
                     } else if(e.getButton() == 3) {
-                        map[i][j] = GO.getMapping(lp).get(new Wand(lp.brightness));
+                        map[x][y] = GO.getMapping(lp).get(defaultGO)[0][0];
                     }
 
                     LevelEditor.this.repaint();
@@ -267,10 +286,11 @@ public class LevelEditor extends JFrame {
         this.width = width;
         this.height = height;
         map = new GameObjects[height][width];
+        defaultGO = go;
         
         for (int i = 0; i < map.length; i++) {
             for (int j = 0; j < map[i].length; j++) {
-                map[i][j] = GO.getMapping(this).get(go);
+                map[i][j] = GO.getMapping(this).get(go)[0][0];
             }
         }
         System.out.println(map);
@@ -298,78 +318,87 @@ public class LevelEditor extends JFrame {
                         g2d.drawImage(go.getLook(), padding+i*25, padding+j*25, null);
                     }
                 }
+                GameObjects[][] go = GO.getMapping(lp).get(currentGO);
+                //if(mouseX >= 0 || mouseY >= 0 || mouseX < width-go.length || mouseY < height-go[0].length) {
+                    for (int i = 0; i < go.length; i++) {
+                        for (int j = 0; j < go[i].length; j++) {
+                            g2d.drawImage(go[i][j].getLook(), mouseX+i*25, mouseY+j*25, null);
+                        }
+                        
+                    }
+                //}
             }
         }
     }
     
     class DlgNewMap extends JDialog {
     
-    private JSpinner spWidth, spHeight;
-    private JComboBox<GO> cbGround;
-    private boolean ready = false;
-    
-    public DlgNewMap(JFrame owner) {
-        super(owner, "Create New Map", true);
-        
-        JButton btCreate = new JButton();
-        JButton btCancel = new JButton();
+        private JSpinner spWidth, spHeight;
+        private JComboBox<GO> cbGround;
+        private boolean ready = false;
 
-        spWidth = new JSpinner(new SpinnerNumberModel(30, 10, 500, 1));
-        spHeight = new JSpinner(new SpinnerNumberModel(30, 10, 500, 1));
-        cbGround = new JComboBox<>(GO.values());
-        
-        btCreate.setAction(new AbstractAction() {
+        public DlgNewMap(JFrame owner) {
+            super(owner, "Create New Map", true);
 
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ready = true;
-                DlgNewMap.this.setVisible(false);
-            }
-        });
-        btCancel.setAction(new AbstractAction() {
+            JButton btCreate = new JButton();
+            JButton btCancel = new JButton();
 
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                DlgNewMap.this.setVisible(false);
-            }
-        });
-        
-        btCreate.setText("Create");
-        btCancel.setText("Cancel");
-        
-        this.setSize(200, 200);
-        this.setLayout(new GridLayout(5, 1, 5, 5));
-        this.setLocationRelativeTo(null);
-        this.add(spWidth);
-        this.add(spHeight);
-        this.add(cbGround);
-        this.add(btCreate);
-        this.add(btCancel);
-    }
-    
-    public boolean isReady() { return ready; }
-    
-    public int getLevelWidth() { 
-        try {
-            spWidth.commitEdit();
-        } catch (ParseException ex) {
-            System.out.println(ex.getMessage());
-            spWidth.setValue(30);
+            spWidth = new JSpinner(new SpinnerNumberModel(30, 10, 500, 1));
+            spHeight = new JSpinner(new SpinnerNumberModel(30, 10, 500, 1));
+            cbGround = new JComboBox<>(GO.values());
+
+            btCreate.setAction(new AbstractAction() {
+
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    ready = true;
+                    DlgNewMap.this.setVisible(false);
+                }
+            });
+            btCancel.setAction(new AbstractAction() {
+
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    DlgNewMap.this.setVisible(false);
+                }
+            });
+
+            btCreate.setText("Create");
+            btCancel.setText("Cancel");
+
+            this.setSize(200, 200);
+            this.setLayout(new GridLayout(5, 1, 5, 5));
+            this.setLocationRelativeTo(null);
+            this.add(spWidth);
+            this.add(spHeight);
+            this.add(cbGround);
+            this.add(btCreate);
+            this.add(btCancel);
         }
-        return (Integer) spWidth.getValue(); 
-    }
-    
-    public int getLevelHeight() { 
-        try {
-            spHeight.commitEdit();
-        } catch (ParseException ex) {
-            System.out.println(ex.getMessage());
-            spHeight.setValue(30);
+
+        public boolean isReady() { return ready; }
+
+        public int getLevelWidth() { 
+            try {
+                spWidth.commitEdit();
+            } catch (ParseException ex) {
+                System.out.println(ex.getMessage());
+                spWidth.setValue(30);
+            }
+            return (Integer) spWidth.getValue(); 
         }
-        return (Integer) spHeight.getValue(); 
+
+        public int getLevelHeight() { 
+            try {
+                spHeight.commitEdit();
+            } catch (ParseException ex) {
+                System.out.println(ex.getMessage());
+                spHeight.setValue(30);
+            }
+            return (Integer) spHeight.getValue(); 
+        }
+
+        public GO getGround() { return (GO) cbGround.getSelectedItem(); }
+
     }
-    
-    public GO getGround() { return (GO) cbGround.getSelectedItem(); }
-    
-}
 }
