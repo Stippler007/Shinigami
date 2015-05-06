@@ -34,6 +34,8 @@ import static javax.swing.JFrame.EXIT_ON_CLOSE;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import klassen.karte.Boden;
 import klassen.karte.GameObjects;
 import klassen.karte.Gras;
@@ -52,6 +54,7 @@ public class LevelEditor extends JFrame {
     public LevelEditor() {
         final JPanel controls = new JPanel();
         final JComboBox<GO> cbSetGO = new JComboBox<>(GO.values());
+        final JSpinner spBright = new JSpinner(new SpinnerNumberModel(5, 0, 10, 1));
         final JButton btNewMap = new JButton();
         final JButton btSave = new JButton();
         final JButton btLoad = new JButton();
@@ -64,6 +67,13 @@ public class LevelEditor extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 lp.setCurrentGameObject((GO) cbSetGO.getSelectedItem());
+            }
+        });
+        spBright.addChangeListener(new ChangeListener() {
+
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                lp.setBrightness((Integer) spBright.getValue());
             }
         });
         btNewMap.setAction(new AbstractAction() {
@@ -126,6 +136,7 @@ public class LevelEditor extends JFrame {
         controls.setSize(controls.getWidth(), 20);
         controls.setLayout(new GridLayout(1, 5, 10, 10));
         controls.add(cbSetGO);
+        controls.add(spBright);
         controls.add(btNewMap);
         controls.add(btSave);
         controls.add(btLoad);
@@ -200,8 +211,8 @@ public class LevelEditor extends JFrame {
                 public void mouseMoved(MouseEvent e) {
                     x0 = e.getX();
                     y0 = e.getY();
-                    mouseX = (int) e.getX();//((e.getX()-padding-translationX)/(25*scale));
-                    mouseY = (int) e.getY();//((e.getY()-padding-translationY)/(25*scale));
+                    mouseX = (int) ((e.getX()-padding-translationX)/(25*scale));
+                    mouseY = (int) ((e.getY()-padding-translationY)/(25*scale));
                     System.out.println(mouseX+" "+mouseY);
                     LevelEditor.this.repaint();
                 }
@@ -319,14 +330,14 @@ public class LevelEditor extends JFrame {
                     }
                 }
                 GameObjects[][] go = GO.getMapping(lp).get(currentGO);
-                //if(mouseX >= 0 || mouseY >= 0 || mouseX < width-go.length || mouseY < height-go[0].length) {
+                if(mouseX >= 0 || mouseY >= 0 || mouseX < width-go.length || mouseY < height-go[0].length) {
                     for (int i = 0; i < go.length; i++) {
                         for (int j = 0; j < go[i].length; j++) {
-                            g2d.drawImage(go[i][j].getLook(), mouseX+i*25, mouseY+j*25, null);
+                            g2d.drawImage(go[i][j].getLook(), (mouseX+i)*25+padding, (mouseY+j)*25+padding, null);
                         }
                         
                     }
-                //}
+                }
             }
         }
     }
