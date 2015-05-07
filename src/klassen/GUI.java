@@ -99,6 +99,8 @@ public class GUI extends JFrame implements Runnable{
     strat.show();
   }
   private void draw(Graphics2D g){
+    g.setColor(Color.black);
+    g.fillRect(0, 0,800, 600);
       bg.drawBG(g);
       
       if(player.getHealth()>0)g.drawImage(player.getLook(), null,375,275);
