@@ -7,7 +7,6 @@
 package klassen;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
@@ -160,6 +159,34 @@ public class LevelEditor extends JFrame {
         
         private static Map<GO, GameObjects[][]> m;
         
+        static {
+            m = new HashMap<>();
+
+            for(GO g : GO.values()) {
+                switch(g) {
+                    case BODEN:
+                        m.put(g, new GameObjects[][]{{new Boden(0)}});
+                        break;
+                    case GRAS:
+                        m.put(g, new GameObjects[][]{{new Gras(0)}});
+                        break;
+                    case TREE:
+                        m.put(g, new GameObjects[][]{{new Tree(0, 0, 0), new Tree(0, 0, 1), new Tree(0, 0, 2)}, {new Tree(0, 1, 0), new Tree(0, 1, 1), new Tree(0, 1, 2)}});
+                        break;
+                    case WAND:
+                        m.put(g, new GameObjects[][]{{new Wand(0)}});
+                        break;
+                    case WEG:
+                        m.put(g, new GameObjects[][]{{new Weg(0)}});
+                        break;
+                }
+            }
+        }
+        
+        public static GameObjects[][] getGOs(GO g) {
+            return m.get(g);
+        }
+        
         public static Map<GO, GameObjects[][]> getMapping(LevelPanel lp) {
             m = new HashMap<>();
 
@@ -252,7 +279,7 @@ public class LevelEditor extends JFrame {
                     int y = (int) ((e.getY()-padding-translationY)/(25*scale));
                     System.out.println(x+" "+y+" "+e.getButton());
 
-                    GameObjects[][] go = GO.getMapping(lp).get(currentGO);
+                    GameObjects[][] go = GO.getGOs(currentGO);
                     
                     if(x < 0 || y < 0 || x > width-go.length || y > height-go[0].length) {
                         return;
@@ -266,7 +293,7 @@ public class LevelEditor extends JFrame {
                             }
                         }
                     } else if(e.getButton() == 3) {
-                        map[x][y] = GO.getMapping(lp).get(defaultGO)[0][0];
+                        map[x][y] = GO.getGOs(defaultGO)[0][0];
                     }
 
                     LevelEditor.this.repaint();
@@ -301,7 +328,7 @@ public class LevelEditor extends JFrame {
         
         for (int i = 0; i < map.length; i++) {
             for (int j = 0; j < map[i].length; j++) {
-                map[i][j] = GO.getMapping(this).get(go)[0][0];
+                map[i][j] = GO.getGOs(go)[0][0];
             }
         }
         System.out.println(map);
@@ -325,11 +352,10 @@ public class LevelEditor extends JFrame {
 
                 for (int i = 0; i < map.length; i++) {
                     for (int j = 0; j < map[i].length; j++) {
-                        GameObjects go = map[i][j];
-                        g2d.drawImage(go.getLook(), padding+i*25, padding+j*25, null);
+                        g2d.drawImage(map[i][j].getLook(), padding+i*25, padding+j*25, null);
                     }
                 }
-                GameObjects[][] go = GO.getMapping(lp).get(currentGO);
+                GameObjects[][] go = GO.getGOs(currentGO);
                 if(mouseX >= 0 || mouseY >= 0 || mouseX < width-go.length || mouseY < height-go[0].length) {
                     for (int i = 0; i < go.length; i++) {
                         for (int j = 0; j < go[i].length; j++) {
