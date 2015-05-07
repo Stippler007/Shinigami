@@ -43,7 +43,15 @@ public class Background
     {
       for (int j = (int)(y/25*-1); j < (int)(y/25*-1)+26; j++) 
       {
-        map[i][j].update(tslf,(int)(x+i*25),(int)(y+j*25));
+        if(!(i<0||j<0)&&!(i>map.length-1||j>map[0].length-1))
+        {
+          map[i][j].update(tslf,(int)(x+i*25),(int)(y+j*25));
+        }
+        else
+        {
+          System.out.println("Out of map");
+        }
+        
       }
     }
   }
@@ -53,7 +61,15 @@ public class Background
     for (int i =(int)(x/25*-1); i < (int)(x/25*-1)+34; i++) {
       for (int j = (int)(y/25*-1); j < (int)(y/25*-1)+26; j++) 
       {
-        g.drawImage(map[i][j].getLook(), null, (int)(x+i*25),(int)(y+j*25));
+        if(!(i<0||j<0)&&!(i>map.length-1||j>map[0].length-1))
+        {
+          g.drawImage(map[i][j].getLook(), null, (int)(x+i*25),(int)(y+j*25));
+        }
+        else
+        {
+          System.out.println("Out of map");
+        }
+        
       }
     }
   }

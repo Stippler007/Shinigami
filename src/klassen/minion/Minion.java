@@ -172,37 +172,44 @@ public abstract class Minion
     {
       for (int j = (int)((Background.y+y)/25*-1)-2; j < (int)((Background.y+y)/25*-1)+26; j++) 
       {
-        Rectangle help1=new Rectangle(bounding.x+(int)(speedX),bounding.y+(int)(speedY),bounding.width,bounding.height);
-//          System.out.println(i+" "+j);
-        if(map[i][j].isSolid()&&help1.intersects(map[i][j].getBounding()))
+        if(!(i<0||j<0)&&!(i>map.length-1||j>map[0].length-1))
         {
-          Rectangle help2=map[i][j].getBounding();
-          
-          double vonlinks  = x + help1.width  - help2.x;
-          double vonoben   = y + help1.height - help2.y;
-          double vonrechts = help2.x + help2.width  - x;
-          double vonunten  = help2.y + help2.height - y;
-          
-          if(vonlinks<vonoben&&vonlinks<vonrechts&&vonlinks<vonunten)
+          Rectangle help1=new Rectangle(bounding.x+(int)(speedX),bounding.y+(int)(speedY),bounding.width,bounding.height);
+//          System.out.println(i+" "+j);
+          if(map[i][j].isSolid()&&help1.intersects(map[i][j].getBounding()))
           {
-            x-=vonlinks;
+            Rectangle help2=map[i][j].getBounding();
+
+            double vonlinks  = x + help1.width  - help2.x;
+            double vonoben   = y + help1.height - help2.y;
+            double vonrechts = help2.x + help2.width  - x;
+            double vonunten  = help2.y + help2.height - y;
+
+            if(vonlinks<vonoben&&vonlinks<vonrechts&&vonlinks<vonunten)
+            {
+              x-=vonlinks;
+            }
+            else if(vonoben<vonrechts&&vonoben<vonunten)
+            {
+              y-=vonoben;
+            }
+            else if(vonrechts<vonunten)
+            {
+              x+=vonrechts;
+            }
+            else
+            {
+              y+=vonunten;
+            }
           }
-          else if(vonoben<vonrechts&&vonoben<vonunten)
+          if(map[i][j].getBounding().intersects(bounding.x+bounding.width/2-1, bounding.y+bounding.height/2, 2, 1))
           {
-            y-=vonoben;
-          }
-          else if(vonrechts<vonunten)
-          {
-            x+=vonrechts;
-          }
-          else
-          {
-            y+=vonunten;
+            map[i][j].steppedOn(true);
           }
         }
-        if(map[i][j].getBounding().intersects(bounding.x+bounding.width/2-1, bounding.y+bounding.height/2, 2, 1))
+        else
         {
-          map[i][j].steppedOn(true);
+          System.out.println("Out of map");
         }
       }
     }

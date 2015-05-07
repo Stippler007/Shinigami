@@ -205,19 +205,26 @@ public class Player {
     {
       for (int j = (int)(Background.y/25*-1)+10; j < (int)(Background.y/25*-1)+14; j++) 
       {
-        Rectangle help1=new Rectangle(bounding.x-(int)(speedX),bounding.y-(int)(speedY),bounding.width,bounding.height);
-          System.out.println(i+" "+j);
-        if(map[i][j].isSolid()&&help1.intersects(map[i][j].getBounding()))
+        if(!(i<0||j<0)&&!(i>map.length-1||j>map[0].length-1))
         {
-          Rectangle help2=map[i][j].getBounding();
-          
-          moveCollision(help1, help2);
+          Rectangle help1=new Rectangle(bounding.x-(int)(speedX),bounding.y-(int)(speedY),bounding.width,bounding.height);
+            System.out.println(i+" "+j);
+          if(map[i][j].isSolid()&&help1.intersects(map[i][j].getBounding()))
+          {
+            Rectangle help2=map[i][j].getBounding();
+
+            moveCollision(help1, help2);
+          }
+          if(map[i][j].getBounding().intersects(bounding.x+bounding.width/2-1, bounding.y+bounding.height/2, 2, 1))
+          {
+            map[i][j].steppedOn(true);
+            map[i][j].playerSteppedOn(this);
+
+          }
         }
-        if(map[i][j].getBounding().intersects(bounding.x+bounding.width/2-1, bounding.y+bounding.height/2, 2, 1))
+        else
         {
-          map[i][j].steppedOn(true);
-          map[i][j].playerSteppedOn(this);
-          
+          System.out.println("Out of map");
         }
       }
     }
