@@ -120,6 +120,9 @@ public class LevelDesign implements Runnable {
             case 4:
                 route202(startX, startY);
                 break;
+            case 5:
+                grass(startX, startY);
+                break;
         }
         pause = false;
     }
@@ -166,8 +169,8 @@ public class LevelDesign implements Runnable {
         for (NPC npc : npcs) {
             npc.setMap(map);
         }
-        Background.x = 0;
-        Background.y = 0;
+        Background.x = -700;
+        Background.y = -600;
         
 //        try {
 //            Scanner sc = new Scanner(f);
@@ -664,6 +667,32 @@ public class LevelDesign implements Runnable {
         }
     }
 
+    public void grass(float startX, float startY) {
+        GameObjects[][] map = new GameObjects[100][100];
+        
+        for (int i = 0; i < map.length; i++) {
+            for (int j = 0; j < map[i].length; j++) {
+                map[i][j] = new Gras(brightness);
+            }
+        }
+        
+        Background.x = startX + 400;
+        Background.y = startY + 300;
+        
+        player.setMap(map);
+        bg.setMap(map);
+
+        for (NPC npc : npcs) {
+            npc.setMap(map);
+        }
+        
+        try {
+            dumpMap(map, "gras");
+        } catch (Exception ex) {
+            System.out.println("Error: "+ex.getMessage());
+        }
+    }
+    
     public void test(float startX, float startY) {
         clear();
 

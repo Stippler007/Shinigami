@@ -1,5 +1,2 @@
-/dist/
-/nbproject/private
-build/classes/klassen/karte/arrow/Arrow.class
-*.jar
-*.class
+nbproject/private/private.properties
+*.properties
