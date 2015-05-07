@@ -6,6 +6,7 @@
 package klassen;
 
 import java.awt.event.KeyEvent;
+import java.awt.image.BufferedImage;
 import java.util.LinkedList;
 import javax.swing.JFrame;
 import klassen.boss.Boss;
@@ -57,16 +58,18 @@ public class Main
     
     LevelDesign ld=new LevelDesign(player,bg,minions,npcs,playerSpritzers);
     
+    boss.add(new HundeGhoul(100, 100, 100, bg.getMap(), player, 100, minions, playerSpritzers));
+    
     // BackX -847 BackY -1045
     // SpawnX -582 SpawnY -529
     // ld.loadLevel(0, -800, -800);
-    ld.loadLevel(2, -582, -529);
+//    ld.loadLevel(2, -582, -529);
 //    ld.buildMap(4);
      ld.loadLevel(0, -800, -800);
 //     boss.add(new HundeGhoul(tslf, tslf, tslf, bg.getMap() player, tslf, minions, playerSpritzers));
 //    ld.loadLevel(2, -582, -529);
     //ld.buildMap(2);
-    
+    boss.add(new HundeGhoul(100, 100, 100, bg.getMap(), player, 1, minions, playerSpritzers));
     
 //    minions.add(new Hund(1000,1000,100,bg.getMap(),player,playerSpritzers));
 //    minions.add(new Hund(1000,1400,110,bg.getMap(),player,playerSpritzers));
