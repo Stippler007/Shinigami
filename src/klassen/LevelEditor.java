@@ -11,9 +11,13 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
-import java.awt.event.MouseAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -29,7 +33,6 @@ import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
-import static javax.swing.JFrame.EXIT_ON_CLOSE;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
@@ -41,6 +44,13 @@ import klassen.karte.Gras;
 import klassen.karte.Tree;
 import klassen.karte.Wand;
 import klassen.karte.Weg;
+import klassen.karte.arrow.Arrow;
+import klassen.karte.carpet.Carpet_Full;
+import klassen.karte.carpet.StoneCarpet;
+import klassen.karte.fence.*;
+import klassen.karte.flowers.BlueFlower;
+import klassen.karte.flowers.YellowFlower;
+import klassen.karte.haus.Haus;
 
 /**
  *
@@ -99,7 +109,7 @@ public class LevelEditor extends JFrame {
                 if(f != null) {
                     try {
                         ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(f));
-                        oos.writeObject(lp.map);
+                        oos.writeObject(lp.getMap());
                         oos.close();
                     } catch (IOException ex) {
                         System.out.println("Could not Save\n"+ex.getMessage());
@@ -118,7 +128,7 @@ public class LevelEditor extends JFrame {
                 if(f != null) {
                     try {
                         ObjectInputStream ois = new ObjectInputStream(new FileInputStream(f));
-                        LevelEditor.this.lp.map = (GameObjects[][]) ois.readObject();
+                        LevelEditor.this.lp.setMap((GameObjects[][]) ois.readObject());
                         ois.close();
                         lp.repaint();
                     } catch (Exception ex) {
@@ -142,7 +152,7 @@ public class LevelEditor extends JFrame {
         
         this.setLayout(new BorderLayout(5, 5));
         this.setSize(800, 500);
-        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
         this.add(controls, BorderLayout.NORTH);
         this.add(lp, BorderLayout.CENTER);
@@ -155,7 +165,8 @@ public class LevelEditor extends JFrame {
     }
     
     enum GO {
-        GRAS , WAND, WEG, TREE, BODEN;
+        GRAS , WAND, WEG, TREE, BODEN, BLUEFLOWER, YELLOWFLOWER, FENCESEITE, FENCEVORNELINKS, FENCEVORNEMID, FENCEVORNERECHTS, HAUS;
+        //TODO: CARPET_FULL, FOOT_CARPET, DOOR, STONECARPET, ARROW
         
         private static Map<GO, GameObjects[][]> m;
         
@@ -171,13 +182,48 @@ public class LevelEditor extends JFrame {
                         m.put(g, new GameObjects[][]{{new Gras(0)}});
                         break;
                     case TREE:
-                        m.put(g, new GameObjects[][]{{new Tree(0, 0, 0), new Tree(0, 0, 1), new Tree(0, 0, 2)}, {new Tree(0, 1, 0), new Tree(0, 1, 1), new Tree(0, 1, 2)}});
+                        m.put(g, new GameObjects[][]{
+                            {new Tree(0, 0, 0), new Tree(0, 0, 1), new Tree(0, 0, 2)}, 
+                            {new Tree(0, 1, 0), new Tree(0, 1, 1), new Tree(0, 1, 2)}
+                        });
                         break;
                     case WAND:
                         m.put(g, new GameObjects[][]{{new Wand(0)}});
                         break;
                     case WEG:
                         m.put(g, new GameObjects[][]{{new Weg(0)}});
+                        break;
+                    case FENCESEITE:
+                        m.put(g, new GameObjects[][]{{new FenceSeite(0)}});
+                        break;
+                    case FENCEVORNELINKS:
+                        m.put(g, new GameObjects[][]{{new FenceVorneLinks(0)}});
+                        break;
+                    case FENCEVORNEMID:
+                        m.put(g, new GameObjects[][]{{new FenceVorneMid(0)}});
+                        break;
+                    case FENCEVORNERECHTS:
+                        m.put(g, new GameObjects[][]{{new FenceVorneRechts(0)}});
+                        break;
+                    case BLUEFLOWER:
+                        m.put(g, new GameObjects[][]{{new BlueFlower(0)}});
+                        break;
+                    case YELLOWFLOWER:
+                        m.put(g, new GameObjects[][]{{new YellowFlower(0)}});
+                        break;
+                    case HAUS:
+                        GameObjects[][] go = new GameObjects[11][11];
+                        
+                        for (int i = 0; i < go.length; i++) {
+                            for (int j = 0; j < go[i].length; j++) {
+                                go[i][j] = new Haus(0, i, j);
+                                
+                            }
+                        }
+                        
+                        m.put(g, go);
+                        break;
+                    default:
                         break;
                 }
             }
@@ -230,90 +276,20 @@ public class LevelEditor extends JFrame {
         private int mouseY;
         
         public LevelPanel() {
-            MouseAdapter ma = new MouseAdapter() {
-                private int x0 = 0;
-                private int y0 = 0;
+            Listener l = new Listener();
+           
+            this.addKeyListener(l);
+            this.addMouseListener(l);
+            this.addMouseMotionListener(l);
+            this.addMouseWheelListener(l);
+        }
 
-                @Override
-                public void mouseMoved(MouseEvent e) {
-                    x0 = e.getX();
-                    y0 = e.getY();
-                    mouseX = (int) ((e.getX()-padding-translationX)/(25*scale));
-                    mouseY = (int) ((e.getY()-padding-translationY)/(25*scale));
-                    System.out.println(mouseX+" "+mouseY);
-                    LevelEditor.this.repaint();
-                }
+        public GameObjects[][] getMap() {
+            return map;
+        }
 
-                @Override
-                public void mouseDragged(MouseEvent e) {
-                    translationX = translationX+e.getX()-x0;
-                    translationY = translationY+e.getY()-y0;
-                    x0 = e.getX();
-                    y0 = e.getY();
-                    LevelEditor.this.repaint();
-                }
-
-                @Override
-                public void mouseExited(MouseEvent e) {
-
-                }
-
-                @Override
-                public void mouseEntered(MouseEvent e) {
-
-                }
-
-                @Override
-                public void mouseReleased(MouseEvent e) {
-
-                }
-
-                @Override
-                public void mousePressed(MouseEvent e) {
-
-                }
-
-                @Override
-                public void mouseClicked(MouseEvent e) {
-                    int x = (int) ((e.getX()-padding-translationX)/(25*scale));
-                    int y = (int) ((e.getY()-padding-translationY)/(25*scale));
-                    System.out.println(x+" "+y+" "+e.getButton());
-
-                    GameObjects[][] go = GO.getGOs(currentGO);
-                    
-                    if(x < 0 || y < 0 || x > width-go.length || y > height-go[0].length) {
-                        return;
-                    }
-                    
-                    if(e.getButton() == 1) {
-//                        map[x][y] = GO.getMapping(lp).get(currentGO)[0][0];
-                        for (int k = 0; k < go.length; k++) {
-                            for (int l = 0; l < go[k].length; l++) {
-                                map[x+k][y+l] = go[k][l];
-                            }
-                        }
-                    } else if(e.getButton() == 3) {
-                        map[x][y] = GO.getGOs(defaultGO)[0][0];
-                    }
-
-                    LevelEditor.this.repaint();
-                }
-
-                @Override
-                public void mouseWheelMoved(MouseWheelEvent e) {
-                    if(e.getScrollType() == MouseWheelEvent.WHEEL_UNIT_SCROLL) {
-                        if(e.getUnitsToScroll() > 0) {
-                            scale = scale*1.1;
-                        } else {
-                            scale = scale*0.9;
-                        }
-                        LevelEditor.this.repaint();
-                    }
-                }
-            };
-            this.addMouseListener(ma);
-            this.addMouseMotionListener(ma);
-            this.addMouseWheelListener(ma);
+        public void setMap(GameObjects[][] map) {
+            this.map = map;
         }
         
         public void setBrightness(int b) {brightness = b;}
@@ -321,21 +297,21 @@ public class LevelEditor extends JFrame {
         public void setCurrentGameObject(GO go) { currentGO = go; }
         
         public void resetMap(int width, int height, GO go) {
-        this.width = width;
-        this.height = height;
-        map = new GameObjects[height][width];
-        defaultGO = go;
-        
-        for (int i = 0; i < map.length; i++) {
-            for (int j = 0; j < map[i].length; j++) {
-                map[i][j] = GO.getGOs(go)[0][0];
+            this.width = width;
+            this.height = height;
+            map = new GameObjects[height][width];
+            defaultGO = go;
+
+            for (int i = 0; i < map.length; i++) {
+                for (int j = 0; j < map[i].length; j++) {
+                    map[i][j] = GO.getGOs(go)[0][0];
+                }
             }
-        }
-        System.out.println(map);
-        System.out.println(this.width);
-        System.out.println(this.height);
-        
-        this.repaint();
+            System.out.println(map);
+            System.out.println(this.width);
+            System.out.println(this.height);
+
+            this.repaint();
         }
         
         @Override
@@ -363,6 +339,117 @@ public class LevelEditor extends JFrame {
                         }
                         
                     }
+                }
+            }
+        }
+        
+        class Listener implements KeyListener, MouseListener, MouseWheelListener, MouseMotionListener {
+
+            private boolean shiftDown = false;
+
+            private int x0 = 0;
+            private int y0 = 0;
+
+            public void updatePosition(MouseEvent e) {
+                x0 = e.getX();
+                y0 = e.getY();
+            }
+
+            public int getMapX(MouseEvent e) {
+                return (int) ((e.getX()-padding-translationX)/(25*scale));
+            }
+
+            public int getMapY(MouseEvent e) {
+                return (int) ((e.getY()-padding-translationY)/(25*scale));
+            }
+
+            @Override
+            public void keyTyped(KeyEvent e) {
+
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+
+            }
+
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                int x = getMapX(e);
+                int y = getMapY(e);
+                System.out.println(x+" "+y+" "+e.getButton());
+
+                GameObjects[][] go = GO.getGOs(currentGO);
+
+                if(x < 0 || y < 0 || x > width-go.length || y > height-go[0].length) {
+                    return;
+                }
+
+                if(e.getButton() == 1) {
+                    //map[x][y] = GO.getMapping(lp).get(currentGO)[0][0];
+                    for (int k = 0; k < go.length; k++) {
+                        for (int l = 0; l < go[k].length; l++) {
+                            map[x+k][y+l] = go[k][l];
+                        }
+                    }
+                } else if(e.getButton() == 3) {
+                    map[x][y] = GO.getGOs(defaultGO)[0][0];
+                }
+
+                LevelEditor.this.repaint();
+            }
+            
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                translationX = translationX+e.getX()-x0;
+                translationY = translationY+e.getY()-y0;
+                updatePosition(e);
+                LevelEditor.this.repaint();
+            }
+
+            @Override
+            public void mouseMoved(MouseEvent e) {
+                updatePosition(e);
+                mouseX = (int) ((e.getX()-padding-translationX)/(25*scale));
+                mouseY = (int) ((e.getY()-padding-translationY)/(25*scale));
+                System.out.println(mouseX+" "+mouseY);
+                LevelEditor.this.repaint();
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseWheelMoved(MouseWheelEvent e) {
+                if(e.getScrollType() == MouseWheelEvent.WHEEL_UNIT_SCROLL) {
+                    if(e.getUnitsToScroll() > 0) {
+                        scale = scale*1.1;
+                    } else {
+                        scale = scale*0.9;
+                    }
+                    LevelEditor.this.repaint();
                 }
             }
         }
