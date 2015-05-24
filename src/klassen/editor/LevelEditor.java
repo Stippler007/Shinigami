@@ -136,7 +136,6 @@ public class LevelEditor extends JFrame {
     
     public static void main(String[] args) {
         LevelEditor le = new LevelEditor();
-        le.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         le.setVisible(true);
     }
 }

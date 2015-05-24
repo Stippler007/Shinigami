@@ -36,9 +36,6 @@ class DlgNewMap extends JDialog {
         spHeight = new JSpinner(new SpinnerNumberModel(30, 10, 500, 1));
         cbGround = new JComboBox<>(GO.values());
 
-        btCreate.setText("Create");
-        btCancel.setText("Cancel");
-
         btCreate.setAction(new AbstractAction() {
 
             @Override
@@ -54,6 +51,9 @@ class DlgNewMap extends JDialog {
                 DlgNewMap.this.setVisible(false);
             }
         });
+        
+        btCreate.setText("Create");
+        btCancel.setText("Cancel");
         
         this.setSize(200, 200);
         this.setLayout(new GridLayout(5, 1, 5, 5));

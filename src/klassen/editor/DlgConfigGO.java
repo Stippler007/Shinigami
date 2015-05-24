@@ -32,7 +32,7 @@ class DlgConfigGO extends JDialog {
     private boolean ready = false;
 
     public DlgConfigGO(JFrame owner, GameObjects obj) {
-        super(owner, "Configuer GameObject", true);
+        super(owner, "Configure GameObject", true);
         this.go = obj;
         
         JButton btConfig = new JButton();

@@ -20,7 +20,7 @@ import klassen.karte.haus.*;
  */
 enum GO {
 
-    GRAS, WAND, WEG, TREE, BODEN, BLUEFLOWER, YELLOWFLOWER, FENCESEITE, FENCEVORNELINKS, FENCEVORNEMID, FENCEVORNERECHTS, HAUS;
+    GRAS, WAND, WEG, TREE, BODEN, BLUEFLOWER, YELLOWFLOWER, FENCESEITE, FENCEVORNELINKS, FENCEVORNEMID, FENCEVORNERECHTS, HAUS, FOOT_CARPET;
         //TODO: CARPET_FULL, FOOT_CARPET, DOOR, STONECARPET, ARROW
 
     private static Map<GO, GameObjects[][]> m;
@@ -77,6 +77,9 @@ enum GO {
                     }
 
                     m.put(g, go);
+                    break;
+                case FOOT_CARPET:
+                    m.put(g, new GameObjects[][]{{new FootCarpet(0, 0, 0, 0, 0, 0, null)}, {new FootCarpet(0, 1, 0, 0, 0, 0, null)}});
                     break;
                 default:
                     StoneCarpet.class.getConstructors()[0].getParameters();

@@ -5,15 +5,15 @@
  */
 package klassen.editor;
 
+import java.awt.AlphaComposite;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
+import java.awt.image.BufferedImage;
 import javax.swing.JPanel;
 import klassen.karte.GameObjects;
 
@@ -36,11 +36,12 @@ class LevelPanel extends JPanel {
     private double translationY = 0;
     private int mouseX;
     private int mouseY;
+    private int mapX = -1;
+    private int mapY = -1;
 
     public LevelPanel() {
         Listener l = new Listener();
 
-        this.addKeyListener(l);
         this.addMouseListener(l);
         this.addMouseMotionListener(l);
         this.addMouseWheelListener(l);
@@ -97,21 +98,52 @@ class LevelPanel extends JPanel {
                     g2d.drawImage(map[i][j].getLook(), padding + i * 25, padding + j * 25, null);
                 }
             }
+
             GameObjects[][] go = GO.getGOs(currentGO);
             if (mouseX >= 0 || mouseY >= 0 || mouseX < width - go.length || mouseY < height - go[0].length) {
-                for (int i = 0; i < go.length; i++) {
-                    for (int j = 0; j < go[i].length; j++) {
-                        g2d.drawImage(go[i][j].getLook(), (mouseX + i) * 25 + padding, (mouseY + j) * 25 + padding, null);
+                if (mapX > -1 && mapY > -1) {
+                    System.out.println("Draw " + mapX + " " + mapY);
+
+                    int x = mouseX;
+                    int y = mouseY;
+
+                    if (mapX > x) {
+                        int tmp = mapX;
+                        mapX = x;
+                        x = tmp;
+                    }
+                    if (mapY > y) {
+                        int tmp = mapY;
+                        mapY = y;
+                        y = tmp;
                     }
 
+                    for (int i = mapX; i <= x; i++) {
+                        for (int j = mapY; j <= y; j++) {
+                            g2d.drawImage(makeTransparent(go[0][0].getLook()), i * 25 + padding, j * 25 + padding, null);
+                        }
+                    }
+                }
+                for (int i = 0; i < go.length; i++) {
+                    for (int j = 0; j < go[i].length; j++) {
+                        g2d.drawImage(makeTransparent(go[i][j].getLook()), (mouseX + i) * 25 + padding, (mouseY + j) * 25 + padding, null);
+                    }
                 }
             }
         }
     }
 
-    class Listener implements KeyListener, MouseListener, MouseWheelListener, MouseMotionListener {
+    private BufferedImage makeTransparent(BufferedImage img) {
+        BufferedImage tmp = new BufferedImage(img.getWidth(), img.getHeight(), BufferedImage.TYPE_INT_ARGB);
 
-        private boolean controlDown = false;
+        Graphics2D g2d = tmp.createGraphics();
+        g2d.setComposite(AlphaComposite.SrcOver.derive(0.5f));
+        g2d.drawImage(img, 0, 0, null);
+
+        return tmp;
+    }
+
+    class Listener implements MouseListener, MouseWheelListener, MouseMotionListener {
 
         private int x0 = 0;
         private int y0 = 0;
@@ -130,71 +162,111 @@ class LevelPanel extends JPanel {
         }
 
         @Override
-        public void keyTyped(KeyEvent e) {
-
-        }
-
-        @Override
-        public void keyPressed(KeyEvent e) {
-            controlDown = e.isControlDown();
-        }
-
-        @Override
-        public void keyReleased(KeyEvent e) {
-
-        }
-
-        @Override
         public void mouseClicked(MouseEvent e) {
             int x = getMapX(e);
             int y = getMapY(e);
-            System.out.println(x + " " + y + " " + e.getButton());
 
-            GameObjects[][] go = GO.getGOs(currentGO);
+            System.out.println(e.getWhen() + " " + e.getClickCount() + " " + e.getButton());
 
-            if (x < 0 || y < 0 || x > width - go.length || y > height - go[0].length) {
-                return;
-            }
+            if (e.getClickCount() == 1) {
+                System.out.println(x + " " + y + " " + e.getButton());
 
-            if (e.getButton() == 1) {
-                //map[x][y] = GO.getMapping(lp).get(currentGO)[0][0];
-                for (int k = 0; k < go.length; k++) {
-                    for (int l = 0; l < go[k].length; l++) {
-                        map[x + k][y + l] = go[k][l];
-                    }
+                GameObjects[][] go = GO.getGOs(currentGO);
+
+                if (x < 0 || y < 0 || x > width - go.length || y > height - go[0].length) {
+                    return;
                 }
-            } else if (e.getButton() == 3) {
-                map[x][y] = GO.getGOs(defaultGO)[0][0];
-            }
 
+                if (e.getButton() == 1) {
+                    //map[x][y] = GO.getMapping(lp).get(currentGO)[0][0];
+                    for (int k = 0; k < go.length; k++) {
+                        for (int l = 0; l < go[k].length; l++) {
+                            map[x + k][y + l] = go[k][l];
+                        }
+                    }
+                } else if (e.getButton() == 3) {
+                    map[x][y] = GO.getGOs(defaultGO)[0][0];
+                }
+                
+            } else if (e.getClickCount() == 2) {
+                DlgConfigGO dlg = new DlgConfigGO(null, map[x][y]);
+                dlg.setVisible(true);
+
+                if (dlg.isReady()) {
+                    map[x][y] = dlg.getGO();
+                }
+            }
+            
             LevelPanel.this.repaint();
         }
 
         @Override
         public void mouseDragged(MouseEvent e) {
-            translationX = translationX + e.getX() - x0;
-            translationY = translationY + e.getY() - y0;
-            updatePosition(e);
+            if (!e.isControlDown()) {
+                translationX = translationX + e.getX() - x0;
+                translationY = translationY + e.getY() - y0;
+                updatePosition(e);
+            }
+            mouseX = getMapX(e);
+            mouseY = getMapY(e);
             LevelPanel.this.repaint();
         }
 
         @Override
         public void mouseMoved(MouseEvent e) {
             updatePosition(e);
-            mouseX = (int) ((e.getX() - padding - translationX) / (25 * scale));
-            mouseY = (int) ((e.getY() - padding - translationY) / (25 * scale));
+            mouseX = getMapX(e);
+            mouseY = getMapY(e);
             System.out.println(mouseX + " " + mouseY);
             LevelPanel.this.repaint();
         }
 
         @Override
         public void mousePressed(MouseEvent e) {
+            mouseX = getMapX(e);
+            mouseY = getMapY(e);
 
+            if (e.isControlDown()) {
+                System.out.println("set");
+                mapX = this.getMapX(e);
+                mapY = this.getMapY(e);
+            } else {
+                mapX = -1;
+                mapY = -1;
+            }
+            
+            LevelPanel.this.repaint();
         }
 
         @Override
         public void mouseReleased(MouseEvent e) {
+            if (e.isControlDown() && mapX > -1 && mapY > -1) {
+                int x = this.getMapX(e);
+                int y = this.getMapY(e);
+                GameObjects[][] go = GO.getGOs(currentGO);
 
+                if (mapX > x) {
+                    int tmp = mapX;
+                    mapX = x;
+                    x = tmp;
+                }
+                if (mapY > y) {
+                    int tmp = mapY;
+                    mapY = y;
+                    y = tmp;
+                }
+
+                for (int i = mapX; i <= x; i++) {
+                    for (int j = mapY; j <= y; j++) {
+                        map[i][j] = go[0][0];
+                    }
+                }
+            }
+            
+            mapX = -1;
+            mapY = -1;
+            
+            LevelPanel.this.repaint();
         }
 
         @Override
