@@ -20,7 +20,7 @@ public class StoneCarpet extends GameObjects
   public StoneCarpet(int brightness,int x,int y)
   {
     super(brightness);
-    look=ImageFactory.getIF().getLook("StoneCarpet").getSubimage(x*25, y*25, 25, 25);
+    look=ImageFactory.getIF().getLook("Stone_Floor_Full").getSubimage(x*25, y*25, 25, 25);
   }
 
   @Override

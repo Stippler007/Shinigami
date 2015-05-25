@@ -6,6 +6,7 @@
 package klassen.editor;
 
 import java.awt.AlphaComposite;
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
@@ -99,6 +100,12 @@ class LevelPanel extends JPanel {
                 }
             }
 
+            if(currentGO == GO.CONFIG) {
+                //g2d.setColor(new Color(255, 255, 255, 64));
+                g2d.drawRect(mouseX * 25 + padding, mouseY  * 25 + padding, 25, 25);
+                return;
+            }
+            
             GameObjects[][] go = GO.getGOs(currentGO);
             if (mouseX >= 0 || mouseY >= 0 || mouseX < width - go.length || mouseY < height - go[0].length) {
                 if (mapX > -1 && mapY > -1) {
@@ -161,6 +168,15 @@ class LevelPanel extends JPanel {
             return (int) ((e.getY() - padding - translationY) / (25 * scale));
         }
 
+        private void showConfig(int x, int y) {
+            DlgConfigGO dlg = new DlgConfigGO(null, map[x][y]);
+            dlg.setVisible(true);
+
+            if (dlg.isReady()) {
+                map[x][y] = dlg.getGO();
+            }
+        }
+        
         @Override
         public void mouseClicked(MouseEvent e) {
             int x = getMapX(e);
@@ -171,6 +187,11 @@ class LevelPanel extends JPanel {
             if (e.getClickCount() == 1) {
                 System.out.println(x + " " + y + " " + e.getButton());
 
+                if(currentGO == GO.CONFIG) {
+                    showConfig(x, y);
+                    return;
+                }
+                
                 GameObjects[][] go = GO.getGOs(currentGO);
 
                 if (x < 0 || y < 0 || x > width - go.length || y > height - go[0].length) {
@@ -189,12 +210,7 @@ class LevelPanel extends JPanel {
                 }
                 
             } else if (e.getClickCount() == 2) {
-                DlgConfigGO dlg = new DlgConfigGO(null, map[x][y]);
-                dlg.setVisible(true);
-
-                if (dlg.isReady()) {
-                    map[x][y] = dlg.getGO();
-                }
+                showConfig(x, y);
             }
             
             LevelPanel.this.repaint();

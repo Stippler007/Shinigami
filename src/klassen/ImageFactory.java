@@ -152,6 +152,7 @@ public class ImageFactory {
     looks.put("Haus2", ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/gameObjects/haus/Haus2.png")));
     looks.put("Tree", ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/gameObjects/tree/Tree.jpg")));
     looks.put("FootCarpet", ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/gameObjects/carpet/Foot_Carpet.png")));
+    looks.put("Stone_Floor_Full", ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/gameObjects/carpet/Stone_Floor_Full.png")));
   }
   
   public static ImageFactory getIF()

@@ -20,7 +20,7 @@ import klassen.karte.haus.*;
  */
 enum GO {
 
-    GRAS, WAND, WEG, TREE, BODEN, BLUEFLOWER, YELLOWFLOWER, FENCESEITE, FENCEVORNELINKS, FENCEVORNEMID, FENCEVORNERECHTS, HAUS, FOOT_CARPET;
+    CONFIG, GRAS, WAND, WEG, TREE, BODEN, BLUEFLOWER, YELLOWFLOWER, FENCESEITE, FENCEVORNELINKS, FENCEVORNEMID, FENCEVORNERECHTS, HAUS, FOOT_CARPET, STONECARPET, CARPET_FULL, DOOR, ARROW;
         //TODO: CARPET_FULL, FOOT_CARPET, DOOR, STONECARPET, ARROW
 
     private static Map<GO, GameObjects[][]> m;
@@ -81,9 +81,37 @@ enum GO {
                 case FOOT_CARPET:
                     m.put(g, new GameObjects[][]{{new FootCarpet(0, 0, 0, 0, 0, 0, null)}, {new FootCarpet(0, 1, 0, 0, 0, 0, null)}});
                     break;
+                case STONECARPET:
+                    go = new GameObjects[3][3];
+
+                    for (int i = 0; i < go.length; i++) {
+                        for (int j = 0; j < go[i].length; j++) {
+                            go[i][j] = new StoneCarpet(0, i, j);
+
+                        }
+                    }
+                    
+                    m.put(g, go);
+                    break;
+                case CARPET_FULL:
+                    go = new GameObjects[3][3];
+
+                    for (int i = 0; i < go.length; i++) {
+                        for (int j = 0; j < go[i].length; j++) {
+                            go[i][j] = new Carpet_Full(0, i, j);
+
+                        }
+                    }
+                    
+                    m.put(g, go);
+                    break;
+                case DOOR:
+                    m.put(g, new GameObjects[][]{{new Door(0, 0, 0, null, 0, 0, 0), new Door(0, 0, 1, null, 0, 0, 0)}, {new Door(0, 1, 0, null, 0, 0, 0), new Door(0, 1, 1, null, 0, 0, 0)}});
+                    break;
+                case ARROW:
+                    m.put(g, new GameObjects[][]{{new Arrow(0, 0, 0, 0, null)}});
+                    break;
                 default:
-                    StoneCarpet.class.getConstructors()[0].getParameters();
-                    new StoneCarpet(0, 0, 0);
                     break;
             }
         }

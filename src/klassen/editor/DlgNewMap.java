@@ -35,6 +35,7 @@ class DlgNewMap extends JDialog {
         spWidth = new JSpinner(new SpinnerNumberModel(30, 10, 500, 1));
         spHeight = new JSpinner(new SpinnerNumberModel(30, 10, 500, 1));
         cbGround = new JComboBox<>(GO.values());
+        cbGround.remove(0);
 
         btCreate.setAction(new AbstractAction() {
 
