@@ -184,6 +184,10 @@ class LevelPanel extends JPanel {
 
             System.out.println(e.getWhen() + " " + e.getClickCount() + " " + e.getButton());
 
+            if(map == null || x < 0 || y < 0 || x > width || y > height) {
+                return;
+            }
+            
             if (e.getClickCount() == 1) {
                 System.out.println(x + " " + y + " " + e.getButton());
 
@@ -194,7 +198,7 @@ class LevelPanel extends JPanel {
                 
                 GameObjects[][] go = GO.getGOs(currentGO);
 
-                if (x < 0 || y < 0 || x > width - go.length || y > height - go[0].length) {
+                if (x > width - go.length || y > height - go[0].length) {
                     return;
                 }
 
@@ -242,6 +246,10 @@ class LevelPanel extends JPanel {
             mouseX = getMapX(e);
             mouseY = getMapY(e);
 
+            if(map == null || mouseX < 0 || mouseY < 0 || mouseX > width || mouseY > height) {
+                return;
+            }
+            
             if (e.isControlDown()) {
                 System.out.println("set");
                 mapX = this.getMapX(e);
@@ -261,6 +269,10 @@ class LevelPanel extends JPanel {
                 int y = this.getMapY(e);
                 GameObjects[][] go = GO.getGOs(currentGO);
 
+                if(x < 0 || y < 0 || x > width || y > height) {
+                    return;
+                }
+                
                 if (mapX > x) {
                     int tmp = mapX;
                     mapX = x;

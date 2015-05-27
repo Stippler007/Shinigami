@@ -16,7 +16,7 @@ import klassen.ImageFactory;
  */
 public class Boden extends GameObjects
 {
-  private transient BufferedImage look=ImageFactory.getIF().getLook("Ground_Wood_Planks");
+  private static BufferedImage look=ImageFactory.getIF().getLook("Ground_Wood_Planks");
 
   public Boden(int brightness) 
   {
