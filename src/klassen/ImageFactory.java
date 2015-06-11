@@ -68,6 +68,18 @@ public class ImageFactory {
       looks.put("DogGhoul_seite2_0"+i+"_attacking", ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/minion/hundeGhoul/hund/DogGhoul_seite2_0"+i+"_attacking.png")));
       looks.put("DogGhoul_vorne_0"+i+"_attacking", ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/minion/hundeGhoul/hund/DogGhoul_vorne_0"+i+"_attacking.png")));
     }
+    
+    for (int i = 0; i < 2; i++)
+    {
+      looks.put("BigMamaHinten0"+i, ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/minion/hundeGhoul/hundeGhoul/BigMamaHinten0"+i+".png")));
+      looks.put("BigMamaSeiteLinks0"+i, ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/minion/hundeGhoul/hundeGhoul/BigMamaSeiteLinks0"+i+".png")));
+      looks.put("BigMamaSeiteRechts0"+i, ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/minion/hundeGhoul/hundeGhoul/BigMamaSeiteRechts0"+i+".png"))); 
+    }
+    
+    for (int i = 0; i < 3; i++)
+    {
+      looks.put("BigMamaVorne0"+i, ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/minion/hundeGhoul/hundeGhoul/BigMamaVorne0"+i+".png")));
+    }
   }
   private void loadNPC() throws IOException
   {
