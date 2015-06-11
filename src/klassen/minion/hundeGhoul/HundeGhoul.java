@@ -40,12 +40,15 @@ public class HundeGhoul extends Boss
   {
     for (int i = 1; i <= look.length; i++)
     {
-      look[i-1]=ImageFactory.getIF().getLook("BigMamaVorne0"+i);
+      look[i-1]=ImageFactory.getIF().getLook("HundeGhoul"+i);
+      System.out.println(look[i]);
     }
   }
   public HundeGhoul(float x, float y, float speed,GameObjects map[][],Player player, float maxAnimationTime, LinkedList<Minion> minions,LinkedList<PlayerSpritzer> playerSpritzers)
   {
-    super(x, y, speed, 200, new Rectangle((int)x,(int)y,look[0].getWidth(),look[0].getHeight()), map,player, playerSpritzers);
+    super(x, y, speed, 200, new Rectangle((int)x,(int)y,
+            look[0].getWidth(),look[0].getHeight()), 
+            map,player, playerSpritzers);
     this.x = x;
     this.y = y;
     this.speed = speed;
