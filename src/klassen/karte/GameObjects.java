@@ -7,7 +7,10 @@ package klassen.karte;
 
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.Serializable;
+import klassen.ImageFactory;
 import klassen.player.Player;
 
 /**
@@ -29,6 +32,11 @@ public abstract class GameObjects implements Serializable {
   protected boolean thorny=false;
   protected Rectangle bounding;
 
+  protected transient BufferedImage look;
+  protected String imageTag = "Wand";
+  protected int subX;
+  protected int subY;
+  
   public GameObjects(int brightness)
   {
     bounding=new Rectangle(0,0,25,25);
@@ -38,6 +46,10 @@ public abstract class GameObjects implements Serializable {
     this.stepped=stepped;
   }
 
+  private void readObject(ObjectInputStream stream) throws IOException, ClassNotFoundException {
+      look = ImageFactory.getIF().getLook(imageTag).getSubimage(subX*25, subY*25, 25, 25);
+  }
+  
   public void update(float tslf,float x,float y)
   {
     if(currentBrightness!=brightness)

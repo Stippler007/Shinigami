@@ -102,7 +102,7 @@ public class LevelEditor extends JFrame {
                 if (f != null) {
                     try {
                         ObjectInputStream ois = new ObjectInputStream(new FileInputStream(f));
-                        LevelEditor.this.lp.setMap((GameObjects[][]) ois.readObject());
+                        lp.setMap((GameObjects[][]) ois.readObject());
                         ois.close();
                         lp.repaint();
                     } catch (Exception ex) {
