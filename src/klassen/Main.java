@@ -211,6 +211,7 @@ public class Main
         int k=0;
         while(k<playerSpritzers.size())
         {
+          
           if(map[i][j].isSolid()&&playerSpritzers.get(k).getBounding().intersects(map[i][j].getBounding()))
           {
             if(playerSpritzers.get(k) instanceof BasicShot)
