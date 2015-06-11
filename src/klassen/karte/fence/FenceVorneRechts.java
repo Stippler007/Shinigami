@@ -19,10 +19,10 @@ public class FenceVorneRechts extends GameObjects {
 
     public FenceVorneRechts(int brightness) {
         super(brightness);
-
+        setImage("FenceVorneRechts");
         bounding = new Rectangle(0, 0, look.getWidth(), look.getHeight());
         solid = true;
-        setImage("FenceVorneRechts");
+        
     }
 
     @Override

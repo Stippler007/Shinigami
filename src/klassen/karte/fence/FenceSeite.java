@@ -18,9 +18,9 @@ public class FenceSeite extends GameObjects {
 
     public FenceSeite(int brightness) {
         super(brightness);
+        setImage("fenceSeite");
         bounding = new Rectangle(0, 0, look.getWidth(), look.getHeight());
         solid = true;
-        setImage("fenceSeite");
     }
 
     @Override

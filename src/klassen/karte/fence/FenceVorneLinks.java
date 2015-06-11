@@ -18,9 +18,10 @@ public class FenceVorneLinks extends GameObjects {
 
     public FenceVorneLinks(int brightness) {
         super(brightness);
+        setImage("FenceVorneLinks");
         bounding = new Rectangle(0, 0, look.getWidth(), look.getHeight());
         solid = true;
-        setImage("FenceVorneLinks");
+        
     }
 
     @Override

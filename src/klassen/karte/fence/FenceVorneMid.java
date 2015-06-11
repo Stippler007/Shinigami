@@ -18,9 +18,9 @@ public class FenceVorneMid extends GameObjects {
 
     public FenceVorneMid(int brightness) {
         super(brightness);
+        setImage("FenceVorneMid");
         bounding = new Rectangle(0, 0, look.getWidth(), look.getHeight());
         solid = true;
-        setImage("FenceVorneMid");
     }
 
     @Override

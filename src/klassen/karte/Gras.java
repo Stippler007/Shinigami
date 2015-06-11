@@ -16,7 +16,7 @@ public class Gras extends GameObjects {
 
     public Gras(int brightness) {
         super(brightness);
-        bounding = new Rectangle(0, 0, look.getWidth(), look.getHeight());
+        bounding = new Rectangle(0, 0, 25, 25);
         solid = false;
         setImage("Gras0");
     }
