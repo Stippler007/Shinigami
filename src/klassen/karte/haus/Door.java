@@ -20,7 +20,6 @@ import klassen.player.Player;
 public class Door extends GameObjects
 {
   private LevelDesign ld;
-  private BufferedImage look;
   private int levelLoad;
   private int startX;
   private int startY;
@@ -32,7 +31,7 @@ public class Door extends GameObjects
     this.levelLoad=id;
     this.startX=startX;
     this.startY=startY;
-    look=ImageFactory.getIF().getLook("Door").getSubimage(x*25, y*25,25, 25);
+    setImage("Door");
   }
 
   @Override

@@ -14,45 +14,38 @@ import klassen.karte.GameObjects;
  *
  * @author Christian
  */
-public class FenceVorneLinks extends GameObjects
-{
-  private static BufferedImage look;
-  
-  static
-  {
-    look=ImageFactory.getIF().getLook("FenceVorneLinks");
-  }
-  public FenceVorneLinks(int brightness)
-  {
-    super(brightness);
-    bounding=new Rectangle(0,0,look.getWidth(),look.getHeight());
-    solid=true;
-  }
-  
-  @Override
-  public void update(float tslf,float x,float y)
-  {
-    bounding.x=(int)x;
-    bounding.y=(int)y;
-  }
+public class FenceVorneLinks extends GameObjects {
 
-  @Override
-  public BufferedImage getLook() {
-      return look;
-  }
+    public FenceVorneLinks(int brightness) {
+        super(brightness);
+        bounding = new Rectangle(0, 0, look.getWidth(), look.getHeight());
+        solid = true;
+        setImage("FenceVorneLinks");
+    }
 
-  @Override
-  public boolean isSolid() {
-      return solid;
-  }
+    @Override
+    public void update(float tslf, float x, float y) {
+        bounding.x = (int) x;
+        bounding.y = (int) y;
+    }
 
-  @Override
-  public Rectangle getBounding() {
-      return bounding;
-  }
+    @Override
+    public BufferedImage getLook() {
+        return look;
+    }
 
-  @Override
-  public void setBrightness(int brighness) {
-    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-  }
+    @Override
+    public boolean isSolid() {
+        return solid;
+    }
+
+    @Override
+    public Rectangle getBounding() {
+        return bounding;
+    }
+
+    @Override
+    public void setBrightness(int brighness) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

@@ -29,9 +29,8 @@ public class Haus extends GameObjects
   
   public Haus(int brightness,int x,int y)
   {
-    super(brightness);
-    look=ImageFactory.getIF().getLook("Haus");
-    lookChanged=look.getSubimage(x*25, y*25, 25, 25);
+    super(brightness, x, y);
+    setImage("Haus");
     solid=true;
     this.x=x;
     this.y=y;

@@ -12,66 +12,43 @@ import klassen.player.Player;
  *
  * @author Christian
  */
-public class Gras extends GameObjects
-{
-  private static BufferedImage look;
-  private transient BufferedImage lookChanged=null;
+public class Gras extends GameObjects {
 
-  static
-  {
-    look=ImageFactory.getIF().getLook("Gras0");
-  }
-  public Gras(int brightness)
-  {
-    super(brightness);
-    bounding=new Rectangle(0,0,look.getWidth(),look.getHeight());
-    solid=false;
-  }
+    public Gras(int brightness) {
+        super(brightness);
+        bounding = new Rectangle(0, 0, look.getWidth(), look.getHeight());
+        solid = false;
+        setImage("Gras0");
+    }
 
-  @Override
-  public void update(float tslf, float x, float y)
-  {
-    if(brightnessChanged)
-    {
-      setBrightness(brightness);
-      brightnessChanged=false;
+    @Override
+    public void update(float tslf, float x, float y) {
+        if (brightnessChanged) {
+            setBrightness(brightness);
+            brightnessChanged = false;
+        }
+        if (currentBrightnessChanged) {
+            setBrightness(currentBrightness);
+            currentBrightnessChanged = false;
+        }
+        super.update(tslf, x, y);
     }
-    if(currentBrightnessChanged)
-    {
-      setBrightness(currentBrightness);
-      currentBrightnessChanged=false;
-    }
-    super.update(tslf, x, y);
-  }
-  
-  @Override
-  public BufferedImage getLook()
-  {
-    if(lookChanged!=null)
-    {
-      return lookChanged;
-    }
-    return look;
-  }
 
-  @Override
-  public void playerSteppedOn(Player player)
-  {
-    if(player.isMove())
-    {
-      Music.play().randomGrasStep();
+    @Override
+    public void playerSteppedOn(Player player) {
+        if (player.isMove()) {
+            Music.play().randomGrasStep();
+        }
     }
-  }
-  
-  @Override
-  public void setBrightness(int brightness) 
-  {
-    this.brightness=brightness;
-    lookChanged=new BufferedImage(25,25,BufferedImage.TYPE_INT_ARGB);
-    lookChanged.createGraphics().drawImage(look,0,0,null);
-    RescaleOp rescaleOp = new RescaleOp(1f, brightness, null);
-    rescaleOp.filter(lookChanged, lookChanged);
-  }
+
+    @Override
+    public void setBrightness(int brightness) {
+        this.brightness = brightness;
+        look = new BufferedImage(25, 25, BufferedImage.TYPE_INT_ARGB);
+        look.createGraphics().drawImage(look, 0, 0, null);
+        RescaleOp rescaleOp = new RescaleOp(1f, brightness, null);
+        rescaleOp.filter(look, look);
+    }
 }
 
 

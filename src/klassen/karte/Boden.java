@@ -16,11 +16,10 @@ import klassen.ImageFactory;
  */
 public class Boden extends GameObjects
 {
-  private static BufferedImage look=ImageFactory.getIF().getLook("Ground_Wood_Planks");
-
   public Boden(int brightness) 
   {
     super(brightness);
+      setImage("Ground_Wood_Planks");
   }
   
   

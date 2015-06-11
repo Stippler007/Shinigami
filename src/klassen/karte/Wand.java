@@ -10,48 +10,40 @@ import klassen.karte.GameObjects;
  *
  * @author Christian
  */
-public class Wand extends GameObjects{
+public class Wand extends GameObjects {
 
-  private static BufferedImage look;
-  
+    public Wand(int brightness) {
+        super(brightness);
+        setImage("Wand0");
+        bounding = new Rectangle(0, 0, look.getWidth(), look.getHeight());
+        solid = true;
+    }
 
-  static
-  {
-    look=ImageFactory.getIF().getLook("Gras0");
-  }
-  public Wand(int brightness){
-    super(brightness);
-    look=ImageFactory.getIF().getLook("Wand0");
-    bounding=new Rectangle(0,0,look.getWidth(),look.getHeight());
-    solid=true;
-  }
+    @Override
+    public void update(float tslf, float x, float y) {
+        bounding.x = (int) x;
+        bounding.y = (int) y;
+    }
 
-  @Override
-  public void update(float tslf,float x,float y){
-    bounding.x=(int)x;
-    bounding.y=(int)y;
-  }
+    @Override
+    public BufferedImage getLook() {
+        return look;
+    }
 
-  @Override
-  public BufferedImage getLook() {
-      return look;
-  }
+    @Override
+    public boolean isSolid() {
+        return solid;
+    }
 
-  @Override
-  public boolean isSolid() {
-      return solid;
-  }
+    @Override
+    public Rectangle getBounding() {
+        return bounding;
+    }
 
-  @Override
-  public Rectangle getBounding() {
-      return bounding;
-  }
-  
-  @Override
-  public void setBrightness(int brighness) 
-  {
-    
-  }
+    @Override
+    public void setBrightness(int brighness) {
+
+    }
 }
 
 

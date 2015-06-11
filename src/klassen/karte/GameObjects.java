@@ -18,106 +18,106 @@ import klassen.player.Player;
  * @author Christian
  */
 public abstract class GameObjects implements Serializable {
-  
-  protected int brightness=0;
-  protected boolean brightnessChanged;
-  
-  protected int currentBrightness=0;
-  protected boolean currentBrightnessChanged;
-  
-  protected boolean stepped=false;
-  protected boolean solid=false;
-  protected boolean heated=false;
-  protected boolean frozen=false;
-  protected boolean thorny=false;
-  protected Rectangle bounding;
 
-  protected transient BufferedImage look;
-  protected String imageTag = "Wand";
-  protected int subX;
-  protected int subY;
-  
-  public GameObjects(int brightness)
-  {
-    bounding=new Rectangle(0,0,25,25);
-  }
-  public void steppedOn(boolean stepped)
-  {
-    this.stepped=stepped;
-  }
+    protected int brightness = 0;
+    protected boolean brightnessChanged;
 
-  private void readObject(ObjectInputStream stream) throws IOException, ClassNotFoundException {
-      look = ImageFactory.getIF().getLook(imageTag).getSubimage(subX*25, subY*25, 25, 25);
-  }
-  
-  public void update(float tslf,float x,float y)
-  {
-    if(currentBrightness!=brightness)
-    {
-      if(currentBrightness-20*tslf<brightness)
-      {
-        currentBrightness-=20*tslf;
-      }
-      else if(currentBrightness+20*tslf>brightness)
-      {
-        currentBrightness-=20*tslf;
-      }
-      else
-      {
-        currentBrightnessChanged=true;
-        currentBrightness=brightness;
-      }
+    protected int currentBrightness = 0;
+    protected boolean currentBrightnessChanged;
+
+    protected boolean stepped = false;
+    protected boolean solid = false;
+    protected boolean heated = false;
+    protected boolean frozen = false;
+    protected boolean thorny = false;
+    protected Rectangle bounding;
+
+    protected transient BufferedImage look;
+    protected String imageTag = "Wand";
+    protected int subX = 0;
+    protected int subY = 0;
+
+    public GameObjects(int brightness) {
+        this(brightness, 0, 0);
     }
-    
-    bounding.x=(int)x;
-    bounding.y=(int)y;
-  }
 
-  public void playerSteppedOn(Player player)
-  {
-    
-  }
-  
-  public void setCurrentBrightness(int currentBrightness)
-  {
-    this.currentBrightness=currentBrightness;
-    currentBrightnessChanged=true;
-  }
-  
-  public void setBrightness(int brightness)
-  {
-    this.brightness=brightness;
-    this.brightnessChanged=true;
-  }
-  
-  public abstract BufferedImage getLook();
-  
-  public Rectangle getBounding()
-  {
-    return bounding;
-  }
-  public boolean isSolid()
-  {
-      return solid;
-  }
+    public GameObjects(int brightness, int subX, int subY) {
+        bounding = new Rectangle(0, 0, 25, 25);
+        this.brightness = brightness;
+        this.subX = subX;
+        this.subY = subY;
+    }
 
-  public boolean isStepped()
-  {
-    return stepped;
-  }
+    public void steppedOn(boolean stepped) {
+        this.stepped = stepped;
+    }
 
-  public boolean isHeated()
-  {
-    return heated;
-  }
+    private void readObject(ObjectInputStream stream) throws IOException, ClassNotFoundException {
+        stream.skip(23);
+        imageTag = (String) stream.readObject();
+        setImage(imageTag);
+    }
 
-  public boolean isFrozen()
-  {
-    return frozen;
-  }
+    public void setImage(String tag) {
+        imageTag = tag;
+        look = ImageFactory.getIF().getLook(imageTag).getSubimage(subX * 25, subY * 25, 25, 25);
+    }
 
-  public boolean isThorny()
-  {
-    return thorny;
-  }
+    public void update(float tslf, float x, float y) {
+        if (currentBrightness != brightness) {
+            if (currentBrightness - 20 * tslf < brightness) {
+                currentBrightness -= 20 * tslf;
+            } else if (currentBrightness + 20 * tslf > brightness) {
+                currentBrightness -= 20 * tslf;
+            } else {
+                currentBrightnessChanged = true;
+                currentBrightness = brightness;
+            }
+        }
+
+        bounding.x = (int) x;
+        bounding.y = (int) y;
+    }
+
+    public void playerSteppedOn(Player player) {
+
+    }
+
+    public void setCurrentBrightness(int currentBrightness) {
+        this.currentBrightness = currentBrightness;
+        currentBrightnessChanged = true;
+    }
+
+    public void setBrightness(int brightness) {
+        this.brightness = brightness;
+        this.brightnessChanged = true;
+    }
+
+    public BufferedImage getLook() {
+        return look;
+    }
+
+    public Rectangle getBounding() {
+        return bounding;
+    }
+
+    public boolean isSolid() {
+        return solid;
+    }
+
+    public boolean isStepped() {
+        return stepped;
+    }
+
+    public boolean isHeated() {
+        return heated;
+    }
+
+    public boolean isFrozen() {
+        return frozen;
+    }
+
+    public boolean isThorny() {
+        return thorny;
+    }
 }

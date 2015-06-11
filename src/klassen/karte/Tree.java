@@ -3,51 +3,28 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package klassen.karte;
 
 import java.awt.image.BufferedImage;
 import java.awt.image.RescaleOp;
-import klassen.ImageFactory;
 
 /**
  *
  * @author Stippler
  */
-public class Tree extends GameObjects
-{
-  private static BufferedImage look;
-  private transient BufferedImage lookChanged=null;
-  
-  private int x;
-  private int y;
-  
-  static
-  {
-    look=ImageFactory.getIF().getLook("Tree");
-  }
-  public Tree(int brightness,int x,int y)
-  {
-    super(brightness);
-    this.x=x;
-    this.y=y;
-    lookChanged=look.getSubimage(x*25, y*25, 25, 25);
-    solid=true;
-  }
-  
-  @Override
-  public BufferedImage getLook() 
-  {
-    if(lookChanged!=null)return lookChanged;
-    return look;
-  }
+public class Tree extends GameObjects {
 
-  @Override
-  public void setBrightness(int brightness) 
-  {
-    lookChanged=new BufferedImage(25,25,BufferedImage.TYPE_INT_ARGB);
-    lookChanged.createGraphics().drawImage(look.getSubimage(x*25, y*25, 25, 25),0,0,null);
-    RescaleOp rescaleOp = new RescaleOp(1f, brightness, null);
-    rescaleOp.filter(lookChanged, lookChanged);
-  }
+    public Tree(int brightness, int x, int y) {
+        super(brightness, x, y);
+        setImage("Tree");
+        solid = true;
+    }
+
+    @Override
+    public void setBrightness(int brightness) {
+        look = new BufferedImage(25, 25, BufferedImage.TYPE_INT_ARGB);
+        look.createGraphics().drawImage(look.getSubimage(subX * 25, subY * 25, 25, 25), 0, 0, null);
+        RescaleOp rescaleOp = new RescaleOp(1f, brightness, null);
+        rescaleOp.filter(look, look);
+    }
 }

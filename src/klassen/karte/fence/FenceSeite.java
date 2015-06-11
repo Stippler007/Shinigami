@@ -14,50 +14,38 @@ import klassen.karte.GameObjects;
  *
  * @author Christian
  */
-public class FenceSeite extends GameObjects
-{
-  
-  private static BufferedImage look;
+public class FenceSeite extends GameObjects {
 
+    public FenceSeite(int brightness) {
+        super(brightness);
+        bounding = new Rectangle(0, 0, look.getWidth(), look.getHeight());
+        solid = true;
+        setImage("fenceSeite");
+    }
 
-  static
-  {
-    look=ImageFactory.getIF().getLook("fenceSeite");
-  }
-  public FenceSeite(int brightness)
-  {
-    super(brightness);
-    bounding=new Rectangle(0,0,look.getWidth(),look.getHeight());
-    solid=true;
-  }
-  
-  @Override
-  public void update(float tslf,float x,float y)
-  {
-    bounding.x=(int)x;
-    bounding.y=(int)y;
-  }
+    @Override
+    public void update(float tslf, float x, float y) {
+        bounding.x = (int) x;
+        bounding.y = (int) y;
+    }
 
-  @Override
-  public BufferedImage getLook() 
-  {
-      return look;
-  }
+    @Override
+    public BufferedImage getLook() {
+        return look;
+    }
 
-  @Override
-  public boolean isSolid() 
-  {
-      return solid;
-  }
+    @Override
+    public boolean isSolid() {
+        return solid;
+    }
 
-  @Override
-  public Rectangle getBounding() 
-  {
-      return bounding;
-  }
+    @Override
+    public Rectangle getBounding() {
+        return bounding;
+    }
 
-  @Override
-  public void setBrightness(int brighness) {
-    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-  }
+    @Override
+    public void setBrightness(int brighness) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

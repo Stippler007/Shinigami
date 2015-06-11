@@ -13,20 +13,16 @@ import klassen.karte.GameObjects;
  *
  * @author Christian
  */
-public class StoneCarpet extends GameObjects
-{
-  private BufferedImage look;
-  
-  public StoneCarpet(int brightness,int x,int y)
-  {
-    super(brightness);
-    look=ImageFactory.getIF().getLook("Stone_Floor_Full").getSubimage(x*25, y*25, 25, 25);
-  }
+public class StoneCarpet extends GameObjects {
 
-  @Override
-  public BufferedImage getLook()
-  {
-    return look;
-  }
-  
+    public StoneCarpet(int brightness, int x, int y) {
+        super(brightness);
+        setImage("Stone_Floor_Full");
+    }
+
+    @Override
+    public BufferedImage getLook() {
+        return look;
+    }
+
 }
