@@ -57,16 +57,18 @@ public class Main
     
     LevelDesign ld=new LevelDesign(player,bg,minions,npcs,playerSpritzers);
     
+    
+    
     // BackX -847 BackY -1045
     // SpawnX -582 SpawnY -529
     // ld.loadLevel(0, -800, -800);
     ld.loadLevel(5, -582, -529);
 //    ld.buildMap(3);
 //     ld.loadLevel(0, -800, -800);
-//     boss.add(new HundeGhoul(tslf, tslf, tslf, bg.getMap() player, tslf, minions, playerSpritzers));
+     boss.add(new HundeGhoul(0, 0, 0, bg.getMap(), player, 3, minions, playerSpritzers));
 //    ld.loadLevel(2, -582, -529);
     //ld.buildMap(2);
-    
+//    boss.add(new HundeGhoul(tslf, tslf, tslf, map, player, tslf, minions, playerSpritzers))
     
 //    minions.add(new Hund(1000,1000,100,bg.getMap(),player,playerSpritzers));
 //    minions.add(new Hund(1000,1400,110,bg.getMap(),player,playerSpritzers));
@@ -93,8 +95,8 @@ public class Main
 //    
     f.makeStrat();
 //    
-    Thread gui=new Thread(f);
-    gui.start();
+//    Thread gui=new Thread(f);
+//    gui.start();
 //////    
     Thread levelDesign=new Thread(ld);
     levelDesign.start();
@@ -134,7 +136,7 @@ public class Main
 //      Main.collideMinionPlayerSpritzer(minionSpritzer, playerSpritzers);
       Main.collidePlayerSpritzerMap(bg.getMap(), playerSpritzers);
       deleteShit(playerSpritzers,minionSpritzer, minions);
-//      f.repaintScreen();
+      f.repaintScreen();
 //      System.out.println(tslf);
       
       try {Thread.sleep(10);} catch (InterruptedException ex) {}

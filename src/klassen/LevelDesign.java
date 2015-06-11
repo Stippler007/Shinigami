@@ -679,6 +679,8 @@ public class LevelDesign implements Runnable {
         Background.x = startX + 400;
         Background.y = startY + 300;
         
+        
+        
         player.setMap(map);
         bg.setMap(map);
 
