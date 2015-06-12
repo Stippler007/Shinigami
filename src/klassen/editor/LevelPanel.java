@@ -125,9 +125,14 @@ class LevelPanel extends JPanel {
                         y = tmp;
                     }
 
-                    for (int i = mapX; i <= x; i++) {
-                        for (int j = mapY; j <= y; j++) {
-                            g2d.drawImage(makeTransparent(go[0][0].getLook()), i * 25 + padding, j * 25 + padding, null);
+                    for (int i = mapX; i <= x; i = i + go.length) {
+                        for (int j = mapY; j <= y; j = j + go[0].length) {
+                            //g2d.drawImage(makeTransparent(go[0][0].getLook()), i * 25 + padding, j * 25 + padding, null);
+                            for (int k = 0; k < go.length; k++) {
+                                for (int l = 0; l < go[k].length; l++) {
+                                    g2d.drawImage(makeTransparent(go[k][l].getLook()), (k + i) * 25 + padding, (l + j) * 25 + padding, null);
+                                }
+                            }
                         }
                     }
                 }
@@ -183,7 +188,7 @@ class LevelPanel extends JPanel {
             int y = getMapY(e);
 
             System.out.println(e.getWhen() + " " + e.getClickCount() + " " + e.getButton());
-
+            
             if(map == null || x < 0 || y < 0 || x > width || y > height) {
                 return;
             }
@@ -268,8 +273,10 @@ class LevelPanel extends JPanel {
                 int x = this.getMapX(e);
                 int y = this.getMapY(e);
                 GameObjects[][] go = GO.getGOs(currentGO);
-
+                
                 if(x < 0 || y < 0 || x > width || y > height) {
+                    mapX = -1;
+                    mapY = -1;
                     return;
                 }
                 
@@ -283,10 +290,14 @@ class LevelPanel extends JPanel {
                     mapY = y;
                     y = tmp;
                 }
-
-                for (int i = mapX; i <= x; i++) {
-                    for (int j = mapY; j <= y; j++) {
-                        map[i][j] = go[0][0];
+                
+                for (int i = mapX; i <= x; i = i + go.length) {
+                    for (int j = mapY; j <= y; j = j + go[0].length) {
+                        for (int k = 0; k < go.length; k++) {
+                            for (int l = 0; l < go[k].length; l++) {
+                                map[i+k][j+l] = go[k][l];
+                            }
+                        }
                     }
                 }
             }
