@@ -38,9 +38,9 @@ public class HundeGhoul extends Boss
   
   static
   {
-    for (int i = 1; i <= look.length; i++)
+    for (int i = 0; i < look.length; i++)
     {
-      look[i-1]=ImageFactory.getIF().getLook("HundeGhoul"+i);
+      look[i]=ImageFactory.getIF().getLook("BigMamaVorne0"+i);
       System.out.println(look[i]);
     }
   }
