@@ -1,0 +1,143 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package klassen.boss.hundeGhoul;
+
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.Rectangle;
+import java.awt.image.BufferedImage;
+import java.util.LinkedList;
+import klassen.Background;
+import klassen.ImageFactory;
+import klassen.boss.Boss;
+import klassen.karte.GameObjects;
+import klassen.minion.Minion;
+import klassen.player.Player;
+import klassen.player.PlayerSpritzer;
+
+/**
+ *
+ * @author Christian
+ */
+public class HundeGhoul extends Boss
+{
+  private static BufferedImage look[]=new BufferedImage[2];
+  
+  private float speed;
+  
+  private float animationTime;
+  private float maxAnimationTime;
+  
+  private LinkedList<Minion> minions;
+  
+  private float attackPatternSwitchTimer=0;
+  private float attackPatternSwitchTimerMax=30;
+  
+  static
+  {
+    for (int i = 0; i < look.length; i++)
+    {
+      look[i]=ImageFactory.getIF().getLook("BigMamaVorne0"+i);
+      System.out.println(look[i]);
+    }
+  }
+  public HundeGhoul(float x, float y, float speed,GameObjects map[][],Player player, float maxAnimationTime, LinkedList<Minion> minions,LinkedList<PlayerSpritzer> playerSpritzers)
+  {
+    super(x, y, speed, 200, new Rectangle((int)x,(int)y,
+            look[0].getWidth(),look[0].getHeight()), 
+            map,player, playerSpritzers);
+    this.x = x;
+    this.y = y;
+    this.speed = speed;
+    this.maxAnimationTime = maxAnimationTime;
+    this.minions = minions;
+  }
+
+  @Override
+  public void update(float tslf)
+  {
+    speedX=0;
+    speedY=0;
+    
+    if(attackPatternSwitchTimer<attackPatternSwitchTimerMax/3)
+    {
+      attackPattern1();
+      System.out.println("attackpattern1");
+    }
+    else if(attackPatternSwitchTimer<attackPatternSwitchTimerMax/3*2)
+    {
+      attackPattern2();
+      System.out.println("attackpattern2");
+    }
+    else if(attackPatternSwitchTimer<attackPatternSwitchTimerMax/3*3)
+    {
+      attackPattern3();
+      System.out.println("attackpattern3");
+    }
+    else
+    {
+      attackPatternSwitchTimer-=attackPatternSwitchTimerMax;
+    }
+    attackPatternSwitchTimer+=tslf;
+    super.update(tslf);
+  }
+  private void attackPattern1()
+  {
+    // Er bewegt sich nicht und schießt Kegelförmig auf dich
+    
+  }
+  private void attackPattern2()
+  {
+    
+    moveZiel(Background.x+map.length*25/2, Background.y+map[0].length*25/2);
+    // Er geht in die Mitte und macht rundschüsse
+  }
+  private void attackPattern3()
+  {
+    moveZiel(player.getBounding().x+player.getBounding().width/2, player.getBounding().y+player.getBounding().height/2);
+  }
+
+  @Override
+  public void draw(Graphics2D g)
+  {
+    drawHealthBar(g);
+    g.drawImage(this.getLook(), null, (int)x, (int)y);
+  }
+  
+  @Override
+  public BufferedImage getLook()
+  {
+    double turn=getTurn();
+      if(turn>=-Math.PI*0.25&&turn<=Math.PI*0.25)
+      {
+        for (int i = 1; i < look.length+1; i++)
+        {
+          look[i-1]=ImageFactory.getIF().getLook("BigMamaVorne0"+i);
+        }
+      }
+      else if(turn>=Math.PI*0.25&&turn<=Math.PI*0.5){
+        for (int i = 1; i < look.length+1; i++) {
+          look[i-1]=ImageFactory.getIF().getLook("DogGhoul_vorne_0"+i+"_attacking");
+        }
+      }
+      else if(turn>=Math.PI*0.50&&turn<=Math.PI*1){
+        for (int i = 1; i < look.length+1; i++) {
+          look[i-1]=ImageFactory.getIF().getLook("DogGhoul_seite2_0"+i+"_attacking");
+        }
+      }
+      else{
+        for (int i = 1; i < look.length+1; i++) 
+        {
+          look[i-1]=ImageFactory.getIF().getLook("DogGhoul_hinten_0"+i+"_attacking");
+        }
+      }
+    for (int i = 0; i < look.length; i++) 
+    {
+      if(animationTime<(float)maxAnimationTime/(look.length-1)*(i+1))return look[i];
+    }
+    return look[look.length-1];
+  }
+}

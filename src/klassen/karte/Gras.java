@@ -5,7 +5,7 @@ import java.awt.image.BufferedImage;
 import java.awt.image.RescaleOp;
 import klassen.ImageFactory;
 import klassen.Music;
-import klassen.boss.Hund;
+import klassen.minion.Hund;
 import klassen.player.Player;
 
 /**

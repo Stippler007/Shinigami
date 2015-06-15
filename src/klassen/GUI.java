@@ -101,22 +101,26 @@ public class GUI extends JFrame implements Runnable{
   private void draw(Graphics2D g){
     g.setColor(Color.black);
     g.fillRect(0, 0,800, 600);
-      bg.drawBG(g);
-      
-      if(player.getHealth()>0)g.drawImage(player.getLook(), null,375,275);
-      else g.drawString("Game Over!", 300, 300);
+    bg.drawBG(g);
 
-      for(PlayerSpritzer ps:playerSpritzer){
-          g.drawImage(ps.getLook(), null, ps.getBounding().x, ps.getBounding().y);
-      }
-      for(Minion m:minions){
-          m.draw(g);
-      }
-      for(MinionSpritzer ms:minionSpritzer){
-          g.rotate( ms.getTurn(),  ms.getBounding().x+ms.getBounding().width/2,  ms.getBounding().y+ms.getBounding().height/2);
-          g.drawImage(ms.getLook(), null, ms.getBounding().x, ms.getBounding().y);
-          g.rotate( -ms.getTurn(),  ms.getBounding().x+ms.getBounding().width/2,  ms.getBounding().y+ms.getBounding().height/2);
-      }
+    if(player.getHealth()>0)g.drawImage(player.getLook(), null,375,275);
+    else g.drawString("Game Over!", 300, 300);
+
+    for(PlayerSpritzer ps:playerSpritzer){
+        g.drawImage(ps.getLook(), null, ps.getBounding().x, ps.getBounding().y);
+    }
+    for(Minion m:minions){
+        m.draw(g);
+    }
+    for(MinionSpritzer ms:minionSpritzer){
+        g.rotate( ms.getTurn(),  ms.getBounding().x+ms.getBounding().width/2,  ms.getBounding().y+ms.getBounding().height/2);
+        g.drawImage(ms.getLook(), null, ms.getBounding().x, ms.getBounding().y);
+        g.rotate( -ms.getTurn(),  ms.getBounding().x+ms.getBounding().width/2,  ms.getBounding().y+ms.getBounding().height/2);
+    }
+    for (Boss b : boss)
+    {
+      b.draw(g);
+    }
       for (NPC npc : npcs) 
       {
         npc.draw(g);

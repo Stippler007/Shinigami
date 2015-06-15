@@ -16,7 +16,7 @@ import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.util.LinkedList;
 import java.util.Scanner;
-import klassen.boss.Hund;
+import klassen.minion.Hund;
 import klassen.karte.*;
 import klassen.karte.GameObjects;
 import klassen.karte.arrow.Arrow;
