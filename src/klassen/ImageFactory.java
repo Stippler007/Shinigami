@@ -80,6 +80,26 @@ public class ImageFactory {
     {
       looks.put("BigMamaVorne0"+i, ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/minion/hundeGhoul/hundeGhoul/BigMamaVorne0"+i+".png")));
     }
+    
+    for (int i = 0; i < 1; i++)
+    {
+      looks.put("Boss_Shot_Black_XL", ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/gameObjects/hundeBoss/Boss_Shot_Black_XL")));
+    }
+    
+    for (int i = 0; i < 1; i++)
+    {
+       looks.put("Boss_Shot_Blue_XL", ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/gameObjects/hundeBoss/Boss_Shot_Blue_XL")));
+    }
+      
+    for (int i = 0; i < 1; i++)
+    {
+       looks.put("Boss_Shot_Standard_XL", ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/gameObjects/hundeBoss/Boss_Shot_Standard_XL")));
+    }
+        
+    for (int i = 0; i < 1; i++)
+    {
+       looks.put("Boss_Shot_Violett_XL", ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/gameObjects/hundeBoss/Boss_Shot_Violett_XL")));
+    }
   }
   private void loadNPC() throws IOException
   {
