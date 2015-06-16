@@ -26,7 +26,7 @@ import klassen.player.PlayerSpritzer;
 public abstract class Minion 
 {
   protected boolean isAlive;
-
+  
   protected Player player;
   protected LinkedList<PlayerSpritzer> playerSpritzers;
   
@@ -48,6 +48,8 @@ public abstract class Minion
   protected Rectangle bounding;
   
   protected GameObjects[][] map;
+  
+  
   
   public Minion(float x, float y,float speed,float maxLive,Rectangle bounding,
           GameObjects[][] map,Player player,LinkedList<PlayerSpritzer> playerSpritzers) 

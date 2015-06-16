@@ -24,30 +24,17 @@ import klassen.player.PlayerSpritzer;
  */
 public class HundeGhoul extends Boss
 {
-  private static BufferedImage look[]=new BufferedImage[2];
   
   private float speed;
-  
-  private float animationTime;
-  private float maxAnimationTime;
   
   private LinkedList<Minion> minions;
   
   private float attackPatternSwitchTimer=0;
   private float attackPatternSwitchTimerMax=30;
   
-  static
-  {
-    for (int i = 0; i < look.length; i++)
-    {
-      look[i]=ImageFactory.getIF().getLook("BigMamaVorne0"+i);
-      System.out.println(look[i]);
-    }
-  }
   public HundeGhoul(float x, float y, float speed,GameObjects map[][],Player player, float maxAnimationTime, LinkedList<Minion> minions,LinkedList<PlayerSpritzer> playerSpritzers)
   {
-    super(x, y, speed, 200, new Rectangle((int)x,(int)y,
-            look[0].getWidth(),look[0].getHeight()), 
+    super(x, y, speed, 200,
             map,player, playerSpritzers);
     this.x = x;
     this.y = y;
@@ -105,39 +92,5 @@ public class HundeGhoul extends Boss
   {
     drawHealthBar(g);
     g.drawImage(this.getLook(), null, (int)x, (int)y);
-  }
-  
-  @Override
-  public BufferedImage getLook()
-  {
-    double turn=getTurn();
-      if(turn>=-Math.PI*0.25&&turn<=Math.PI*0.25)
-      {
-        for (int i = 1; i < look.length+1; i++)
-        {
-          look[i-1]=ImageFactory.getIF().getLook("BigMamaVorne0"+i);
-        }
-      }
-      else if(turn>=Math.PI*0.25&&turn<=Math.PI*0.5){
-        for (int i = 1; i < look.length+1; i++) {
-          look[i-1]=ImageFactory.getIF().getLook("DogGhoul_vorne_0"+i+"_attacking");
-        }
-      }
-      else if(turn>=Math.PI*0.50&&turn<=Math.PI*1){
-        for (int i = 1; i < look.length+1; i++) {
-          look[i-1]=ImageFactory.getIF().getLook("DogGhoul_seite2_0"+i+"_attacking");
-        }
-      }
-      else{
-        for (int i = 1; i < look.length+1; i++) 
-        {
-          look[i-1]=ImageFactory.getIF().getLook("DogGhoul_hinten_0"+i+"_attacking");
-        }
-      }
-    for (int i = 0; i < look.length; i++) 
-    {
-      if(animationTime<(float)maxAnimationTime/(look.length-1)*(i+1))return look[i];
-    }
-    return look[look.length-1];
   }
 }
