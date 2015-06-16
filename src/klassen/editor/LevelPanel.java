@@ -6,7 +6,6 @@
 package klassen.editor;
 
 import java.awt.AlphaComposite;
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
@@ -15,6 +14,8 @@ import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JPanel;
 import klassen.karte.GameObjects;
 
@@ -30,6 +31,11 @@ class LevelPanel extends JPanel {
     GameObjects[][] map;
     private GO currentGO = GO.WAND;
     private GO defaultGO = GO.WAND;
+    List<klassen.npc.NPC> npcs;
+    private NPC currentNPC = NPC.SIGN;
+    List<klassen.minion.Minion> minions;
+    private Minion currentMinion = Minion.EVILGUARD;
+    private State state;
 
     private int padding = 10;
     private double scale = 1;
@@ -62,6 +68,22 @@ class LevelPanel extends JPanel {
 
     public void setCurrentGameObject(GO go) {
         currentGO = go;
+    }
+
+    public void setCurrentNPC(NPC currentNPC) {
+        this.currentNPC = currentNPC;
+    }
+
+    public void setCurrentMinion(Minion currentMinion) {
+        this.currentMinion = currentMinion;
+    }
+    
+    public State getState() {
+        return state;
+    }
+
+    public void setState(State state) {
+        this.state = state;
     }
 
     public void resetMap(int width, int height, GO go) {
@@ -100,9 +122,21 @@ class LevelPanel extends JPanel {
                 }
             }
 
-            if(currentGO == GO.CONFIG) {
+            if(currentGO == null) {
                 //g2d.setColor(new Color(255, 255, 255, 64));
                 g2d.drawRect(mouseX * 25 + padding, mouseY  * 25 + padding, 25, 25);
+                
+                switch(state) {
+                    case NPC:
+                        g2d.drawImage(NPC.getNPCs(currentNPC).getLook(), mouseX * 25 + padding, mouseY  * 25 + padding, null);
+                        break;
+                    case MINION:
+                        g2d.drawImage(Minion.getMinions(currentMinion).getLook(), mouseX * 25 + padding, mouseY  * 25 + padding, null);
+                        break;
+                    default:
+                        break;
+                }
+                
                 return;
             }
             
@@ -154,6 +188,10 @@ class LevelPanel extends JPanel {
 
         return tmp;
     }
+    
+    enum State {
+        GAMEOBJECT, NPC, MINION, CONFIG;
+    }
 
     class Listener implements MouseListener, MouseWheelListener, MouseMotionListener {
 
@@ -196,7 +234,7 @@ class LevelPanel extends JPanel {
             if (e.getClickCount() == 1) {
                 System.out.println(x + " " + y + " " + e.getButton());
 
-                if(currentGO == GO.CONFIG) {
+                if(currentGO == null) {
                     showConfig(x, y);
                     return;
                 }

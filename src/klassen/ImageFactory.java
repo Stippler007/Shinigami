@@ -101,7 +101,6 @@ public class ImageFactory {
   private void loadNPC() throws IOException
   {
     looks.put("Sign", ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/npc/Sign.jpg")));
-    System.out.println(ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/npc/guard/guard.png")));
     looks.put("guard", ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/npc/guard/guard.png")));
     for (int i = 0; i < 3; i++)
     {

@@ -15,6 +15,8 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 /**
  *
@@ -22,7 +24,7 @@ import javax.swing.SpinnerNumberModel;
  */
 class DlgNewMap extends JDialog {
 
-    private JSpinner spWidth, spHeight;
+    private JSpinner spWidth, spHeight, spBright;
     private JComboBox<GO> cbGround;
     private boolean ready = false;
 
@@ -34,8 +36,8 @@ class DlgNewMap extends JDialog {
 
         spWidth = new JSpinner(new SpinnerNumberModel(30, 10, 500, 1));
         spHeight = new JSpinner(new SpinnerNumberModel(30, 10, 500, 1));
+        spBright = new JSpinner(new SpinnerNumberModel(50, 0, 100, 1));
         cbGround = new JComboBox<>(GO.values());
-        cbGround.removeItemAt(0);
 
         btCreate.setAction(new AbstractAction() {
 
@@ -57,11 +59,12 @@ class DlgNewMap extends JDialog {
         btCancel.setText("Cancel");
         
         this.setSize(200, 200);
-        this.setLayout(new GridLayout(5, 1, 5, 5));
+        this.setLayout(new GridLayout(6, 1, 5, 5));
         this.setLocationRelativeTo(null);
         this.add(spWidth);
         this.add(spHeight);
         this.add(cbGround);
+        this.add(spBright);
         this.add(btCreate);
         this.add(btCancel);
     }
@@ -86,6 +89,16 @@ class DlgNewMap extends JDialog {
         } catch (ParseException ex) {
             System.out.println(ex.getMessage());
             spHeight.setValue(30);
+        }
+        return (Integer) spHeight.getValue();
+    }
+    
+    public int getBrightness() {
+        try {
+            spBright.commitEdit();
+        } catch (ParseException ex) {
+            System.out.println(ex.getMessage());
+            spBright.setValue(50);
         }
         return (Integer) spHeight.getValue();
     }

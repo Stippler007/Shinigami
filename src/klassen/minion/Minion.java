@@ -9,21 +9,20 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
+import java.io.Serializable;
 import java.util.LinkedList;
 import klassen.Background;
 import klassen.karte.GameObjects;
 import klassen.player.BasicShot;
 import klassen.player.FireShot;
 import klassen.player.Player;
-import static klassen.player.Player.speedX;
-import static klassen.player.Player.speedY;
 import klassen.player.PlayerSpritzer;
 
 /**
 *
 * @author Christian
 */
-public abstract class Minion 
+public abstract class Minion implements Serializable
 {
   protected boolean isAlive;
   

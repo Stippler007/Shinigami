@@ -5,15 +5,13 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
-import java.util.LinkedList;
+import java.io.Serializable;
 import klassen.Background;
 import klassen.ImageFactory;
 import klassen.karte.GameObjects;
-import klassen.player.BasicShot;
 import klassen.player.Player;
-import klassen.player.PlayerSpritzer;
 
-public abstract class NPC
+public abstract class NPC implements Serializable
 {
   protected String text;
   
