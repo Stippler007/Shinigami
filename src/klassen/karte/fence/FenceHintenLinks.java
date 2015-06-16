@@ -3,26 +3,28 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package klassen.karte.fence;
 
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
-import klassen.ImageFactory;
 import klassen.karte.GameObjects;
 
 /**
  *
- * @author Christian
+ * @author ffrie_000
  */
-public class FenceSeite extends GameObjects {
+public class FenceHintenLinks extends GameObjects
+{
 
-    public FenceSeite(int brightness) {
-        super(brightness);
-        setImage("FenceSeite");
-        bounding = new Rectangle(0, 0, look.getWidth(), look.getHeight());
-        solid = true;
-    }
-
+  public FenceHintenLinks(int brightness)
+  {
+    super(brightness);
+    setImage("FenceHintenLinks");
+    bounding = new Rectangle(0, 0, look.getWidth(), look.getHeight());
+    solid = true;
+  }
+  
     @Override
     public void update(float tslf, float x, float y) {
         bounding.x = (int) x;
@@ -48,4 +50,5 @@ public class FenceSeite extends GameObjects {
     public void setBrightness(int brighness) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+  
 }

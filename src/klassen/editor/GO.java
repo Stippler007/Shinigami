@@ -20,7 +20,7 @@ import klassen.karte.haus.*;
  */
 enum GO {
 
-    CONFIG, GRAS, WAND, WEG, TREE, BODEN, BLUEFLOWER, YELLOWFLOWER, FENCESEITE, FENCEVORNELINKS, FENCEVORNEMID, FENCEVORNERECHTS, HAUS, FOOT_CARPET, STONECARPET, CARPET_FULL, DOOR, ARROW;
+    CONFIG, GRAS, WAND, WEG, TREE, BODEN, BLUEFLOWER, YELLOWFLOWER, FENCESEITE, FENCEVORNELINKS, FENCEVORNEMID, FENCEVORNERECHTS,FENCEHINTENLINKS, FENCEHINTENMID, FENCEHINTENRECHTS, HAUS, FOOT_CARPET, STONECARPET, CARPET_FULL, DOOR, ARROW;
         //TODO: CARPET_FULL, FOOT_CARPET, DOOR, STONECARPET, ARROW
 
     private static Map<GO, GameObjects[][]> m;
@@ -59,6 +59,15 @@ enum GO {
                     break;
                 case FENCEVORNERECHTS:
                     m.put(g, new GameObjects[][]{{new FenceVorneRechts(0)}});
+                    break;
+                case FENCEHINTENLINKS:
+                    m.put(g, new GameObjects[][]{{new FenceHintenLinks(0)}});
+                    break;
+                case FENCEHINTENMID:
+                    m.put(g, new GameObjects[][]{{new FenceHintenMid(0)}});
+                    break;
+                case FENCEHINTENRECHTS:
+                    m.put(g, new GameObjects[][]{{new FenceHintenRechts(0)}});
                     break;
                 case BLUEFLOWER:
                     m.put(g, new GameObjects[][]{{new BlueFlower(0)}});
