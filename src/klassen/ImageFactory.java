@@ -83,22 +83,22 @@ public class ImageFactory {
     
     for (int i = 0; i < 1; i++)
     {
-      looks.put("Boss_Shot_Black_XL", ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/gameObjects/hundeBoss/Boss_Shot_Black_XL")));
+      looks.put("Boss_Shot_Black_XL", ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/gameObjects/hundeBoss/Boss_Shot_Black_XL.png")));
     }
     
     for (int i = 0; i < 1; i++)
     {
-       looks.put("Boss_Shot_Blue_XL", ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/gameObjects/hundeBoss/Boss_Shot_Blue_XL")));
+       looks.put("Boss_Shot_Blue_XL", ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/gameObjects/hundeBoss/Boss_Shot_Blue_XL.png")));
     }
       
     for (int i = 0; i < 1; i++)
     {
-       looks.put("Boss_Shot_Standard_XL", ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/gameObjects/hundeBoss/Boss_Shot_Standard_XL")));
+       looks.put("Boss_Shot_Standard_XL", ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/gameObjects/hundeBoss/Boss_Shot_Standard_XL.png")));
     }
         
     for (int i = 0; i < 1; i++)
     {
-       looks.put("Boss_Shot_Violett_XL", ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/gameObjects/hundeBoss/Boss_Shot_Violett_XL")));
+       looks.put("Boss_Shot_Violett_XL", ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/gameObjects/hundeBoss/Boss_Shot_Violett_XL.png")));
     }
   }
   private void loadNPC() throws IOException
