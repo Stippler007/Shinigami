@@ -216,32 +216,34 @@ public class Main
     {
       for (int j = (int)(Background.y/25*-1); j < (int)(Background.y/25*-1)+26; j++) 
       {
-        int k=0;
-        while(k<playerSpritzers.size())
+        if(!(i<0||j<0)&&!(i>map.length-1||j>map[0].length-1))
         {
-          
-          if(map[i][j].isSolid()&&playerSpritzers.get(k).getBounding().intersects(map[i][j].getBounding()))
+          int k=0;
+          while(k<playerSpritzers.size())
           {
-            if(playerSpritzers.get(k) instanceof BasicShot)
+            if(map[i][j].isSolid()&&playerSpritzers.get(k).getBounding().intersects(map[i][j].getBounding()))
             {
-              BasicShot b=(BasicShot)playerSpritzers.get(k);
-              if(b.getStatus()==BasicShot.Status.SHOOTING)
+              if(playerSpritzers.get(k) instanceof BasicShot)
+              {
+                BasicShot b=(BasicShot)playerSpritzers.get(k);
+                if(b.getStatus()==BasicShot.Status.SHOOTING)
+                {
+                  playerSpritzers.remove(k);
+                }
+                else if(b.getStatus()==BasicShot.Status.CHARCHING||b.getStatus()==BasicShot.Status.IMPACT)
+                {
+                  k++;
+                }
+              }
+              else
               {
                 playerSpritzers.remove(k);
-              }
-              else if(b.getStatus()==BasicShot.Status.CHARCHING||b.getStatus()==BasicShot.Status.IMPACT)
-              {
-                k++;
               }
             }
             else
             {
-              playerSpritzers.remove(k);
+              k++;
             }
-          }
-          else
-          {
-            k++;
           }
         }
       }

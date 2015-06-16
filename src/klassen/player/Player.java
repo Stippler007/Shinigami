@@ -51,7 +51,7 @@ public class Player {
   private float damage=25;
   
   private boolean move;
-  private boolean onFire=false;
+  private boolean fired=false;
   private boolean poisened=false;
   
   
