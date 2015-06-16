@@ -19,7 +19,7 @@ public abstract class PlayerSpritzer {
   protected float damage;
 
   protected float animationTime=0;
-  protected float maxAnimationTime=0.3f;
+  protected float maxAnimationTime=0.5f;
   
   protected float speed;
 

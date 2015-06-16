@@ -19,6 +19,7 @@ import klassen.npc.Guard;
 import klassen.npc.NPC;
 import klassen.player.BasicShot;
 import klassen.player.FireShot;
+import klassen.player.IceShot;
 import klassen.player.Player;
 import klassen.player.PlayerSpritzer;
 
@@ -160,6 +161,17 @@ public class Main
       if(playerSpritzers.get(i) instanceof FireShot)
       {
         if(!((FireShot)playerSpritzers.get(i)).isAlive())
+        {
+          playerSpritzers.remove(i);
+        }
+        else
+        {
+          i++;
+        }
+      }
+      else if(playerSpritzers.get(i) instanceof IceShot)
+      {
+        if(!((IceShot)playerSpritzers.get(i)).isAlive())
         {
           playerSpritzers.remove(i);
         }

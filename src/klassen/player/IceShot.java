@@ -111,6 +111,7 @@ public class IceShot extends PlayerSpritzer
           float speedX = (float)Math.cos(x1) * 300;
           float speedY = (float)Math.sin(x1) * 300;
           spritzers.add(new IceShot(x,y,speedX/3,speedY/3,n-1,damage/2,spritzers));
+         
         }
       }
       else
@@ -118,6 +119,7 @@ public class IceShot extends PlayerSpritzer
         animationTime-=maxAnimationTime;
       }
       alive=false;
+     
   }
   @Override
   public BufferedImage getLook()
