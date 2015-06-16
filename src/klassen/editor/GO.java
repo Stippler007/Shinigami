@@ -20,7 +20,7 @@ import klassen.karte.haus.*;
  */
 enum GO {
 
-    CONFIG, GRAS, WAND, WEG, TREE, BODEN, BLUEFLOWER, YELLOWFLOWER, FENCESEITE, FENCEVORNELINKS, FENCEVORNEMID, FENCEVORNERECHTS,FENCEHINTENLINKS, FENCEHINTENMID, FENCEHINTENRECHTS, HAUS, FOOT_CARPET, STONECARPET, CARPET_FULL, DOOR, ARROW;
+    CONFIG, GRAS, WAND, WEG, TREE, BODEN, BLUEFLOWER, YELLOWFLOWER, FENCESEITE, FENCEVORNELINKS, FENCEVORNEMID, FENCEVORNERECHTS,FENCEHINTENLINKS, FENCEHINTENMID, FENCEHINTENRECHTS, HAUS, HAUS2, HAUS3, HAUS4, FOOT_CARPET, STONECARPET, CARPET_FULL, DOOR, ARROW;
         //TODO: CARPET_FULL, FOOT_CARPET, DOOR, STONECARPET, ARROW
 
     private static Map<GO, GameObjects[][]> m;
@@ -77,15 +77,39 @@ enum GO {
                     break;
                 case HAUS:
                     GameObjects[][] go = new GameObjects[11][11];
-
                     for (int i = 0; i < go.length; i++) {
                         for (int j = 0; j < go[i].length; j++) {
                             go[i][j] = new Haus(0, i, j);
-
                         }
                     }
-
                     m.put(g, go);
+                    break;
+                 case HAUS2:
+                    GameObjects[][] go2 = new GameObjects[11][11];
+                    for (int i = 0; i < go2.length; i++) {
+                        for (int j = 0; j < go2[i].length; j++) {
+                            go2[i][j] = new Haus2(0, i, j);
+                        }
+                    }
+                    m.put(g, go2);
+                    break;
+                case HAUS3:
+                    GameObjects[][] go3 = new GameObjects[11][11];
+                    for (int i = 0; i < go3.length; i++) {
+                        for (int j = 0; j < go3[i].length; j++) {
+                            go3[i][j] = new Haus3(0, i, j);
+                        }
+                    }
+                    m.put(g, go3);
+                    break;
+                case HAUS4:
+                    GameObjects[][] go4 = new GameObjects[11][11];
+                    for (int i = 0; i < go4.length; i++) {
+                        for (int j = 0; j < go4[i].length; j++) {
+                            go4[i][j] = new Haus4(0, i, j);
+                        }
+                    }
+                    m.put(g, go4);
                     break;
                 case FOOT_CARPET:
                     m.put(g, new GameObjects[][]{{new FootCarpet(0, 0, 0, 0, 0, 0, null)}, {new FootCarpet(0, 1, 0, 0, 0, 0, null)}});
