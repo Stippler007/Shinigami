@@ -20,10 +20,6 @@ import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JSpinner;
-import javax.swing.SpinnerNumberModel;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import klassen.karte.GameObjects;
 
 /**
@@ -36,29 +32,50 @@ public class LevelEditor extends JFrame {
 
     public LevelEditor() {
         final JPanel controls = new JPanel();
-        final JComboBox<GO> cbSetGO = new JComboBox<>(GO.values());
-        final JSpinner spBright = new JSpinner(new SpinnerNumberModel(5, 0, 10, 1));
+        final JComboBox cbSet = new JComboBox(GO.values());
+        final JButton btState = new JButton();
         final JButton btNewMap = new JButton();
         final JButton btSave = new JButton();
         final JButton btLoad = new JButton();
         lp = new LevelPanel();
 
-        lp.setCurrentGameObject(cbSetGO.getItemAt(0));
+        lp.setCurrentGameObject((GO) cbSet.getItemAt(0));
 
-        cbSetGO.setAction(new AbstractAction() {
+        cbSet.setAction(new AbstractAction() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                lp.setCurrentGameObject((GO) cbSetGO.getSelectedItem());
+                lp.setCurrentGameObject((GO) cbSet.getSelectedItem());
             }
         });
-        spBright.addChangeListener(new ChangeListener() {
+        btState.setAction(new AbstractAction() {
 
             @Override
-            public void stateChanged(ChangeEvent e) {
-                lp.setBrightness((Integer) spBright.getValue());
+            public void actionPerformed(ActionEvent e) {
+                switch (btState.getText()) {
+                    case "GameObjects":
+                        btState.setText("NPCs");
+                        lp.setState(LevelPanel.State.NPC);
+                        break;
+                    case "NPCs":
+                        btState.setText("Minions");
+                        lp.setState(LevelPanel.State.MINION);
+                        break;
+                    case "Minions":
+                        btState.setText("Config");
+                        lp.setState(LevelPanel.State.CONFIG);
+                        break;
+                    case "Config":
+                        btState.setText("GameObjects");
+                        lp.setState(LevelPanel.State.GAMEOBJECT);
+                        break;
+                    default:
+                        btState.setText("GameObjects");
+
+                }
             }
         });
+       
         btNewMap.setAction(new AbstractAction() {
 
             @Override
@@ -69,6 +86,7 @@ public class LevelEditor extends JFrame {
                 if (dlg.isReady()) {
                     //System.out.println(dlg.getLevelWidth()+" "+dlg.getLevelHeight()+" "+dlg.getGround());
                     lp.resetMap(dlg.getLevelWidth(), dlg.getLevelHeight(), dlg.getGround());
+                    lp.setBrightness(dlg.getBrightness());
                 }
             }
         });
@@ -112,14 +130,14 @@ public class LevelEditor extends JFrame {
             }
         });
 
+        btState.setText("GameObjects");
         btNewMap.setText("New Map");
         btSave.setText("Save");
         btLoad.setText("Load");
 
         controls.setSize(controls.getWidth(), 20);
         controls.setLayout(new GridLayout(1, 5, 10, 10));
-        controls.add(cbSetGO);
-        controls.add(spBright);
+        controls.add(cbSet);
         controls.add(btNewMap);
         controls.add(btSave);
         controls.add(btLoad);
@@ -132,8 +150,10 @@ public class LevelEditor extends JFrame {
         this.add(lp, BorderLayout.CENTER);
     }
 
-    public GameObjects[][] getMap() { return lp.map; }
-    
+    public GameObjects[][] getMap() {
+        return lp.map;
+    }
+
     public static void main(String[] args) {
         LevelEditor le = new LevelEditor();
         le.setVisible(true);
