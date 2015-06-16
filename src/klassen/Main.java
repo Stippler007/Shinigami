@@ -15,6 +15,7 @@ import klassen.listener.KL;
 import klassen.minion.Minion;
 import klassen.minion.MinionSpritzer;
 import klassen.boss.hundeGhoul.HundeGhoul;
+import klassen.npc.Guard;
 import klassen.npc.NPC;
 import klassen.player.BasicShot;
 import klassen.player.FireShot;
@@ -65,11 +66,11 @@ public class Main
     ld.loadLevel(5, -582, -529);
 //    ld.buildMap(3);
 //     ld.loadLevel(0, -800, -800);
-     boss.add(new HundeGhoul(0, 0, 300, bg.getMap(), player, 3, minions, playerSpritzers));
+//     boss.add(new HundeGhoul(0, 0, 300, bg.getMap(), player, 3, minions, playerSpritzers));
 //    ld.loadLevel(2, -582, -529);
     //ld.buildMap(2);
 //    boss.add(new HundeGhoul(tslf, tslf, tslf, map, player, tslf, minions, playerSpritzers))
-    
+    npcs.add(new Guard(100, 100, 100, bg.getMap(), player, "Willst mein dick?"));
 //    minions.add(new Hund(1000,1000,100,bg.getMap(),player,playerSpritzers));
 //    minions.add(new Hund(1000,1400,110,bg.getMap(),player,playerSpritzers));
     

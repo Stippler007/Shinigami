@@ -81,29 +81,30 @@ public class ImageFactory {
       looks.put("BigMamaVorne0"+i, ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/minion/hundeGhoul/hundeGhoul/BigMamaVorne0"+i+".png")));
     }
     
-    for (int i = 0; i < 1; i++)
+    //for (int i = 0; i < 1; i++)
     {
-      looks.put("Boss_Shot_Black_XL", ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/gameObjects/hundeBoss/Boss_Shot_Black_XL")));
+      looks.put("Boss_Shot_Black_XL", ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/minion/hundeBoss/Boss_Shot_Black_XL.png")));
     }
     
-    for (int i = 0; i < 1; i++)
+    //for (int i = 0; i < 1; i++)
     {
-       looks.put("Boss_Shot_Blue_XL", ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/gameObjects/hundeBoss/Boss_Shot_Blue_XL")));
+       looks.put("Boss_Shot_Blue_XL", ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/minion/hundeBoss/Boss_Shot_Blue_XL.png")));
     }
       
-    for (int i = 0; i < 1; i++)
+    //for (int i = 0; i < 1; i++)
     {
-       looks.put("Boss_Shot_Standard_XL", ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/gameObjects/hundeBoss/Boss_Shot_Standard_XL")));
+       looks.put("Boss_Shot_Standard_XL", ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/minion/hundeBoss/Boss_Shot_Standard_XL.png")));
     }
         
-    for (int i = 0; i < 1; i++)
+    //for (int i = 0; i < 1; i++)
     {
-       looks.put("Boss_Shot_Violett_XL", ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/gameObjects/hundeBoss/Boss_Shot_Violett_XL")));
+       looks.put("Boss_Shot_Violett_XL", ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/minion/hundeBoss/Boss_Shot_Violett_XL.png")));
     }
   }
   private void loadNPC() throws IOException
   {
     looks.put("Sign", ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/npc/Sign.jpg")));
+    looks.put("guard", ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/npc/guard.png")));
     for (int i = 0; i < 3; i++)
     {
       looks.put("Guard_hinten_0"+i, ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/npc/guard/guard_hinten_0"+i+".png")));
@@ -165,7 +166,7 @@ public class ImageFactory {
     }
     for (int i = 0; i < 1; i++)
     {
-      looks.put("fenceSeite", ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/gameObjects/fence/FenceSeite.jpg")));
+      looks.put("FenceSeite", ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/gameObjects/fence/FenceSeite.jpg")));
     }
     for (int i = 0; i < 1; i++)
     {
@@ -179,9 +180,25 @@ public class ImageFactory {
     {
       looks.put("FenceVorneRechts", ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/gameObjects/fence/FenceVorneRechts.jpg")));
     }
+    
+        for (int i = 0; i < 1; i++)
+    {
+      looks.put("FenceHintenMid", ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/gameObjects/fence/FenceHintenMid.jpg")));
+    }
+    for (int i = 0; i < 1; i++)
+    {
+      looks.put("FenceHintenLinks", ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/gameObjects/fence/FenceHintenLinks.jpg")));
+    }
+    for (int i = 0; i < 1; i++)
+    {
+      looks.put("FenceHintenRechts", ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/gameObjects/fence/FenceHintenRechts.jpg")));
+    }
+    
     looks.put("Ground_Wood_Planks", ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/gameObjects/haus/boden/Ground_Wood_Planks.png")));
     looks.put("Haus", ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/gameObjects/haus/Haus.jpg")));
     looks.put("Haus2", ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/gameObjects/haus/Haus2.png")));
+    looks.put("Haus3", ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/gameObjects/haus/Haus3.png")));
+    looks.put("Haus4", ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/gameObjects/haus/Haus4.png")));
     looks.put("Tree", ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/gameObjects/tree/Tree.jpg")));
     looks.put("FootCarpet", ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/gameObjects/carpet/Foot_Carpet.png")));
     looks.put("Stone_Floor_Full", ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/gameObjects/carpet/Stone_Floor_Full.png")));

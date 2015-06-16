@@ -20,7 +20,7 @@ import klassen.karte.haus.*;
  */
 enum GO {
 
-    GRAS, WAND, WEG, TREE, BODEN, BLUEFLOWER, YELLOWFLOWER, FENCESEITE, FENCEVORNELINKS, FENCEVORNEMID, FENCEVORNERECHTS, HAUS, FOOT_CARPET, STONECARPET, CARPET_FULL, DOOR, ARROW;
+    GRAS, WAND, WEG, TREE, BODEN, BLUEFLOWER, YELLOWFLOWER, FENCESEITE, FENCEVORNELINKS, FENCEVORNEMID, FENCEVORNERECHTS, HAUS, HAUS2, HAUS3, HAUS4, FOOT_CARPET, STONECARPET, CARPET_FULL, DOOR, ARROW;
 
     private static Map<GO, GameObjects[][]> m;
 
@@ -53,15 +53,36 @@ enum GO {
         m.put(YELLOWFLOWER, new GameObjects[][]{{new YellowFlower(0)}});
 
         GameObjects[][] go = new GameObjects[11][11];
-
         for (int i = 0; i < go.length; i++) {
             for (int j = 0; j < go[i].length; j++) {
                 go[i][j] = new Haus(0, i, j);
-
             }
         }
-
         m.put(HAUS, go);
+
+        go = new GameObjects[11][11];
+        for (int i = 0; i < go.length; i++) {
+            for (int j = 0; j < go[i].length; j++) {
+                go[i][j] = new Haus2(0, i, j);
+            }
+        }
+        m.put(HAUS2, go);
+
+        go = new GameObjects[11][11];
+        for (int i = 0; i < go.length; i++) {
+            for (int j = 0; j < go[i].length; j++) {
+                go[i][j] = new Haus3(0, i, j);
+            }
+        }
+        m.put(HAUS3, go);
+
+        go = new GameObjects[11][11];
+        for (int i = 0; i < go.length; i++) {
+            for (int j = 0; j < go[i].length; j++) {
+                go[i][j] = new Haus4(0, i, j);
+            }
+        }
+        m.put(HAUS4, go);
 
         m.put(FOOT_CARPET, new GameObjects[][]{{new FootCarpet(0, 0, 0, 0, 0, 0, null)}, {new FootCarpet(0, 1, 0, 0, 0, 0, null)}});
 
@@ -90,7 +111,6 @@ enum GO {
         m.put(DOOR, new GameObjects[][]{{new Door(0, 0, 0, null, 0, 0, 0), new Door(0, 0, 1, null, 0, 0, 0)}, {new Door(0, 1, 0, null, 0, 0, 0), new Door(0, 1, 1, null, 0, 0, 0)}});
 
         m.put(ARROW, new GameObjects[][]{{new Arrow(0, 0, 0, 0, null)}});
-
     }
 
     public static GameObjects[][] getGOs(GO g) {

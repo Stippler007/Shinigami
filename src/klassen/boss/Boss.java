@@ -11,6 +11,7 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.util.LinkedList;
 import klassen.Background;
+import klassen.ImageFactory;
 import klassen.karte.GameObjects;
 import klassen.player.BasicShot;
 import klassen.player.FireShot;
@@ -27,6 +28,8 @@ public abstract class Boss
 
   protected Player player;
   protected LinkedList<PlayerSpritzer> playerSpritzers;
+  
+  protected BufferedImage look[][];
   
   protected float x;
   protected float y;
@@ -46,8 +49,10 @@ public abstract class Boss
   protected Rectangle bounding;
   
   protected GameObjects[][] map;
+  protected float animationTime;
+  protected float maxAnimationTime;
   
-  public Boss(float x, float y,float speed,float maxLive,Rectangle bounding,
+  public Boss(float x, float y,float speed,float maxLive,
           GameObjects[][] map,Player player,LinkedList<PlayerSpritzer> playerSpritzers) 
   {
     this.x = x;
@@ -75,6 +80,20 @@ public abstract class Boss
   {
     this.isAlive = isAlive;
   }
+
+  public void setLook(String imageName,int width,int height)
+  {
+    for (int i = 0; i < 3; i++)
+    {
+      for (int j = 0; j < 4; j++)
+      {
+        look[i][j]=ImageFactory.getIF().getLook(imageName).getSubimage(i*width, j*height, width, height);
+      }
+    }
+    bounding.width=look[0][0].getWidth();
+    bounding.height=look[0][0].getHeight();
+  }
+  
   public Rectangle getBounding(){
     return bounding;
   }
@@ -252,7 +271,29 @@ public abstract class Boss
     x+=knockbackX*tslf;
     y+=knockbackY*tslf;
   }
-  public abstract BufferedImage getLook();
+  public BufferedImage getLook()
+  {
+    int i=-1;
+    double turn=getTurn();
+      if(turn>=-Math.PI*0.25&&turn<=Math.PI*0.25)
+      {
+        i=0;
+      }
+      else if(turn>=Math.PI*0.25&&turn<=Math.PI*0.5){
+        i=1;
+      }
+      else if(turn>=Math.PI*0.50&&turn<=Math.PI*1){
+        i=2;
+      }
+      else{
+        i=3;
+      }
+    for (int j = 0; j < look.length; j++) 
+    {
+      if(animationTime<(float)maxAnimationTime/(look.length-1)*(i+1))return look[i][j];
+    }
+    return look[0][0];
+  }
   public void draw(Graphics2D g)
   {
     drawHealthBar(g);

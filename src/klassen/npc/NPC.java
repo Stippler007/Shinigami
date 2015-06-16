@@ -5,14 +5,13 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
-import java.util.LinkedList;
+import java.io.Serializable;
 import klassen.Background;
+import klassen.ImageFactory;
 import klassen.karte.GameObjects;
-import klassen.player.BasicShot;
 import klassen.player.Player;
-import klassen.player.PlayerSpritzer;
 
-public abstract class NPC
+public abstract class NPC implements Serializable
 {
   protected String text;
   
@@ -26,16 +25,19 @@ public abstract class NPC
   protected float speedY;
   
   protected Rectangle bounding;
-  
+  protected BufferedImage look[][];
   protected GameObjects[][] map;
   
-  public NPC(float x, float y,float speed,Rectangle bounding,
+  protected float animationTime;
+  protected float maxAnimationTime;
+  
+  public NPC(float x, float y,float speed,
           GameObjects[][] map,Player player,String text) 
   {
     this.x = x;
     this.y = y;
     this.speed=speed;
-    this.bounding=bounding;
+    this.bounding=new Rectangle((int)x,(int)y,50,50);
     this.player=player;
     this.map=map;
     this.text=text;
@@ -60,6 +62,19 @@ public abstract class NPC
     return bounding;
   }
 
+  public void setLook(String imageName,int width,int height)
+  {
+    for (int i = 0; i < 3; i++)
+    {
+      for (int j = 0; j < 4; j++)
+      {
+        look[i][j]=ImageFactory.getIF().getLook(imageName).getSubimage(i*width, j*height, width, height);
+      }
+    }
+    bounding.width=width;
+    bounding.height=height;
+  }
+  
   public void update(float tslf)
   {
     x+=Player.speedX;
@@ -164,9 +179,6 @@ public abstract class NPC
     x+=knockbackX*tslf;
     y+=knockbackY*tslf;
   }
-  
-  public abstract BufferedImage getLook();
-  
   public void draw(Graphics2D g)
   {
     g.rotate( getTurn(),  bounding.x+bounding.width/2,  bounding.y+bounding.height/2);
@@ -199,5 +211,28 @@ public abstract class NPC
   public String[] getText()
   {
     return text.split("\n");
+  }
+  public BufferedImage getLook()
+  {
+    int i=-1;
+    double turn=getTurn();
+      if(turn>=-Math.PI*0.25&&turn<=Math.PI*0.25)
+      {
+        i=0;
+      }
+      else if(turn>=Math.PI*0.25&&turn<=Math.PI*0.5){
+        i=1;
+      }
+      else if(turn>=Math.PI*0.50&&turn<=Math.PI*1){
+        i=2;
+      }
+      else{
+        i=3;
+      }
+    for (int j = 0; j < look.length; j++) 
+    {
+      if(animationTime<(float)maxAnimationTime/(look.length-1)*(i+1))return look[i][j];
+    }
+    return look[0][0];
   }
 }
