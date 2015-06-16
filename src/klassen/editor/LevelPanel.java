@@ -164,7 +164,7 @@ class LevelPanel extends JPanel {
     }
     
     enum State {
-        GAMEOBJECT, NPC, MINION, CONFIG
+        GAMEOBJECT, NPC, MINION, CONFIG;
     }
 
     class Listener implements MouseListener, MouseWheelListener, MouseMotionListener {
