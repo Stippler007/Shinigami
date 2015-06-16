@@ -26,10 +26,7 @@ public class OldMan extends NPC
   
   public OldMan(float x, float y, float speed, GameObjects[][] map, Player player, String text)
   {
-    super(x, y, speed, new Rectangle((int)x, (int)y, 
-                                     ImageFactory.getIF().getLook("OldMan_vorne_00").getWidth(),
-                                     ImageFactory.getIF().getLook("OldMan_vorne_00").getHeight()),
-                                     map, player, text);
+    super(x, y, speed, map, player, text);
   }
   
   @Override

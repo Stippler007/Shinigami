@@ -41,23 +41,22 @@ public class Guard extends NPC
     {
       animationTime-=maxAnimationTime;
     }
-    
     super.update(tslf);
   }
   
 
-  @Override
-  public double getTurn()
-  {
-    double a=speedX;
-    double b=speedY;
-
-    double turn=Math.atan(b/a);
-    if(a<0){
-      turn+=Math.PI;
-    }
-     return turn; 
-  }
+//  @Override
+//  public double getTurn()
+//  {
+//    double a=speedX;
+//    double b=speedY;
+//
+//    double turn=Math.atan(b/a);
+//    if(a<0){
+//      turn+=Math.PI;
+//    }
+//     return turn; 
+//  }
   
   @Override
   public void draw(Graphics2D g)

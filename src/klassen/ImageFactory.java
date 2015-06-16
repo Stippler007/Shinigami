@@ -5,12 +5,9 @@
  */
 package klassen;
 
-import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 
 /**
@@ -104,7 +101,8 @@ public class ImageFactory {
   private void loadNPC() throws IOException
   {
     looks.put("Sign", ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/npc/Sign.jpg")));
-    looks.put("guard", ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/npc/guard.png")));
+    System.out.println(ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/npc/guard/guard.png")));
+    looks.put("guard", ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/npc/guard/guard.png")));
     for (int i = 0; i < 3; i++)
     {
       looks.put("Guard_hinten_0"+i, ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/npc/guard/guard_hinten_0"+i+".png")));
@@ -181,10 +179,8 @@ public class ImageFactory {
       looks.put("FenceVorneRechts", ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/gameObjects/fence/FenceVorneRechts.jpg")));
     }
     
-        for (int i = 0; i < 1; i++)
-    {
-      looks.put("FenceHintenMid", ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/gameObjects/fence/FenceHintenMid.jpg")));
-    }
+    looks.put("FenceHintenMid", ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/gameObjects/fence/FenceHintenMid.jpg")));
+    
     for (int i = 0; i < 1; i++)
     {
       looks.put("FenceHintenLinks", ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/gameObjects/fence/FenceHintenLinks.jpg")));

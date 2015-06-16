@@ -25,9 +25,7 @@ public class Sign extends NPC
   
   public Sign(float x, float y, GameObjects[][] map, Player player,String str) 
   {
-    super(x, y, 0, new Rectangle((int)x,(int)y, 
-            ImageFactory.getIF().getLook("Sign").getWidth(),
-            ImageFactory.getIF().getLook("Sign").getHeight()), map, player,str);
+    super(x, y, 0, map, player,str);
   }
 
   @Override

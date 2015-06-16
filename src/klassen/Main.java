@@ -70,7 +70,9 @@ public class Main
 //    ld.loadLevel(2, -582, -529);
     //ld.buildMap(2);
 //    boss.add(new HundeGhoul(tslf, tslf, tslf, map, player, tslf, minions, playerSpritzers))
+    
     npcs.add(new Guard(100, 100, 100, bg.getMap(), player, "Willst mein dick?"));
+
 //    minions.add(new Hund(1000,1000,100,bg.getMap(),player,playerSpritzers));
 //    minions.add(new Hund(1000,1400,110,bg.getMap(),player,playerSpritzers));
     

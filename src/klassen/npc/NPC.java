@@ -27,11 +27,11 @@ public abstract class NPC
   protected float speedY;
   
   protected Rectangle bounding;
-  protected BufferedImage look[][];
+  protected BufferedImage look[][]=new BufferedImage[3][4];
   protected GameObjects[][] map;
   
   protected float animationTime;
-  protected float maxAnimationTime;
+  protected float maxAnimationTime=0.9f;
   
   public NPC(float x, float y,float speed,
           GameObjects[][] map,Player player,String text) 
@@ -79,6 +79,15 @@ public abstract class NPC
   
   public void update(float tslf)
   {
+    if(animationTime<maxAnimationTime)
+    {
+      animationTime+=tslf;
+    }
+    else
+    {
+      animationTime-=maxAnimationTime;
+    }
+    
     x+=Player.speedX;
     y+=Player.speedY;
     
@@ -196,7 +205,7 @@ public abstract class NPC
 
     double turn=Math.atan(b/a);
     if(a<0){
-      turn+=2.3561944901923;
+      turn+=Math.PI;
     }
      return turn; 
   }
@@ -218,22 +227,26 @@ public abstract class NPC
   {
     int i=-1;
     double turn=getTurn();
-      if(turn>=-Math.PI*0.25&&turn<=Math.PI*0.25)
-      {
-        i=0;
-      }
-      else if(turn>=Math.PI*0.25&&turn<=Math.PI*0.5){
-        i=1;
-      }
-      else if(turn>=Math.PI*0.50&&turn<=Math.PI*1){
-        i=2;
-      }
-      else{
-        i=3;
-      }
+    if(turn>=-Math.PI*0.25&&turn<=Math.PI*0.25)
+    {
+      i=0;
+    }
+    else if(turn>=Math.PI*0.25&&turn<=Math.PI*0.5){
+      i=1;
+    }
+    else if(turn>=Math.PI*0.50&&turn<=Math.PI*1){
+      i=2;
+    }
+    else{
+      i=3;
+    }
     for (int j = 0; j < look.length; j++) 
     {
-      if(animationTime<(float)maxAnimationTime/(look.length-1)*(i+1))return look[i][j];
+      System.out.println(animationTime);
+      if(animationTime<(float)maxAnimationTime/(look.length)*(j))
+      {
+        return look[j][i];
+      }
     }
     return look[0][0];
   }

@@ -208,7 +208,6 @@ public class Player {
         if(!(i<0||j<0)&&!(i>map.length-1||j>map[0].length-1))
         {
           Rectangle help1=new Rectangle(bounding.x-(int)(speedX),bounding.y-(int)(speedY),bounding.width,bounding.height);
-            System.out.println(i+" "+j);
           if(map[i][j].isSolid()&&help1.intersects(map[i][j].getBounding()))
           {
             Rectangle help2=map[i][j].getBounding();

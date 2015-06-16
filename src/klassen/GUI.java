@@ -150,6 +150,8 @@ public class GUI extends JFrame implements Runnable{
           g.drawString(str[i], 110, 470+20*(i-TextManager.getInstance().getPosition()));
         }
       }
+//      g.drawImage(ImageFactory.getIF().getLook("guard"), null, 0, 0);
+      
 //      g.drawImage(npcs.get(0).getLook(), 30, 30, null);
 //        g.rotate(haha,400,300);
 //        g.setColor(Color.WHITE);
