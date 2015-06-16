@@ -20,7 +20,7 @@ enum NPC {
 
     GUARD, OLDMAN, SIGN;
 
-    public static klassen.npc.NPC getMinions(NPC g) {
+    public static klassen.npc.NPC getNPCs(NPC g) {
         switch (g) {
             case GUARD:
                 return new Guard(0, 0, 0, null, null, null);

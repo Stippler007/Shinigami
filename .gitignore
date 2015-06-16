@@ -135,3 +135,5 @@ pip-log.txt
 *.class
 *.properties
 *.class
+*.class
+*.jar

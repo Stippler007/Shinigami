@@ -41,14 +41,19 @@ public class LevelEditor extends JFrame {
 
         lp.setCurrentGameObject((GO) cbSet.getItemAt(0));
         lp.setState(LevelPanel.State.GAMEOBJECT);
-        
+
         cbSet.setAction(new AbstractAction() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println(lp.getState());
-                if(lp.getState() == LevelPanel.State.GAMEOBJECT)
+                if (lp.getState() == LevelPanel.State.GAMEOBJECT) {
                     lp.setCurrentGameObject((GO) cbSet.getSelectedItem());
+                } else if (lp.getState() == LevelPanel.State.NPC) {
+                    lp.setCurrentNPC((NPC) cbSet.getSelectedItem());
+                } else if (lp.getState() == LevelPanel.State.MINION) {
+                    lp.setCurrentMinion((Minion) cbSet.getSelectedItem());
+                }
             }
         });
         btState.setAction(new AbstractAction() {
@@ -58,44 +63,44 @@ public class LevelEditor extends JFrame {
                 switch (btState.getText()) {
                     case "GameObjects":
                         btState.setText("NPCs");
-                        
+
                         lp.setCurrentGameObject(null);
                         lp.setState(LevelPanel.State.NPC);
-                        
+
                         cbSet.removeAllItems();
-                        for(NPC n : NPC.values()) {
+                        for (NPC n : NPC.values()) {
                             cbSet.addItem(n);
                         }
                         break;
                     case "NPCs":
                         btState.setText("Minions");
-                        
+
                         lp.setCurrentGameObject(null);
                         lp.setState(LevelPanel.State.MINION);
-                        
+
                         cbSet.removeAllItems();
-                        for(Minion m : Minion.values()) {
+                        for (Minion m : Minion.values()) {
                             cbSet.addItem(m);
                         }
                         break;
                     case "Minions":
                         btState.setText("Config");
-                        
+
                         lp.setCurrentGameObject(null);
                         lp.setState(LevelPanel.State.CONFIG);
-                        
+
                         cbSet.removeAllItems();
                         cbSet.setEnabled(false);
                         break;
                     case "Config":
                         btState.setText("GameObjects");
-                        
+
                         lp.setCurrentGameObject(GO.GRAS);
                         lp.setState(LevelPanel.State.GAMEOBJECT);
-                        
+
                         cbSet.setEnabled(true);
                         cbSet.removeAllItems();
-                        for(GO g : GO.values()) {
+                        for (GO g : GO.values()) {
                             cbSet.addItem(g);
                         }
                         break;
@@ -105,7 +110,7 @@ public class LevelEditor extends JFrame {
                 }
             }
         });
-       
+
         btNewMap.setAction(new AbstractAction() {
 
             @Override
