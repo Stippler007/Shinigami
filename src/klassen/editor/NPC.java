@@ -11,6 +11,7 @@ import klassen.minion.Minion;
 import klassen.npc.Guard;
 import klassen.npc.OldMan;
 import klassen.npc.Sign;
+import klassen.player.Player;
 
 /**
  *
@@ -20,14 +21,16 @@ enum NPC {
 
     GUARD, OLDMAN, SIGN;
 
+    private static Player p = new Player(10, 10, 10, null, null, null, null);
+    
     public static klassen.npc.NPC getNPCs(NPC g) {
         switch (g) {
             case GUARD:
-                return new Guard(0, 0, 0, null, null, null);
+                return new Guard(0, 0, 0, null, p, null);
             case OLDMAN:
-                return new OldMan(0, 0, 0, null, null, null);
+                return new OldMan(0, 0, 0, null, p, null);
             case SIGN:
-                return new Sign(0, 0, null, null, null);
+                return new Sign(0, 0, null, p, null);
             default:
                 return null;
         }

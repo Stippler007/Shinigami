@@ -65,6 +65,7 @@ public class LevelEditor extends JFrame {
                         btState.setText("NPCs");
 
                         lp.setCurrentGameObject(null);
+                        lp.setCurrentMinion(null);
                         lp.setState(LevelPanel.State.NPC);
 
                         cbSet.removeAllItems();
@@ -76,6 +77,7 @@ public class LevelEditor extends JFrame {
                         btState.setText("Minions");
 
                         lp.setCurrentGameObject(null);
+                        lp.setCurrentNPC(null);
                         lp.setState(LevelPanel.State.MINION);
 
                         cbSet.removeAllItems();
@@ -87,6 +89,8 @@ public class LevelEditor extends JFrame {
                         btState.setText("Config");
 
                         lp.setCurrentGameObject(null);
+                        lp.setCurrentNPC(null);
+                        lp.setCurrentMinion(null);
                         lp.setState(LevelPanel.State.CONFIG);
 
                         cbSet.removeAllItems();
@@ -96,6 +100,8 @@ public class LevelEditor extends JFrame {
                         btState.setText("GameObjects");
 
                         lp.setCurrentGameObject(GO.GRAS);
+                        lp.setCurrentNPC(null);
+                        lp.setCurrentMinion(null);
                         lp.setState(LevelPanel.State.GAMEOBJECT);
 
                         cbSet.setEnabled(true);
