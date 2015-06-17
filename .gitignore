@@ -1,2 +1,5 @@
 nbproject/private/private.properties
 *.properties
+build/classes/klassen/editor/LevelEditor$2.class
+*.class
+dist/TheGame.jar
