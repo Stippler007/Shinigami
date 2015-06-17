@@ -19,7 +19,6 @@ import klassen.player.Player;
 public class OldMan extends NPC
 {
   private boolean move=true;
-  private BufferedImage look[]=new BufferedImage[3];
   private boolean attacking=false;
   private float animationTime=0;
   private float maxAnimationTime=0.3f;
@@ -27,6 +26,7 @@ public class OldMan extends NPC
   public OldMan(float x, float y, float speed, GameObjects[][] map, Player player, String text)
   {
     super(x, y, speed, map, player, text);
+    setLook("opi", 50, 50);
   }
   
   @Override
@@ -47,72 +47,30 @@ public class OldMan extends NPC
     super.update(tslf);
   }
   
-  @Override
-  public BufferedImage getLook()
-  {
+  
 
-    if(attacking)
-    {
-      
-    }
-    else
-    {
-      double turn=getTurn();
-      if(turn>=-Math.PI*0.25&&turn<=Math.PI*0.25)
-      {
-        for (int i = 0; i < look.length; i++)
-        {
-          look[i]=ImageFactory.getIF().getLook("OldMan_seite_rechts_0"+i);
-        }
-      }
-      else if(turn>=Math.PI*0.25&&turn<=Math.PI*0.5){
-        for (int i = 0; i < look.length; i++) {
-          look[i]=ImageFactory.getIF().getLook("OldMan_vorne_0"+i);
-        }
-      }
-      else if(turn>=Math.PI*0.50&&turn<=Math.PI*1){
-        for (int i = 0; i < look.length; i++) {
-          look[i]=ImageFactory.getIF().getLook("OldMan_seite_links_0"+i);
-        }
-      }
-      else{
-        for (int i = 0; i < look.length; i++) 
-        {
-          look[i]=ImageFactory.getIF().getLook("OldMan_hinten_0"+i);
-        }
-      }
-    }
-    if(move)
-    {
-      for (int i = 0; i < look.length-1; i++) {
-        if(animationTime<(float)maxAnimationTime/(look.length-1)*(i+1))return look[i+1];
-      }
-    }
-    return look[0];
-  }
-
-  @Override
-  public double getTurn()
-  {
-    double a=0;
-    double b=0;
-    if(move)
-    {
-      a=speedX;
-      b=speedY;
-    }
-    else
-    {
-      a=(player.getBounding().x+player.getBounding().width/2)-(bounding.x+bounding.width/2);
-      b=(player.getBounding().y+player.getBounding().height/2)-(bounding.y+bounding.height/2);
-    }
-    
-    double turn=Math.atan(b/a);
-    if(a<0){
-      turn+=2.3561944901923;
-    }
-     return turn;
-  }
+//  @Override
+//  public double getTurn()
+//  {
+//    double a=0;
+//    double b=0;
+//    if(move)
+//    {
+//      a=speedX;
+//      b=speedY;
+//    }
+//    else
+//    {
+//      a=(player.getBounding().x+player.getBounding().width/2)-(bounding.x+bounding.width/2);
+//      b=(player.getBounding().y+player.getBounding().height/2)-(bounding.y+bounding.height/2);
+//    }
+//    
+//    double turn=Math.atan(b/a);
+//    if(a<0){
+//      turn+=2.3561944901923;
+//    }
+//     return turn;
+//  }
   
   @Override
   public void draw(Graphics2D g)

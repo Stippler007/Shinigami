@@ -17,6 +17,8 @@ import klassen.minion.MinionSpritzer;
 import klassen.boss.hundeGhoul.HundeGhoul;
 import klassen.npc.Guard;
 import klassen.npc.NPC;
+import klassen.npc.OldMan;
+import klassen.npc.Sign;
 import klassen.player.BasicShot;
 import klassen.player.FireShot;
 import klassen.player.IceShot;
@@ -72,8 +74,10 @@ public class Main
     //ld.buildMap(2);
 //    boss.add(new HundeGhoul(tslf, tslf, tslf, map, player, tslf, minions, playerSpritzers))
     
-    npcs.add(new Guard(100, 100, 100, bg.getMap(), player, "Willst mein dick?"));
-
+    npcs.add(new OldMan(800, 800, 100, bg.getMap(), player, "Willst mein dick?"));
+    npcs.add(new Sign(900, 800, bg.getMap(), player, "Willst mein dick?"));
+//    npcs.add(new Guard(100, 100, 100, bg.getMap(), player, "Willst mein dick?"));
+    
 //    minions.add(new Hund(1000,1000,100,bg.getMap(),player,playerSpritzers));
 //    minions.add(new Hund(1000,1400,110,bg.getMap(),player,playerSpritzers));
     

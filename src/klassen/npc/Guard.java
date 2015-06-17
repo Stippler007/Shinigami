@@ -18,14 +18,11 @@ import klassen.player.Player;
  */
 public class Guard extends NPC
 {
-  private boolean move=true;
-  private boolean attacking=false;
   
   public Guard(float x, float y, float speed, GameObjects[][] map, Player player, String text)
   {
     super(x, y, speed,map, player, text);
     setLook("guard", 50, 50);
-    speedY=50;
   }
 
   @Override

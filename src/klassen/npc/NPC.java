@@ -30,6 +30,7 @@ public abstract class NPC implements Serializable
   
   protected float animationTime;
   protected float maxAnimationTime=0.9f;
+  public boolean moving=true;
   
   public NPC(float x, float y,float speed,
           GameObjects[][] map,Player player,String text) 
@@ -77,7 +78,7 @@ public abstract class NPC implements Serializable
   
   public void update(float tslf)
   {
-    if(animationTime<maxAnimationTime)
+    if(animationTime<maxAnimationTime-tslf)
     {
       animationTime+=tslf;
     }
@@ -92,8 +93,8 @@ public abstract class NPC implements Serializable
     speedX*=tslf;
     speedY*=tslf;
     
-    x+=speedX;
-    y+=speedY;
+    if(moving)x+=speedX;
+    if(moving)y+=speedY;
     
     collideMap(tslf);
     
@@ -205,7 +206,7 @@ public abstract class NPC implements Serializable
     if(a<0){
       turn+=Math.PI;
     }
-     return turn; 
+    return turn; 
   }
   
   public float getX() 
@@ -223,29 +224,36 @@ public abstract class NPC implements Serializable
   }
   public BufferedImage getLook()
   {
-    int i=-1;
+    int j=-1;
     double turn=getTurn();
     if(turn>=-Math.PI*0.25&&turn<=Math.PI*0.25)
     {
-      i=0;
+      j=1;
     }
     else if(turn>=Math.PI*0.25&&turn<=Math.PI*0.5){
-      i=1;
+      j=0;
     }
     else if(turn>=Math.PI*0.50&&turn<=Math.PI*1){
-      i=2;
+      j=2;
     }
     else{
-      i=3;
+      j=3;
     }
-    for (int j = 0; j < look.length; j++) 
+    if(moving&&speedX!=0||speedY!=0)
     {
-      System.out.println(animationTime);
-      if(animationTime<(float)maxAnimationTime/(look.length)*(j))
+      for(int i = 0; i < look.length; i++) 
       {
-        return look[j][i];
+        if(animationTime<(float)maxAnimationTime/look.length*(i+1))
+        {
+          return look[i][j];
+        } 
       }
     }
+    else if(j!=-1)
+    {
+      return look[0][j];
+    }
+    System.out.println("No image found! " + j);
     return look[0][0];
   }
 }

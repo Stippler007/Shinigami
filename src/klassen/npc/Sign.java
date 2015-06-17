@@ -21,13 +21,15 @@ import klassen.player.PlayerSpritzer;
  */
 public class Sign extends NPC
 {
-  private BufferedImage look=ImageFactory.getIF().getLook("Sign");
   
   public Sign(float x, float y, GameObjects[][] map, Player player,String str) 
   {
     super(x, y, 0, map, player,str);
+    look=new BufferedImage[1][1];
+    look[0][0]=ImageFactory.getIF().getLook("sign");
+    bounding=new Rectangle((int)x,(int)y,25,25);
   }
-
+  
   @Override
   public void update(float tslf) 
   {
@@ -35,14 +37,14 @@ public class Sign extends NPC
   }
 
   @Override
-  public void draw(Graphics2D g) 
+  public void draw(Graphics2D g)
   {
-    g.drawImage(look, null,(int)x,(int)y);
+    g.drawImage(getLook(),null,(int)x,(int)y);
   }
   
   @Override
-  public BufferedImage getLook() 
+  public BufferedImage getLook()
   {
-    return look;
+    return look[0][0];
   }
 }
