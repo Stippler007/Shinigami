@@ -1,5 +1,9 @@
+### NetBeans ###
 nbproject/private/
-*.properties
 build/
-*.class
-dist/TheGame.jar
+nbbuild/
+dist/
+nbdist/
+nbactions.xml
+nb-configuration.xml
+.nb-gradle/
