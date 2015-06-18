@@ -23,37 +23,16 @@ public class Guard extends NPC
   {
     super(x, y, speed,map, player, text);
     setLook("guard", 50, 50);
+    speedY=50;
   }
 
   @Override
   public void update(float tslf)
   {
+    speedY=0;
     speedY=50;
-    
-    if(animationTime<maxAnimationTime)
-    {
-      animationTime+=tslf;
-    }
-    else
-    {
-      animationTime-=maxAnimationTime;
-    }
     super.update(tslf);
   }
-  
-
-//  @Override
-//  public double getTurn()
-//  {
-//    double a=speedX;
-//    double b=speedY;
-//
-//    double turn=Math.atan(b/a);
-//    if(a<0){
-//      turn+=Math.PI;
-//    }
-//     return turn; 
-//  }
   
   @Override
   public void draw(Graphics2D g)

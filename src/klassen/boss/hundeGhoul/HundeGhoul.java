@@ -82,7 +82,6 @@ public class HundeGhoul extends Boss
   }
   private void attackPattern2()
   {
-    
     moveZiel(Background.x+map.length*25/2, Background.y+map[0].length*25/2);
     // Er geht in die Mitte und macht rundschüsse
   }

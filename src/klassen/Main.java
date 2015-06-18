@@ -77,8 +77,8 @@ public class Main
     
     npcs.add(new OldMan(800, 800, 100, bg.getMap(), player, "Willst mein dick?"));
     npcs.add(new Sign(900, 800, bg.getMap(), player, "Willst mein dick?"));
-//    npcs.add(new Guard(100, 100, 100, bg.getMap(), player, "Willst mein dick?"));
-    minions.add(new Hund(500, 500, 100, bg.getMap(), player, playerSpritzers, minions));
+    npcs.add(new Guard(100, 100, 100, bg.getMap(), player, "Willst mein dick?"));
+//    minions.add(new Hund(500, 500, 100, bg.getMap(), player, playerSpritzers, minions));
 //    minions.add(new Hund(1000,1400,110,bg.getMap(),player,playerSpritzers));
     
     GUI f=new GUI(player,playerSpritzers,boss,bossSpritzer,minions,minionSpritzer,npcs,bg,ld);
