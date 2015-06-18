@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.Serializable;
 import klassen.ImageFactory;
+import klassen.Music;
 import klassen.player.Player;
 
 /**
@@ -48,8 +49,9 @@ public abstract class GameObjects implements Serializable {
         this.subY = subY;
     }
 
-    public void steppedOn(boolean stepped) {
-        this.stepped = stepped;
+    public void steppedOn(boolean stepped) 
+    {
+      this.stepped = stepped;
     }
 
     private void readObject(ObjectInputStream stream) throws IOException, ClassNotFoundException {

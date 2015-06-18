@@ -108,33 +108,36 @@ public abstract class NPC implements Serializable
     {
       for (int j = (int)Math.abs((y*-1+Background.y)/25)-1; j < (int)Math.abs((y*-1+Background.y)/25)+4; j++) 
       {
-        Rectangle help1=new Rectangle(bounding.x+(int)(speedX),bounding.y+(int)(speedY),bounding.width,bounding.height);
-        if(map[i][j].isSolid()&&help1.intersects(map[i][j].getBounding()))
+        if(!(i<0||j<0)&&!(i>map.length-1||j>map[0].length-1))
         {
-          
-          Rectangle help2=map[i][j].getBounding();
-          
-          double vonlinks  = x + help1.width  - help2.x;
-          double vonoben   = y + help1.height - help2.y;
-          double vonrechts = help2.x + help2.width  - x;
-          double vonunten  = help2.y + help2.height - y;
-          
-          
-          if(vonlinks<vonoben&&vonlinks<vonrechts&&vonlinks<vonunten)
+          Rectangle help1=new Rectangle(bounding.x+(int)(speedX),bounding.y+(int)(speedY),bounding.width,bounding.height);
+          if(map[i][j].isSolid()&&help1.intersects(map[i][j].getBounding()))
           {
-            x-=vonlinks;
-          }
-          else if(vonoben<vonrechts&&vonoben<vonunten)
-          {
-            y-=vonoben;
-          }
-          else if(vonrechts<vonunten)
-          {
-            x+=vonrechts;
-          }
-          else
-          {
-            y+=vonunten;
+
+            Rectangle help2=map[i][j].getBounding();
+
+            double vonlinks  = x + help1.width  - help2.x;
+            double vonoben   = y + help1.height - help2.y;
+            double vonrechts = help2.x + help2.width  - x;
+            double vonunten  = help2.y + help2.height - y;
+
+
+            if(vonlinks<vonoben&&vonlinks<vonrechts&&vonlinks<vonunten)
+            {
+              x-=vonlinks;
+            }
+            else if(vonoben<vonrechts&&vonoben<vonunten)
+            {
+              y-=vonoben;
+            }
+            else if(vonrechts<vonunten)
+            {
+              x+=vonrechts;
+            }
+            else
+            {
+              y+=vonunten;
+            }
           }
         }
         if(map[i][j].getBounding().intersects(bounding.x+bounding.width/2, bounding.y+bounding.height/2, 2, 1))

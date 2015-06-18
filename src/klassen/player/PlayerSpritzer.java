@@ -27,7 +27,9 @@ public abstract class PlayerSpritzer {
   protected float speedY;
   
   protected Rectangle bounding;
-
+  
+  protected BufferedImage look[];
+  
   public PlayerSpritzer(float x, float y,Rectangle bounding,float damage) 
   {
       this.x = x;
