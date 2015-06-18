@@ -29,7 +29,7 @@ public class EvilGuard extends Minion {
     private boolean attacking = false;
     
     public EvilGuard(float x, float y, float speed, float maxLive, Rectangle bounding, GameObjects[][] map, Player player, LinkedList<PlayerSpritzer> playerSpritzers) {
-        super(x, y, speed, maxLive, bounding, map, player, playerSpritzers);
+        super(x, y, speed, maxLive, map, player, playerSpritzers);
     }
     
     @Override

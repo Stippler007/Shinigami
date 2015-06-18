@@ -12,6 +12,7 @@ import java.awt.image.BufferedImage;
 import java.io.Serializable;
 import java.util.LinkedList;
 import klassen.Background;
+import klassen.ImageFactory;
 import klassen.karte.GameObjects;
 import klassen.player.BasicShot;
 import klassen.player.FireShot;
@@ -42,15 +43,20 @@ public abstract class Minion implements Serializable
   protected boolean aggro=false;
   protected Rectangle aggroBox;
   
+  protected boolean moving=true;
+  
+  protected float animationTime=0;
+  protected float maxAnimationTime=0.3f;
+  
   protected float damage=100f;
   
   protected Rectangle bounding;
   
   protected GameObjects[][] map;
+  protected BufferedImage look[][]=new BufferedImage[3][4];
   
   
-  
-  public Minion(float x, float y,float speed,float maxLive,Rectangle bounding,
+  public Minion(float x, float y,float speed,float maxLive,
           GameObjects[][] map,Player player,LinkedList<PlayerSpritzer> playerSpritzers) 
   {
     this.x = x;
@@ -260,7 +266,19 @@ public abstract class Minion implements Serializable
     x+=knockbackX*tslf;
     y+=knockbackY*tslf;
   }
-  public abstract BufferedImage getLook();
+  public void setLook(String imageName,int width,int height,int x,int y)
+  {
+    look=new BufferedImage[x][y];
+    for (int i = 0; i < x; i++)
+    {
+      for (int j = 0; j < y; j++)
+      {
+        look[i][j]=ImageFactory.getIF().getLook(imageName).getSubimage(i*width, j*height, width, height);
+      }
+    }
+    bounding.width=width;
+    bounding.height=height;
+  }
   public void draw(Graphics2D g)
   {
     drawHealthBar(g);
@@ -287,6 +305,40 @@ public abstract class Minion implements Serializable
     g.drawRect((int)x,(int) y-3, bounding.width, 2);
     g.setColor(Color.GREEN);
     g.drawRect((int)x,(int) y-3, (int)((float)bounding.width*(live/maxLive)), 2);
+  }
+  public BufferedImage getLook()
+  {
+    int j=-1;
+    double turn=getTurn();
+    if(turn>=-Math.PI*0.25&&turn<=Math.PI*0.25)
+    {
+      j=1;
+    }
+    else if(turn>=Math.PI*0.25&&turn<=Math.PI*0.5){
+      j=0;
+    }
+    else if(turn>=Math.PI*0.50&&turn<=Math.PI*1){
+      j=2;
+    }
+    else{
+      j=3;
+    }
+    if(moving&&speedX!=0||speedY!=0)
+    {
+      for(int i = 0; i < look.length; i++) 
+      {
+        if(animationTime<(float)maxAnimationTime/look.length*(i+1))
+        {
+          return look[i][j];
+        } 
+      }
+    }
+    else if(j!=-1)
+    {
+      return look[0][j];
+    }
+    System.out.println("No image found! " + j);
+    return look[0][0];
   }
   public float getLive()
   {

@@ -15,6 +15,7 @@ import klassen.listener.KL;
 import klassen.minion.Minion;
 import klassen.minion.MinionSpritzer;
 import klassen.boss.hundeGhoul.HundeGhoul;
+import klassen.minion.Hund;
 import klassen.npc.Guard;
 import klassen.npc.NPC;
 import klassen.npc.OldMan;
@@ -77,8 +78,7 @@ public class Main
     npcs.add(new OldMan(800, 800, 100, bg.getMap(), player, "Willst mein dick?"));
     npcs.add(new Sign(900, 800, bg.getMap(), player, "Willst mein dick?"));
 //    npcs.add(new Guard(100, 100, 100, bg.getMap(), player, "Willst mein dick?"));
-    
-//    minions.add(new Hund(1000,1000,100,bg.getMap(),player,playerSpritzers));
+    minions.add(new Hund(500, 500, 100, bg.getMap(), player, playerSpritzers, minions));
 //    minions.add(new Hund(1000,1400,110,bg.getMap(),player,playerSpritzers));
     
     GUI f=new GUI(player,playerSpritzers,boss,bossSpritzer,minions,minionSpritzer,npcs,bg,ld);

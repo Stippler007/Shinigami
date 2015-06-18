@@ -31,8 +31,8 @@ import klassen.player.PlayerSpritzer;
  * @author Stippler
  */
 public class Hund extends Minion{
-
-  private BufferedImage look[]=new BufferedImage[2];
+  
+  private BufferedImage[][] attackingLook;
   
   private LinkedList<Minion> minions;
   private final float maxAnimationTime=0.3f;
@@ -47,15 +47,11 @@ public class Hund extends Minion{
   
   public Hund(float x, float y,float speed,
           GameObjects[][] map,Player player,LinkedList<PlayerSpritzer> playerSpritzers,LinkedList<Minion> minions) {
-    super(x,y,speed,100,
-            new Rectangle((int)x,(int)y,
-                    ImageFactory.getIF().getLook("DogGhoul_vorne_01").getWidth(),
-                    ImageFactory.getIF().getLook("DogGhoul_vorne_01").getHeight()),
-            map,player,playerSpritzers);
+    super(x,y,speed,100,map,player,playerSpritzers);
     this.speed=speed;
     this.minions=minions;
-    look[0]=ImageFactory.getIF().getLook("DogGhoul_vorne_01");
-    bounding=new Rectangle((int)x,(int)y,look[0].getWidth(),look[0].getHeight());
+    super.setLook("hund", 30, 30, 3, 2);
+    bounding=new Rectangle((int)x,(int)y,look[0][0].getWidth(),look[0][0].getHeight());
     damage=1000;
   }
 
@@ -80,38 +76,41 @@ public class Hund extends Minion{
       {
         Rectangle help1=new Rectangle(bounding.x+(int)(speedX),bounding.y+(int)(speedY),bounding.width,bounding.height);
         
-        if(map[i][j].isSolid()&&help1.intersects(map[i][j].getBounding()))
+        if(!(i<0||j<0)&&!(i>map.length-1||j>map[0].length-1))
         {
-          Rectangle help2=map[i][j].getBounding();
-          
-          double vonlinks  = x + help1.width  - help2.x;
-          double vonoben   = y + help1.height - help2.y;
-          double vonrechts = help2.x + help2.width  - x;
-          double vonunten  = help2.y + help2.height - y;
-          
-          
-          if(vonlinks<vonoben&&vonlinks<vonrechts&&vonlinks<vonunten)
+          if(map[i][j].isSolid()&&help1.intersects(map[i][j].getBounding()))
           {
-            x-=vonlinks;
+            Rectangle help2=map[i][j].getBounding();
+            
+            double vonlinks  = x + help1.width  - help2.x;
+            double vonoben   = y + help1.height - help2.y;
+            double vonrechts = help2.x + help2.width  - x;
+            double vonunten  = help2.y + help2.height - y;
+
+
+            if(vonlinks<vonoben&&vonlinks<vonrechts&&vonlinks<vonunten)
+            {
+              x-=vonlinks;
+            }
+            else if(vonoben<vonrechts&&vonoben<vonunten)
+            {
+              y-=vonoben;
+            }
+            else if(vonrechts<vonunten)
+            {
+              x+=vonrechts;
+            }
+            else
+            {
+              y+=vonunten;
+            }
+
+            attacking=false;
           }
-          else if(vonoben<vonrechts&&vonoben<vonunten)
+          if(map[i][j].getBounding().intersects(bounding.x+bounding.width/2-1, bounding.y+bounding.height/2, 2, 1))
           {
-            y-=vonoben;
+            map[i][j].steppedOn(true);
           }
-          else if(vonrechts<vonunten)
-          {
-            x+=vonrechts;
-          }
-          else
-          {
-            y+=vonunten;
-          }
-          
-          attacking=false;
-        }
-        if(map[i][j].getBounding().intersects(bounding.x+bounding.width/2-1, bounding.y+bounding.height/2, 2, 1))
-        {
-          map[i][j].steppedOn(true);
         }
       }
     }
@@ -181,29 +180,29 @@ public class Hund extends Minion{
       animationTime=0;
       
       double turn=getTurn();
-      if(turn>=-Math.PI*0.25&&turn<=Math.PI*0.25)
-      {
-        for (int i = 1; i < look.length+1; i++)
-        {
-          look[i-1]=ImageFactory.getIF().getLook("DogGhoul_seite_0"+i+"_attacking");
-        }
-      }
-      else if(turn>=Math.PI*0.25&&turn<=Math.PI*0.5){
-        for (int i = 1; i < look.length+1; i++) {
-          look[i-1]=ImageFactory.getIF().getLook("DogGhoul_vorne_0"+i+"_attacking");
-        }
-      }
-      else if(turn>=Math.PI*0.50&&turn<=Math.PI*1){
-        for (int i = 1; i < look.length+1; i++) {
-          look[i-1]=ImageFactory.getIF().getLook("DogGhoul_seite2_0"+i+"_attacking");
-        }
-      }
-      else{
-        for (int i = 1; i < look.length+1; i++) 
-        {
-          look[i-1]=ImageFactory.getIF().getLook("DogGhoul_hinten_0"+i+"_attacking");
-        }
-      }
+//      if(turn>=-Math.PI*0.25&&turn<=Math.PI*0.25)
+//      {
+//        for (int i = 1; i < look.length+1; i++)
+//        {
+//          look[i-1]=ImageFactory.getIF().getLook("DogGhoul_seite_0"+i+"_attacking");
+//        }
+//      }
+//      else if(turn>=Math.PI*0.25&&turn<=Math.PI*0.5){
+//        for (int i = 1; i < look.length+1; i++) {
+//          look[i-1]=ImageFactory.getIF().getLook("DogGhoul_vorne_0"+i+"_attacking");
+//        }
+//      }
+//      else if(turn>=Math.PI*0.50&&turn<=Math.PI*1){
+//        for (int i = 1; i < look.length+1; i++) {
+//          look[i-1]=ImageFactory.getIF().getLook("DogGhoul_seite2_0"+i+"_attacking");
+//        }
+//      }
+//      else{
+//        for (int i = 1; i < look.length+1; i++) 
+//        {
+//          look[i-1]=ImageFactory.getIF().getLook("DogGhoul_hinten_0"+i+"_attacking");
+//        }
+//      }
       
 //      maxAnimationTime*=2;
       
@@ -288,49 +287,44 @@ public class Hund extends Minion{
   @Override
   public Rectangle getBounding() 
   {
-      return bounding;
+    return bounding;
   }
+
   @Override
-  public BufferedImage getLook() 
+  public BufferedImage getLook()
   {
-    if(attacking)
+    if(!attacking)return super.getLook();
+    int j=-1;
+    double turn=getTurn();
+    if(turn>=-Math.PI*0.25&&turn<=Math.PI*0.25)
     {
-      
+      j=1;
     }
-    else
+    else if(turn>=Math.PI*0.25&&turn<=Math.PI*0.5){
+      j=0;
+    }
+    else if(turn>=Math.PI*0.50&&turn<=Math.PI*1){
+      j=2;
+    }
+    else{
+      j=3;
+    }
+    if(moving&&speedX!=0||speedY!=0)
     {
-      double turn=getTurn();
-      if(turn>=-Math.PI*0.25&&turn<=Math.PI*0.25)
+      for(int i = 0; i < look.length; i++) 
       {
-        for (int i = 1; i < look.length+1; i++)
+        if(animationTime<(float)maxAnimationTime/look.length*(i+1))
         {
-          look[i-1]=ImageFactory.getIF().getLook("DogGhoul_seite_0"+i);
-        }
-      }
-      else if(turn>=Math.PI*0.25&&turn<=Math.PI*0.5){
-        for (int i = 1; i < look.length+1; i++) {
-          look[i-1]=ImageFactory.getIF().getLook("DogGhoul_vorne_0"+i);
-        }
-      }
-      else if(turn>=Math.PI*0.50&&turn<=Math.PI*1){
-        for (int i = 1; i < look.length+1; i++) {
-          look[i-1]=ImageFactory.getIF().getLook("DogGhoul_seite2_0"+i);
-        }
-      }
-      else{
-        for (int i = 1; i < look.length+1; i++) 
-        {
-          look[i-1]=ImageFactory.getIF().getLook("DogGhoul_hinten_0"+i);
-        }
+          return look[i][j];
+        } 
       }
     }
-    for (int i = 0; i < look.length; i++)
-      {
-        if(animationTime<maxAnimationTime/look.length*i)
-        {
-          return look[i];
-        }
+    else if(j!=-1)
+    {
+      return look[0][j];
     }
-    return look[0];
+    System.out.println("No image found! " + j);
+    return look[0][0];
   }
+  
 }

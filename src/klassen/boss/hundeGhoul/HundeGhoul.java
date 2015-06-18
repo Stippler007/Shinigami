@@ -13,6 +13,7 @@ import java.util.LinkedList;
 import klassen.Background;
 import klassen.ImageFactory;
 import klassen.boss.Boss;
+import klassen.boss.BossSpritzer;
 import klassen.karte.GameObjects;
 import klassen.minion.Minion;
 import klassen.player.Player;
@@ -32,7 +33,9 @@ public class HundeGhoul extends Boss
   private float attackPatternSwitchTimer=0;
   private float attackPatternSwitchTimerMax=30;
   
-  public HundeGhoul(float x, float y, float speed,GameObjects map[][],Player player, float maxAnimationTime, LinkedList<Minion> minions,LinkedList<PlayerSpritzer> playerSpritzers)
+  private LinkedList<BossSpritzer> bossSpritzer;
+  
+  public HundeGhoul(float x, float y, float speed,GameObjects map[][],Player player, float maxAnimationTime,LinkedList<BossSpritzer> bossSpritzer, LinkedList<Minion> minions,LinkedList<PlayerSpritzer> playerSpritzers)
   {
     super(x, y, speed, 200,
             map,player, playerSpritzers);
@@ -41,6 +44,7 @@ public class HundeGhoul extends Boss
     this.speed = speed;
     this.maxAnimationTime = maxAnimationTime;
     this.minions = minions;
+    this.bossSpritzer=bossSpritzer;
   }
 
   @Override
