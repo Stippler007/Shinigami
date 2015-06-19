@@ -54,6 +54,7 @@ public class ImageFactory {
   }
   private void loadMinions() throws IOException
   {
+    looks.put("BigMama", ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/minion/hundeGhoul/hundeGhoul/BigMama.png")));
     looks.put("hund", ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/minion/hundeGhoul/hund/DogGhoul.png")));
     for (int i = 1; i <= 2; i++) {
       looks.put("DogGhoul_hinten_0"+i, ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/minion/hundeGhoul/hund/DogGhoul_hinten_0"+i+".png")));
