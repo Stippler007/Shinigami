@@ -87,6 +87,19 @@ public class LevelEditor extends JFrame {
                         }
                         break;
                     case "Minions":
+                        btState.setText("Boss");
+
+                        lp.setCurrentGameObject(null);
+                        lp.setCurrentNPC(null);
+                        lp.setCurrentMinion(null);
+                        lp.setState(LevelPanel.State.BOSS);
+
+                        cbSet.removeAllItems();
+                        for (Boss b : Boss.values()) {
+                            cbSet.addItem(b);
+                        }
+                        break;
+                    case "Boss":
                         btState.setText("Config");
 
                         lp.setCurrentGameObject(null);

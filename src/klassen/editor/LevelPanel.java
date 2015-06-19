@@ -31,7 +31,7 @@ class LevelPanel extends JPanel {
     
     private NPC currentNPC = NPC.SIGN;
     private Minion currentMinion = Minion.EVILGUARD;
-    
+    private Boss currentBoss;
     private State state;
 
     private Level level;
@@ -73,6 +73,10 @@ class LevelPanel extends JPanel {
         this.currentMinion = currentMinion;
     }
 
+    public void setCurrentBoss(Boss currentBoss) {
+        this.currentBoss = currentBoss;
+    }
+    
     public State getState() {
         return state;
     }
@@ -123,7 +127,11 @@ class LevelPanel extends JPanel {
             for( klassen.minion.Minion minion : level.getMinions()) {
                 g2d.drawImage(minion.getLook(), (int) minion.getX(), (int) minion.getY(), null);
             }
-
+            
+            if(level.getBoss() != null) {
+                g2d.drawImage(level.getBoss().getLook(), (int) level.getBoss().getX(), (int) level.getBoss().getY(), null);
+            }
+            
             switch (state) {
                 case CONFIG:
                     g2d.drawRect(mouseX * 25 + padding, mouseY * 25 + padding, 25, 25);
@@ -136,6 +144,9 @@ class LevelPanel extends JPanel {
                     break;
                 case MINION:
                     g2d.drawImage(Minion.getMinions(currentMinion).getLook(), mouseX * 25 + padding, mouseY  * 25 + padding, null);
+                    break;
+                case BOSS:
+                    g2d.drawImage(Boss.getBoss(currentBoss).getLook(), mouseX * 25 + padding, mouseY * 25 + padding, null);
                     break;
                 default:
                     break;
@@ -193,7 +204,7 @@ class LevelPanel extends JPanel {
 
     enum State {
 
-        GAMEOBJECT, NPC, MINION, CONFIG;
+        GAMEOBJECT, NPC, MINION, BOSS, CONFIG;
     }
 
     class Listener implements MouseListener, MouseWheelListener, MouseMotionListener {
@@ -280,6 +291,18 @@ class LevelPanel extends JPanel {
             level.getMinions().add(m);
         }
 
+        private void setBoss(MouseEvent e) {
+            if(isOut()) {
+                return;
+            }
+            
+            klassen.boss.Boss b = Boss.getBoss(currentBoss);
+            b.setX(mouseX * 25 + padding);
+            b.setY(mouseY * 25 + padding);
+            //m.setMap(level.getMap());
+            level.setBoss(b);
+        }
+        
         @Override
         public void mouseClicked(MouseEvent e) {
             mouseX = getMapX(e);
@@ -303,6 +326,9 @@ class LevelPanel extends JPanel {
                     break;
                 case MINION:
                     setMinion(e);
+                    break;
+                case BOSS:
+                    setBoss(e);
                     break;
                 default:
                     break;
