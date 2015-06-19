@@ -178,22 +178,22 @@ public class ImageFactory {
     for (int i = 0; i < 1; i++)
     {
       looks.put("FenceSeite", ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/gameObjects/fence/FenceSeite.jpg")));
-      setBrightness("FenceSeite"+i,25,25);
+      setBrightness("FenceSeite",25,25);
     }
     for (int i = 0; i < 1; i++)
     {
       looks.put("FenceVorneMid", ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/gameObjects/fence/FenceVorneMid.jpg")));
-      setBrightness("FenceVorneMid"+i,25,25);
+      setBrightness("FenceVorneMid",25,25);
     }
     for (int i = 0; i < 1; i++)
     {
       looks.put("FenceVorneLinks", ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/gameObjects/fence/FenceVorneLinks.jpg")));
-      setBrightness("FenceVorneLinks"+i,25,25);
+      setBrightness("FenceVorneLinks",25,25);
     }
     for (int i = 0; i < 1; i++)
     {
       looks.put("FenceVorneRechts", ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/gameObjects/fence/FenceVorneRechts.jpg")));
-      setBrightness("FenceVorneRechts"+i,25,25);
+      setBrightness("FenceVorneRechts",25,25);
     }
     
     looks.put("FenceHintenMid", ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/gameObjects/fence/FenceHintenMid.jpg")));
@@ -202,12 +202,12 @@ public class ImageFactory {
     for (int i = 0; i < 1; i++)
     {
       looks.put("FenceHintenLinks", ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/gameObjects/fence/FenceHintenLinks.jpg")));
-      setBrightness("FenceHintenLinks"+i,25,25);
+      setBrightness("FenceHintenLinks",25,25);
     }
     for (int i = 0; i < 1; i++)
     {
       looks.put("FenceHintenRechts", ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/gameObjects/fence/FenceHintenRechts.jpg")));
-      setBrightness("FenceHintenRechts"+i,25,25);
+      setBrightness("FenceHintenRechts",25,25);
     }
     
     looks.put("Ground_Wood_Planks", ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/gameObjects/haus/boden/Ground_Wood_Planks.png")));
