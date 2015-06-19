@@ -32,7 +32,7 @@ import klassen.player.PlayerSpritzer;
  */
 public class Hund extends Minion{
   
-  private BufferedImage[][] attackingLook=new BufferedImage[2][4];
+  private transient BufferedImage[][] attackingLook=new BufferedImage[2][4];
   
   private LinkedList<Minion> minions;
   private final float maxAnimationTime=0.3f;

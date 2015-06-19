@@ -25,7 +25,7 @@ public abstract class NPC implements Serializable
   protected float speedY;
   
   protected Rectangle bounding;
-  protected BufferedImage look[][]=new BufferedImage[3][4];
+  protected transient BufferedImage look[][]=new BufferedImage[3][4];
   protected GameObjects[][] map;
   
   protected float animationTime;
