@@ -72,7 +72,7 @@ public abstract class Boss implements Serializable
     this.map=map;
     this.aggroBox=new Rectangle((int)x-300, (int)y-200, 600, 400);
     isAlive=true;
-    
+    bounding=new Rectangle((int)x, (int)y, 50, 50);
   }
   
   private void readObject(ObjectInputStream stream) throws IOException, ClassNotFoundException {
@@ -115,11 +115,11 @@ public abstract class Boss implements Serializable
     this.length=length;
     this.imageName = imageName;
     look=new BufferedImage[length][4];
+    
     for (int i = 0; i < length; i++)
     {
       for (int j = 0; j < 4; j++)
       {
-        System.out.println(ImageFactory.getIF().getLook(imageName));
         look[i][j]=ImageFactory.getIF().getLook(imageName).getSubimage(i*width, j*height, width, height);
       }
     }

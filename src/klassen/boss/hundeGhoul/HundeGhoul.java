@@ -46,7 +46,7 @@ public class HundeGhoul extends Boss
     this.maxAnimationTime = maxAnimationTime;
     this.minions = minions;
     this.bossSpritzer=bossSpritzer;
-    setLook("BigMama", 50, 50,3);
+    setLook("BigMama", 100, 100,3);
   }
   
   @Override
