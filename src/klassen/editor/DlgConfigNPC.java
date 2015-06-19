@@ -62,9 +62,6 @@ public class DlgConfigNPC extends JDialog {
                         case "int":
                             values.add(Integer.parseInt(inputs.get(i).getText()));
                             break;
-                        case "klassen.LevelDesign":
-                            //values.add(new LevelDesign(null, null, null, null, null))
-                            break;
                         default:
                             break;
                     }
