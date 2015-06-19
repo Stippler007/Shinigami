@@ -80,6 +80,7 @@ public abstract class Minion implements Serializable
   
   private void readObject(ObjectInputStream stream) throws IOException, ClassNotFoundException {
         stream.defaultReadObject();
+        look=new BufferedImage[2][4];
         setLook(imageTag, 50, 50);
     }
   
@@ -340,7 +341,11 @@ public abstract class Minion implements Serializable
   }
   public BufferedImage getLook()
   {
-    int j=-1;
+    if(player == null) {
+        return look[0][0];
+    }
+      
+      int j=-1;
     double turn=getTurn();
     if(turn>=-Math.PI*0.25&&turn<=Math.PI*0.25)
     {
