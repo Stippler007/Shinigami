@@ -64,6 +64,22 @@ public abstract class GameObjects implements Serializable {
         setImage(imageTag,width,5);
     }
 
+    public void setSolid(boolean solid) {
+        this.solid = solid;
+    }
+
+    public void setThorny(boolean thorny) {
+        this.thorny = thorny;
+    }
+
+    public void setSubX(int subX) {
+        this.subX = subX;
+    }
+
+    public void setSubY(int subY) {
+        this.subY = subY;
+    }
+    
     public void setImage(String tag, int width,int amount)
     {
       imageTag = tag;
