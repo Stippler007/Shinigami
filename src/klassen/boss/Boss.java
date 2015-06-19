@@ -309,6 +309,9 @@ public abstract class Boss implements Serializable
   }
   public BufferedImage getLook()
   {
+      if(player == null) {
+          return look[0][0];
+      }
     int j=-1;
     double turn=getTurn();
     if(turn>=-Math.PI*0.25&&turn<=Math.PI*0.25)

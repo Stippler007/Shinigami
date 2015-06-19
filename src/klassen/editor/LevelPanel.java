@@ -146,7 +146,7 @@ class LevelPanel extends JPanel {
                     g2d.drawImage(Minion.getMinions(currentMinion).getLook(), mouseX * 25 + padding, mouseY  * 25 + padding, null);
                     break;
                 case BOSS:
-                    g2d.drawImage(Boss.getBoss(currentBoss).getLook(), mouseX * 25 + padding, mouseY * 25 + padding, null);
+                    //g2d.drawImage(Boss.getBoss(currentBoss).getLook(), mouseX * 25 + padding, mouseY * 25 + padding, null);
                     break;
                 default:
                     break;
@@ -335,7 +335,7 @@ class LevelPanel extends JPanel {
             klassen.boss.Boss b = Boss.getBoss(currentBoss);
             b.setX(mouseX * 25 + padding);
             b.setY(mouseY * 25 + padding);
-            //m.setMap(level.getMap());
+            b.setMap(level.getMap());
             level.setBoss(b);
         }
         
@@ -364,7 +364,7 @@ class LevelPanel extends JPanel {
                     setMinion(e);
                     break;
                 case BOSS:
-                    setBoss(e);
+                    //setBoss(e);
                     break;
                 default:
                     break;

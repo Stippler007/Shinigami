@@ -430,7 +430,7 @@ public class LevelDesign implements Runnable {
         }
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 21; j++) {
-                map[i + 42][j] = new Arrow(brightness, 3, -750, -2075, this);
+                //map[i + 42][j] = new Arrow(brightness, 3, -750, -2075);
             }
         }
 
@@ -608,13 +608,13 @@ public class LevelDesign implements Runnable {
 
         for (int i = 84; i <= 95; i++) {
             for (int j = 28; j <= 31; j++) {
-                map[j][i] = new Arrow(brightness, 1, -700, -250, this);
+                //map[j][i] = new Arrow(brightness, 1, -700, -250, this);
             }
         }
 
         for (int i = 0; i <= 15; i++) {
             for (int j = 73; j < 79; j++) {
-                map[j][i] = new Arrow(brightness, 4, -800, -500, this);
+                //map[j][i] = new Arrow(brightness, 4, -800, -500, this);
             }
         }
 

@@ -99,7 +99,7 @@ public abstract class GameObjects implements Serializable {
 
     public void playerSteppedOn(Player player)
     {
-      
+        System.out.println("step");
     }
 
     public void setCurrentBrightness(int currentBrightness) 

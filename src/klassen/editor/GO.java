@@ -110,7 +110,7 @@ enum GO {
 
         m.put(DOOR, new GameObjects[][]{{new Door(0, 0, 0, null, 0, 0, 0), new Door(0, 0, 1, null, 0, 0, 0)}, {new Door(0, 1, 0, null, 0, 0, 0), new Door(0, 1, 1, null, 0, 0, 0)}});
 
-        m.put(ARROW, new GameObjects[][]{{new Arrow(0, 0, 0, 0, null)}});
+        m.put(ARROW, new GameObjects[][]{{new Arrow(0, 0, 0)}});
     }
 
     public static GameObjects[][] getGOs(GO g) {

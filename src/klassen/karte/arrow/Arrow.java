@@ -5,8 +5,7 @@
  */
 package klassen.karte.arrow;
 
-import java.awt.image.BufferedImage;
-import klassen.ImageFactory;
+import klassen.Background;
 import klassen.LevelDesign;
 import klassen.karte.GameObjects;
 import klassen.player.Player;
@@ -18,23 +17,35 @@ import klassen.player.Player;
 public class Arrow extends GameObjects {
 
     private transient LevelDesign ld;
-    private int id;
+    private String id;
     private float startX;
     private float startY;
 
-    public Arrow(int brightness, int id, float startX, float startY, LevelDesign ld) {
+    public Arrow(int brightness, float startX, float startY) {
         super(brightness);
         this.startX = startX;
         this.startY = startY;
-        this.id = id;
-        this.ld = ld;
         setImage("GrasBrightness",25,5);
     }
 
+    public void setID(String id) {
+        this.id = id;
+    }
+    
+    public void setStartX(float x) {
+        this.startX = x;
+    }
+    
+    public void setStartY(float y) {
+        this.startY = y;
+    }
+    
     @Override
     public void playerSteppedOn(Player player) {
-        ld.loadLevel(id, startX, startY);
-        //ld.buildMap(id);
+        Background.x = startX;
+        Background.y = startY;
+        LevelDesign.getLevelDesign().getLevel(id);
+        
     }
 
 }

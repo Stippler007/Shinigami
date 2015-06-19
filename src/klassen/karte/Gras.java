@@ -40,6 +40,7 @@ public class Gras extends GameObjects {
     @Override
     public void playerSteppedOn(Player player)
     {
+        super.playerSteppedOn(player);
         if (player.isMove()) {
           try
           {
