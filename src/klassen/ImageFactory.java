@@ -240,7 +240,7 @@ public class ImageFactory {
       rescaleOp.filter(help[i], help[i]);
 //      looks.put(str+"Brightness"+i, help[i]);
     }
-    BufferedImage cool=new BufferedImage(help.length*25,25,BufferedImage.TYPE_INT_ARGB);
+    BufferedImage cool=new BufferedImage(help.length*width,height,BufferedImage.TYPE_INT_ARGB);
     Graphics g=cool.getGraphics();
     for (int i = 0; i < help.length; i++)
     {
