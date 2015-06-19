@@ -9,7 +9,11 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.Serializable;
 import java.util.LinkedList;
+import java.util.List;
 import klassen.Background;
 import klassen.ImageFactory;
 import klassen.karte.GameObjects;
@@ -22,14 +26,14 @@ import klassen.player.PlayerSpritzer;
  *
  * @author Christian
  */
-public abstract class Boss 
+public abstract class Boss implements Serializable
 {
   protected boolean isAlive;
 
   protected Player player;
-  protected LinkedList<PlayerSpritzer> playerSpritzers;
+  protected List<PlayerSpritzer> playerSpritzers;
   
-  protected BufferedImage look[][];
+  protected transient BufferedImage look[][];
   
   protected float x;
   protected float y;
@@ -52,13 +56,14 @@ public abstract class Boss
   protected float animationTime;
   protected float maxAnimationTime;
   
+  protected String imageName;
+  
   public Boss(float x, float y,float speed,float maxLive,
           GameObjects[][] map,Player player,LinkedList<PlayerSpritzer> playerSpritzers) 
   {
     this.x = x;
     this.y = y;
     this.speed=speed;
-    this.bounding=bounding;
     this.player=player;
     this.playerSpritzers=playerSpritzers;
     this.live=maxLive;
@@ -67,6 +72,13 @@ public abstract class Boss
     this.aggroBox=new Rectangle((int)x-300, (int)y-200, 600, 400);
     isAlive=true;
   }
+  
+  private void readObject(ObjectInputStream stream) throws IOException, ClassNotFoundException {
+        stream.defaultReadObject();
+        BufferedImage img = ImageFactory.getIF().getLook(imageName);
+        setLook(imageName, img.getWidth(), img.getHeight());
+    }
+  
   // So Act 1, S1: Overture Paul Shapera
   public void setX(float x) 
   {
@@ -83,7 +95,8 @@ public abstract class Boss
 
   public void setLook(String imageName,int width,int height)
   {
-    for (int i = 0; i < 3; i++)
+    this.imageName = imageName;
+      for (int i = 0; i < 3; i++)
     {
       for (int j = 0; j < 4; j++)
       {

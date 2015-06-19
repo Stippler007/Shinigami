@@ -11,6 +11,7 @@ import java.io.ObjectInputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import klassen.boss.Boss;
 import klassen.karte.GameObjects;
 import klassen.minion.Minion;
 import klassen.npc.NPC;
@@ -24,16 +25,18 @@ public class Level implements Serializable {
     private GameObjects[][] map;
     private List<Minion> minions;
     private List<NPC> npcs;
+    private Boss boss;
     
     public Level(String id, GameObjects[][] map) {
-        this(id, map, new ArrayList<Minion>(), new ArrayList<NPC>());
+        this(id, map, new ArrayList<Minion>(), new ArrayList<NPC>(), null);
     }
     
-    public Level(String id, GameObjects[][] map, List<Minion> minions, List<NPC> npcs) {
+    public Level(String id, GameObjects[][] map, List<Minion> minions, List<NPC> npcs, Boss boss) {
         this.id = id;
         this.map = map;
         this.minions = minions;
         this.npcs = npcs;
+        this.boss = boss;
     }
     
     private void readObject(ObjectInputStream stream) throws IOException, ClassNotFoundException {
@@ -56,5 +59,9 @@ public class Level implements Serializable {
 
     public List<NPC> getNpcs() {
         return npcs;
+    }
+
+    public Boss getBoss() {
+        return boss;
     }
 }
