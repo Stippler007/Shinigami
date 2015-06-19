@@ -18,7 +18,7 @@ public class FenceVorneMid extends GameObjects {
 
     public FenceVorneMid(int brightness) {
         super(brightness);
-        setImage("FenceVorneMid",25,5);
+        setImage("FenceVorneMidBrightness",25,5);
         solid = true;
     }
 

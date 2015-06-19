@@ -25,7 +25,7 @@ public class YellowFlower extends GameObjects {
 
     public YellowFlower(int brightness) {
         super(brightness);
-        setImage("yellowFlower0",25,5);
+        setImage("yellowFlower0Brightness",25,5);
     }
 
     @Override

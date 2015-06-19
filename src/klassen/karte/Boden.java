@@ -19,9 +19,8 @@ public class Boden extends GameObjects
   public Boden(int brightness) 
   {
     super(brightness);
-      setImage("Ground_Wood_Planks",25,5);
+      setImage("Ground_Wood_PlanksBrightness",25,5);
   }
-  
   
   
 //  @Override

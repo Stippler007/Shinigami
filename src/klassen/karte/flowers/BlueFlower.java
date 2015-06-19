@@ -25,7 +25,7 @@ public class BlueFlower extends GameObjects
   public BlueFlower(int brightness)
   {
     super(brightness);
-      setImage("blueFlower0",25,5);
+      setImage("blueFlower0Brightness",25,5);
   }
   @Override
   public void update(float tslf, float x, float y)

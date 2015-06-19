@@ -16,7 +16,7 @@ public class Tree extends GameObjects {
 
     public Tree(int brightness, int x, int y) {
         super(brightness, x, y);
-        setImage("Tree",50,5);
+        setImage("TreeBrightness",50,5);
         solid = true;
     }
 

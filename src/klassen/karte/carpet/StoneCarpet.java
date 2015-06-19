@@ -17,7 +17,7 @@ public class StoneCarpet extends GameObjects {
 
     public StoneCarpet(int brightness, int x, int y) {
         super(brightness);
-        setImage("Stone_Floor_Full",75,5);
+        setImage("Stone_Floor_FullBrightness",75,5);
     }
 
     

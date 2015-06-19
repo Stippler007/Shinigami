@@ -14,7 +14,7 @@ public class Wand extends GameObjects {
 
     public Wand(int brightness) {
         super(brightness);
-        setImage("Wand0",25,5);
+        setImage("Wand0Brightness",25,5);
         solid = true;
     }
 

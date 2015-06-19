@@ -19,7 +19,7 @@ public class FenceHintenMid extends GameObjects
     public FenceHintenMid(int brightness)
   {
     super(brightness);
-    setImage("FenceHintenMid",25,5);
+    setImage("FenceHintenMidBrightness",25,5);
     solid = true;
   }
   

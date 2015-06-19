@@ -25,7 +25,7 @@ public class FootCarpet extends GameObjects {
 
     public FootCarpet(int brightness, int x, int y, float backX, float backY, int id, LevelDesign ld) {
         super(brightness, x, y);
-        setImage("FootCarpet",50,5);
+        setImage("FootCarpetBrightness",50,5);
         this.ld = ld;
         this.id = id;
         this.backX = backX;

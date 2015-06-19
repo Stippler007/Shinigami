@@ -31,7 +31,7 @@ public class Door extends GameObjects
     this.levelLoad=id;
     this.startX=startX;
     this.startY=startY;
-    setImage("Door",50,5);
+    setImage("DoorBrightness",50,5);
   }
 
   @Override
