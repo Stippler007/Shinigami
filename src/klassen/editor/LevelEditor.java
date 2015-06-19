@@ -20,6 +20,7 @@ import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import klassen.Level;
 import klassen.karte.GameObjects;
 
 /**
@@ -126,8 +127,9 @@ public class LevelEditor extends JFrame {
 
                 if (dlg.isReady()) {
                     //System.out.println(dlg.getLevelWidth()+" "+dlg.getLevelHeight()+" "+dlg.getGround());
-                    lp.resetMap(dlg.getLevelWidth(), dlg.getLevelHeight(), dlg.getGround());
-                    lp.setBrightness(dlg.getBrightness());
+                    //lp.resetMap(dlg.getLevelWidth(), dlg.getLevelHeight(), dlg.getGround());
+                    //lp.setBrightness(dlg.getBrightness());
+                    lp.newLevel(dlg.getLevelID(), dlg.getLevelWidth(), dlg.getLevelHeight(), dlg.getGround(), dlg.getBrightness());
                 }
             }
         });
@@ -142,7 +144,7 @@ public class LevelEditor extends JFrame {
                 if (f != null) {
                     try {
                         ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(f));
-                        oos.writeObject(lp.getMap());
+                        oos.writeObject(lp.getLevel());
                         oos.close();
                     } catch (IOException ex) {
                         System.out.println("Could not Save\n" + ex.getMessage());
@@ -161,7 +163,7 @@ public class LevelEditor extends JFrame {
                 if (f != null) {
                     try {
                         ObjectInputStream ois = new ObjectInputStream(new FileInputStream(f));
-                        lp.setMap((GameObjects[][]) ois.readObject());
+                        lp.setLevel((Level) ois.readObject());
                         ois.close();
                         lp.repaint();
                     } catch (Exception ex) {
@@ -193,7 +195,7 @@ public class LevelEditor extends JFrame {
     }
 
     public GameObjects[][] getMap() {
-        return lp.map;
+        return lp.getLevel().getMap();
     }
 
     public static void main(String[] args) {

@@ -13,10 +13,10 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JSpinner;
+import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
 /**
  *
@@ -26,6 +26,7 @@ class DlgNewMap extends JDialog {
 
     private JSpinner spWidth, spHeight, spBright;
     private JComboBox<GO> cbGround;
+    private JTextField tfID;
     private boolean ready = false;
 
     public DlgNewMap(JFrame owner) {
@@ -37,6 +38,7 @@ class DlgNewMap extends JDialog {
         spWidth = new JSpinner(new SpinnerNumberModel(30, 10, 500, 1));
         spHeight = new JSpinner(new SpinnerNumberModel(30, 10, 500, 1));
         spBright = new JSpinner(new SpinnerNumberModel(50, 0, 100, 1));
+        tfID = new JTextField();
         cbGround = new JComboBox<>(GO.values());
 
         btCreate.setAction(new AbstractAction() {
@@ -58,12 +60,18 @@ class DlgNewMap extends JDialog {
         btCreate.setText("Create");
         btCancel.setText("Cancel");
         
-        this.setSize(200, 200);
-        this.setLayout(new GridLayout(6, 1, 5, 5));
+        this.setSize(350, 200);
+        this.setLayout(new GridLayout(6, 2, 5, 5));
         this.setLocationRelativeTo(null);
+        this.add(new JLabel("ID (String)"));
+        this.add(tfID);
+        this.add(new JLabel("Width"));
         this.add(spWidth);
+        this.add(new JLabel("Height"));
         this.add(spHeight);
+        this.add(new JLabel("Ground"));
         this.add(cbGround);
+        this.add(new JLabel("Brightness"));
         this.add(spBright);
         this.add(btCreate);
         this.add(btCancel);
@@ -72,7 +80,11 @@ class DlgNewMap extends JDialog {
     public boolean isReady() {
         return ready;
     }
-
+    
+    public String getLevelID() {
+        return tfID.getText();
+    }
+    
     public int getLevelWidth() {
         try {
             spWidth.commitEdit();

@@ -5,9 +5,6 @@
  */
 package klassen.editor;
 
-import java.util.HashMap;
-import java.util.Map;
-import klassen.minion.Minion;
 import klassen.npc.Guard;
 import klassen.npc.OldMan;
 import klassen.npc.Sign;

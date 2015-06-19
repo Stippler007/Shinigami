@@ -6,6 +6,8 @@
 
 package klassen;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import klassen.karte.GameObjects;
 import klassen.minion.Minion;
@@ -15,20 +17,24 @@ import klassen.npc.NPC;
  *
  * @author Julian
  */
-public class Level {
-    private int id;
+public class Level implements Serializable {
+    private String id;
     private GameObjects[][] map;
     private List<Minion> minions;
     private List<NPC> npcs;
     
-    public Level(int id, GameObjects[][] map, List<Minion> minions, List<NPC> npcs) {
+    public Level(String id, GameObjects[][] map) {
+        this(id, map, new ArrayList<Minion>(), new ArrayList<NPC>());
+    }
+    
+    public Level(String id, GameObjects[][] map, List<Minion> minions, List<NPC> npcs) {
         this.id = id;
         this.map = map;
         this.minions = minions;
         this.npcs = npcs;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
     
