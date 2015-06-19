@@ -47,7 +47,7 @@ public class Tester {
         
 //        Music.play().canonInD();
 
-        Background bg = new Background(13*25, 10*25);
+        Background bg = new Background(-300, 500);
         bg.setMap(l.getMap());
         
         List<NPC> npcs = l.getNpcs();
@@ -60,7 +60,7 @@ public class Tester {
         List<MinionSpritzer> minionSpritzer = new LinkedList<MinionSpritzer>();
         List<Minion> minions = l.getMinions();
         Player player = new Player(width, height, 300, playerSpritzers, npcs, bg.getMap(), minions);
-        player.setMap(bg.getMap());
+        player.setMap(l.getMap());
         //LevelDesign ld = LevelDesign.getLevelDesign();
         //ld.setLevelDesign(player, bg, minions, npcs, playerSpritzers);
         //ld.loadLevel(5, -582, -529);
