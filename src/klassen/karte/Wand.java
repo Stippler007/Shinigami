@@ -27,7 +27,7 @@ public class Wand extends GameObjects {
 
     @Override
     public boolean isSolid() {
-        return solid;
+        return true;
     }
 
     @Override

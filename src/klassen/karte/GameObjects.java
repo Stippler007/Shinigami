@@ -93,8 +93,8 @@ public abstract class GameObjects implements Serializable {
 
     public void update(float tslf, float x, float y)
     {
-        bounding.x = (int) x;
-        bounding.y = (int) y;
+      bounding.x = (int) x;
+      bounding.y = (int) y;
     }
 
     public void playerSteppedOn(Player player)
