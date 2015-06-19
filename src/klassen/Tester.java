@@ -61,6 +61,8 @@ public class Tester {
         List<Minion> minions = l.getMinions();
         Player player = new Player(width, height, 300, playerSpritzers, npcs, bg.getMap(), minions);
         player.setMap(l.getMap());
+        
+        ld.setLevelDesign(player, bg, minions, npcs, playerSpritzers);
         //LevelDesign ld = LevelDesign.getLevelDesign();
         //ld.setLevelDesign(player, bg, minions, npcs, playerSpritzers);
         //ld.loadLevel(5, -582, -529);

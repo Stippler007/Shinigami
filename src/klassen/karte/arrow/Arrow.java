@@ -16,7 +16,6 @@ import klassen.player.Player;
  */
 public class Arrow extends GameObjects {
 
-    private transient LevelDesign ld;
     private String id;
     private float startX;
     private float startY;
@@ -44,8 +43,7 @@ public class Arrow extends GameObjects {
     public void playerSteppedOn(Player player) {
         Background.x = startX;
         Background.y = startY;
-        LevelDesign.getLevelDesign().getLevel(id);
-        
+        LevelDesign.getLevelDesign().loadNext(id);
     }
 
 }

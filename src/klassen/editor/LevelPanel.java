@@ -59,6 +59,9 @@ class LevelPanel extends JPanel {
     
     public void setLevel(Level l) {
         level = l;
+        width = l.getMap().length;
+        height = l.getMap()[0].length;
+        this.repaint();
     }
 
     public void setCurrentGameObject(GO go) {
@@ -226,6 +229,7 @@ class LevelPanel extends JPanel {
         }
 
         private void showConfig() {
+            System.out.println("config");
             for(int i = 0; i<level.getNpcs().size(); i++) {
                 if((int) level.getNpcs().get(i).getX()/25 == mouseX && (int) level.getNpcs().get(i).getY()/25 == mouseY) {
                     DlgConfigNPC dlg = new DlgConfigNPC(null, level.getNpcs().get(i));
@@ -261,7 +265,7 @@ class LevelPanel extends JPanel {
                 System.out.println("end");
                 return;
             }
-            
+            System.out.println("config go "+mouseX+ " "+mouseY);
             DlgConfigGO dlg = new DlgConfigGO(null, level.getMap()[mouseX][mouseY]);
             dlg.setVisible(true);
 
@@ -271,6 +275,9 @@ class LevelPanel extends JPanel {
         }
 
         public boolean isOutOfMap(int x, int y) {
+            System.out.println(level);
+            System.out.println(mouseX + " "+mouseY);
+            System.out.println(width+" "+height);
             return (level == null || x < 0 || y < 0 || x > width || y > height);
         }
         
@@ -347,11 +354,13 @@ class LevelPanel extends JPanel {
             System.out.println(e.getWhen() + " " + e.getClickCount() + " " + e.getButton());
 
             if (isOutOfMap(mouseX, mouseY)) {
+                System.out.println("out");
                 return;
             }
-
+            System.out.println("state");
             switch (state) {
                 case CONFIG:
+                    System.out.println("switch");
                     showConfig();
                     break;
                 case GAMEOBJECT:
@@ -400,6 +409,7 @@ class LevelPanel extends JPanel {
             mouseY = getMapY(e);
 
             if (isOutOfMap(mouseX, mouseY)) {
+                System.out.println("out");
                 return;
             }
 

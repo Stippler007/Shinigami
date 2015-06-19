@@ -19,7 +19,6 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Logger;
 import klassen.karte.*;
 import klassen.karte.GameObjects;
 import klassen.karte.arrow.Arrow;
@@ -49,14 +48,14 @@ import klassen.player.PlayerSpritzer;
 public class LevelDesign implements Runnable {
 
     private Player player;
-    private LinkedList<Minion> minions;
-    private LinkedList<NPC> npcs;
+    private List<Minion> minions;
+    private List<NPC> npcs;
 
     private Background bg;
 
     private float backX = -847;
     private float backY = -1045;
-    private LinkedList<PlayerSpritzer> playerSpritzers;
+    private List<PlayerSpritzer> playerSpritzers;
 
     private int brightness = -500;
 
@@ -70,8 +69,8 @@ public class LevelDesign implements Runnable {
     private LevelDesign() {
     }
 
-    public void setLevelDesign(Player player, Background bg, LinkedList<Minion> minions,
-            LinkedList<NPC> npcs, LinkedList<PlayerSpritzer> playerSpritzers) {
+    public void setLevelDesign(Player player, Background bg, List<Minion> minions,
+            List<NPC> npcs, List<PlayerSpritzer> playerSpritzers) {
         this.bg = bg;
         this.player = player;
         this.minions = minions;
@@ -130,6 +129,16 @@ public class LevelDesign implements Runnable {
         }
         
         System.out.println("all levels loaded...");
+    }
+    
+    public void loadNext(String id) {
+        Level l = getLevel(id);
+        
+        player.setMap(l.getMap());
+        bg.setMap(l.getMap());
+        
+        minions = l.getMinions();
+        npcs = l.getNpcs();
     }
     
     public Level getLevel(String id) {

@@ -11,6 +11,7 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.util.LinkedList;
+import java.util.List;
 import klassen.ImageFactory;
 import klassen.karte.GameObjects;
 import klassen.minion.Minion;
@@ -28,7 +29,7 @@ public class EvilGuard extends Minion {
     private float animationTime=0f;
     private boolean attacking = false;
     
-    public EvilGuard(float x, float y, float speed, float maxLive, Rectangle bounding, GameObjects[][] map, Player player, LinkedList<PlayerSpritzer> playerSpritzers) {
+    public EvilGuard(float x, float y, float speed, float maxLive, Rectangle bounding, GameObjects[][] map, Player player, List<PlayerSpritzer> playerSpritzers) {
         super(x, y, speed, maxLive, map, player, playerSpritzers);
     }
     
