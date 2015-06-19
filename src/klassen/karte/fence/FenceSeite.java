@@ -18,7 +18,7 @@ public class FenceSeite extends GameObjects {
 
     public FenceSeite(int brightness) {
         super(brightness);
-        setImage("FenceSeite");
+        setImage("FenceSeite",25,5);
         solid = true;
     }
 

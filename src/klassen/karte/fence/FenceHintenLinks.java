@@ -20,7 +20,7 @@ public class FenceHintenLinks extends GameObjects
   public FenceHintenLinks(int brightness)
   {
     super(brightness);
-    setImage("FenceHintenLinks");
+    setImage("FenceHintenLinks",25,5);
     
     solid = true;
   }

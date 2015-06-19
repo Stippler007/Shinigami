@@ -19,7 +19,7 @@ public class Haus4 extends GameObjects
   public Haus4(int brightness,int x,int y)
   {
     super(brightness, x, y);
-    setImage("Haus4");
+    setImage("Haus4",275,5);
     solid=true;
   }
 }

@@ -19,7 +19,7 @@ public class FenceVorneRechts extends GameObjects {
 
     public FenceVorneRechts(int brightness) {
         super(brightness);
-        setImage("FenceVorneRechts");
+        setImage("FenceVorneRechts",25,5);
         solid = true;
         
     }

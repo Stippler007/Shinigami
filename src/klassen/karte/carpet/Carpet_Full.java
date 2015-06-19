@@ -16,7 +16,7 @@ public class Carpet_Full extends GameObjects {
 
     public Carpet_Full(int brightness, int x, int y) {
         super(brightness, x, y);
-        setImage("Carpet_Full");
+        setImage("Carpet_Full",75,5);
     }
 
     }

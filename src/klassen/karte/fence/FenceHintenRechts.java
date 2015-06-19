@@ -19,7 +19,7 @@ public class FenceHintenRechts extends GameObjects
     public FenceHintenRechts(int brightness)
   {
     super(brightness);
-    setImage("FenceHintenRechts");
+    setImage("FenceHintenRechts",25,5);
     solid = true;
   }
   

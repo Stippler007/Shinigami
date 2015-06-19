@@ -41,7 +41,8 @@ public abstract class GameObjects implements Serializable {
     protected String imageTag = "Wand";
     protected int subX = 0;
     protected int subY = 0;
-
+    protected int width = 0;
+    
     public GameObjects(int brightness) {
         this(brightness, 0, 0);
     }
@@ -60,21 +61,16 @@ public abstract class GameObjects implements Serializable {
 
     private void readObject(ObjectInputStream stream) throws IOException, ClassNotFoundException {
         stream.defaultReadObject();
-        setImage(imageTag);
+        setImage(imageTag,width,5);
     }
 
-    public void setImage(String tag) {
-        imageTag = tag;
-        look=new BufferedImage[1];
-        look[0] = ImageFactory.getIF().getLook(imageTag).getSubimage(subX * 25, subY * 25, 25, 25);
-    }
-    public void setImage(String tag, int amount)
+    public void setImage(String tag, int width,int amount)
     {
       imageTag = tag;
       look=new BufferedImage[amount];
       for (int i = 0; i < look.length; i++)
       {
-        look[i]=ImageFactory.getIF().getLook(tag).getSubimage(i*25, 0, 25, 25);
+        look[i]=ImageFactory.getIF().getLook(tag).getSubimage(subX*25+i*width, subY*25, 25, 25);
       }
     }
 
