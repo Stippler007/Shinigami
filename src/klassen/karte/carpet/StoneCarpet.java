@@ -20,9 +20,6 @@ public class StoneCarpet extends GameObjects {
         setImage("Stone_Floor_Full");
     }
 
-    @Override
-    public BufferedImage getLook() {
-        return look;
-    }
+    
 
 }

@@ -19,8 +19,5 @@ public class Carpet_Full extends GameObjects {
         setImage("Carpet_Full");
     }
 
-    @Override
-    public BufferedImage getLook() {
-        return look;
     }
-}
+

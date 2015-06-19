@@ -20,11 +20,11 @@ public class Tree extends GameObjects {
         solid = true;
     }
 
-    @Override
-    public void setBrightness(int brightness) {
-        look = new BufferedImage(25, 25, BufferedImage.TYPE_INT_ARGB);
-        look.createGraphics().drawImage(look.getSubimage(subX * 25, subY * 25, 25, 25), 0, 0, null);
-        RescaleOp rescaleOp = new RescaleOp(1f, brightness, null);
-        rescaleOp.filter(look, look);
-    }
+//    @Override
+//    public void setBrightness(int brightness) {
+//        look = new BufferedImage(25, 25, BufferedImage.TYPE_INT_ARGB);
+//        look.createGraphics().drawImage(look.getSubimage(subX * 25, subY * 25, 25, 25), 0, 0, null);
+//        RescaleOp rescaleOp = new RescaleOp(1f, brightness, null);
+//        rescaleOp.filter(look, look);
+//    }
 }

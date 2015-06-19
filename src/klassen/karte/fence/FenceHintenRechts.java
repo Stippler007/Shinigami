@@ -20,7 +20,6 @@ public class FenceHintenRechts extends GameObjects
   {
     super(brightness);
     setImage("FenceHintenRechts");
-    bounding = new Rectangle(0, 0, look.getWidth(), look.getHeight());
     solid = true;
   }
   
@@ -30,10 +29,6 @@ public class FenceHintenRechts extends GameObjects
         bounding.y = (int) y;
     }
 
-    @Override
-    public BufferedImage getLook() {
-        return look;
-    }
 
     @Override
     public boolean isSolid() {

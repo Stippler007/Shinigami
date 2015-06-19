@@ -18,10 +18,6 @@ public class Weg extends GameObjects {
         setImage("Weg0");
     }
 
-    @Override
-    public BufferedImage getLook() {
-        return look;
-    }
 
     @Override
     public void setBrightness(int brighness) {

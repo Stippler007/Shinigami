@@ -31,7 +31,7 @@ public class Background
   {
     this.map = map;
   }
-    
+  
   public void update(float tslf)
   {
 //    System.out.format("X Koordinate: %f    Y Koordinate %f Block-X: %f     Block-Y: %f\n",
@@ -51,7 +51,6 @@ public class Background
         {
           System.out.println("Out of map");
         }
-        
       }
     }
   }

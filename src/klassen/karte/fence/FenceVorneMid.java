@@ -19,7 +19,6 @@ public class FenceVorneMid extends GameObjects {
     public FenceVorneMid(int brightness) {
         super(brightness);
         setImage("FenceVorneMid");
-        bounding = new Rectangle(0, 0, look.getWidth(), look.getHeight());
         solid = true;
     }
 
@@ -29,10 +28,6 @@ public class FenceVorneMid extends GameObjects {
         bounding.y = (int) y;
     }
 
-    @Override
-    public BufferedImage getLook() {
-        return look;
-    }
 
     @Override
     public boolean isSolid() {
@@ -44,8 +39,4 @@ public class FenceVorneMid extends GameObjects {
         return bounding;
     }
 
-    @Override
-    public void setBrightness(int brighness) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 }

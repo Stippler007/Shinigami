@@ -37,13 +37,4 @@ public class Arrow extends GameObjects {
         //ld.buildMap(id);
     }
 
-    @Override
-    public BufferedImage getLook() {
-        return look;
-    }
-
-    @Override
-    public void setBrightness(int brightness) {
-
-    }
 }

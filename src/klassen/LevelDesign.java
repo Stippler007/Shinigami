@@ -683,87 +683,93 @@ public class LevelDesign implements Runnable {
         }
     }
 
-    public void grass(float startX, float startY) {
-        GameObjects[][] map = new GameObjects[100][100];
-        
-        for (int i = 0; i < map.length; i++) {
-            for (int j = 0; j < map[i].length; j++) {
-                map[i][j] = new Gras(brightness);
-            }
-        }
-        
-        Background.x = startX + 400;
-        Background.y = startY + 300;
-        
-        
-        
-        player.setMap(map);
-        bg.setMap(map);
+    public void grass(float startX, float startY) 
+    {
+      GameObjects[][] map = new GameObjects[100][100];
 
-        for (NPC npc : npcs) {
-            npc.setMap(map);
-        }
-        
-        try {
-            dumpMap(map, "gras");
-        } catch (Exception ex) {
-            System.out.println("Error: "+ex.getMessage());
-        }
+      for (int i = 0; i < map.length; i++) {
+          for (int j = 0; j < map[i].length; j++) {
+              map[i][j] = new Gras(brightness);
+          }
+      }
+
+      Background.x = startX + 400;
+      Background.y = startY + 300;
+
+
+
+      player.setMap(map);
+      bg.setMap(map);
+
+      for (NPC npc : npcs) {
+          npc.setMap(map);
+      }
+
+      try {
+          dumpMap(map, "gras");
+      } catch (Exception ex) {
+          System.out.println("Error: "+ex.getMessage());
+      }
     }
     
-    public void test(float startX, float startY) {
-        clear();
+    public void test(float startX, float startY) 
+    {
+      clear();
 
-        GameObjects map[][] = new GameObjects[100][100];
-        for (int i = 0; i < 10; i++) {
-            for (int j = 0; j < 10; j++) {
-                map[i][j] = new Wand(brightness);
-            }
-        }
+      GameObjects map[][] = new GameObjects[100][100];
+      for (int i = 0; i < 10; i++) {
+          for (int j = 0; j < 10; j++) {
+              map[i][j] = new Wand(brightness);
+          }
+      }
 
-        for (int i = 0; i < 2; i++) {
-            for (int j = 0; j < 3; j++) {
-                for (int k = 0; k < map.length - 1; k += 2) {
-                    for (int l = 0; l < map.length - 2; l += 3) {
-                        map[i + k][j + l] = new Tree(brightness, i, j);
-                    }
-                }
-            }
-        }
-        for (int i = 20; i < map.length - 20; i++) {
-            for (int j = 15; j < map[0].length - 16; j++) {
-                map[i][j] = new Gras(brightness);
-            }
-        }
+      for (int i = 0; i < 2; i++) {
+          for (int j = 0; j < 3; j++) {
+              for (int k = 0; k < map.length - 1; k += 2) {
+                  for (int l = 0; l < map.length - 2; l += 3) {
+                      map[i + k][j + l] = new Tree(brightness, i, j);
+                  }
+              }
+          }
+      }
+      for (int i = 20; i < map.length - 20; i++) {
+          for (int j = 15; j < map[0].length - 16; j++) {
+              map[i][j] = new Gras(brightness);
+          }
+      }
 
-        Background.x = startX + 400;
-        Background.y = startY + 300;
+      Background.x = startX + 400;
+      Background.y = startY + 300;
 
-        for (int i = 0; i < 60; i++) {
-            minions.add(new Hund(Background.x + 1476 + 400, Background.y + 400 + i * 30, 200, map, player, playerSpritzers, minions));
-        }
+      for (int i = 0; i < 60; i++) {
+          minions.add(new Hund(Background.x + 1476 + 400, Background.y + 400 + i * 30, 200, map, player, playerSpritzers, minions));
+      }
 
-//    for (int i = 0; i < map.length-1; i++) 
-//    {
-//      for (int j = 0; j < map.length-1; j++) 
-//      {
-//        map[i][j].setBrightness(-100);
-//      }
-//    }
-        player.setMap(map);
-        bg.setMap(map);
-        for (NPC npc : npcs) {
-            npc.setMap(map);
+      for (int i = 0; i < map.length-1; i++) 
+      {
+        for (int j = 0; j < map[i].length-1; j++) 
+        {
+          map[i][j].setBrightness(-100);
         }
-        
-        try {
-            dumpMap(map, "test");
-        } catch (Exception ex) {
-            System.out.println("Error: "+ex.getMessage());
-        }
+      }
+      
+      player.setMap(map);
+      bg.setMap(map);
+      
+      for (NPC npc : npcs)
+      {
+        npc.setMap(map);
+      }
+
+      try {
+          dumpMap(map, "test");
+      } catch (Exception ex) {
+          System.out.println("Error: "+ex.getMessage());
+      }
     }
 
-    private void clear() {
+    private void clear() 
+    {
         minions.clear();
         npcs.clear();
     }

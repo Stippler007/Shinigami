@@ -24,15 +24,15 @@ public class Boden extends GameObjects
   
   
   
-  @Override
-  public BufferedImage getLook() {
-    return look;
-  }
-  
-  @Override
-  public void setBrightness(int brighness) 
-  {
-    RescaleOp rescaleOp = new RescaleOp(1f, brighness, null);
-    rescaleOp.filter(look, look);
-  }
+//  @Override
+//  public BufferedImage getLook() {
+//    return look;
+//  }
+//  
+//  @Override
+//  public void setBrightness(int brighness) 
+//  {
+//    RescaleOp rescaleOp = new RescaleOp(1f, brighness, null);
+//    rescaleOp.filter(look, look);
+//  }
 }

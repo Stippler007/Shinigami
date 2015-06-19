@@ -15,7 +15,6 @@ public class Wand extends GameObjects {
     public Wand(int brightness) {
         super(brightness);
         setImage("Wand0");
-        bounding = new Rectangle(0, 0, look.getWidth(), look.getHeight());
         solid = true;
     }
 
@@ -25,10 +24,6 @@ public class Wand extends GameObjects {
         bounding.y = (int) y;
     }
 
-    @Override
-    public BufferedImage getLook() {
-        return look;
-    }
 
     @Override
     public boolean isSolid() {
@@ -40,10 +35,6 @@ public class Wand extends GameObjects {
         return bounding;
     }
 
-    @Override
-    public void setBrightness(int brighness) {
-
-    }
 }
 
 

@@ -37,10 +37,7 @@ public class FootCarpet extends GameObjects {
         ld.loadLevel(id, backX, backY);
     }
 
-    @Override
-    public BufferedImage getLook() {
-        return look;
-    }
+   
 
 }
 //brotcrunsher

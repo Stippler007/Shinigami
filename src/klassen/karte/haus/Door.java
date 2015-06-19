@@ -40,11 +40,6 @@ public class Door extends GameObjects
     ld.loadLevel(levelLoad, startX, startY);
   }
   
-  @Override
-  public BufferedImage getLook()
-  {
-    return look;
-  }
 
   @Override
   public void setBrightness(int brighness) {

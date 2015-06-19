@@ -50,7 +50,7 @@ public class ImageFactory {
       loadPlayer();
       loadGameObjects();
       loadNPC();
-      setBrightness("Gras0");
+      setBrightness("Gras");
     } catch (IOException ex) {
       System.out.println("funkt nicht");
     }
@@ -148,7 +148,7 @@ public class ImageFactory {
     looks.put("Carpet_Full", ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/gameObjects/carpet/Carpet_Full.png")));
     looks.put("Door", ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/gameObjects/haus/Door.png")));
     for (int i = 0; i < 1; i++) {
-        looks.put("Gras"+i, ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/gameObjects/gras/Gras"+i+".png")));
+        looks.put("Gras", ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/gameObjects/gras/Gras"+i+".png")));
     }
     for (int i = 0; i < 1; i++) {
         looks.put("GrasSteppedOn"+i, ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/gameObjects/gras/GrasSteppedOn"+i+".png")));
@@ -207,7 +207,7 @@ public class ImageFactory {
   public void setBrightness(String str)
   {
     BufferedImage look=looks.get(str);
-    BufferedImage help[] = new BufferedImage[20];
+    BufferedImage help[] = new BufferedImage[21];
     int startBrightness=-100;
     for (int i = 0; i < help.length; i++)
     {
@@ -215,7 +215,7 @@ public class ImageFactory {
       help[i].createGraphics().drawImage(look, 0, 0, null);
       RescaleOp rescaleOp = new RescaleOp(1f, 10*i+startBrightness, null);
       rescaleOp.filter(help[i], help[i]);
-      looks.put(str+"Brightness"+i, help[i]);
+//      looks.put(str+"Brightness"+i, help[i]);
     }
     BufferedImage cool=new BufferedImage(help.length*25,25,BufferedImage.TYPE_INT_ARGB);
     Graphics g=cool.getGraphics();

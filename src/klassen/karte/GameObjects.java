@@ -20,12 +20,16 @@ import klassen.player.Player;
  */
 public abstract class GameObjects implements Serializable {
 
-    protected int brightness = 0;
+    protected int brightness;
     protected boolean brightnessChanged;
 
-    protected int currentBrightness = 0;
+    protected int currentBrightness;
     protected boolean currentBrightnessChanged;
-
+    
+    /*
+    brightness geht von -100 bis 100 insgesamt 21 bilder
+    */
+    
     protected boolean stepped = false;
     protected boolean solid = false;
     protected boolean heated = false;
@@ -33,7 +37,7 @@ public abstract class GameObjects implements Serializable {
     protected boolean thorny = false;
     protected Rectangle bounding;
 
-    protected transient BufferedImage look;
+    protected transient BufferedImage look[];
     protected String imageTag = "Wand";
     protected int subX = 0;
     protected int subY = 0;
@@ -63,48 +67,55 @@ public abstract class GameObjects implements Serializable {
 
     public void setImage(String tag) {
         imageTag = tag;
-        look = ImageFactory.getIF().getLook(imageTag).getSubimage(subX * 25, subY * 25, 25, 25);
+        look=new BufferedImage[1];
+        look[0] = ImageFactory.getIF().getLook(imageTag).getSubimage(subX * 25, subY * 25, 25, 25);
+    }
+    public void setImage(String tag, int amount)
+    {
+      imageTag = tag;
+      look=new BufferedImage[amount];
+      for (int i = 0; i < look.length; i++)
+      {
+        look[i]=ImageFactory.getIF().getLook(tag).getSubimage(i*25, 0, 25, 25);
+      }
     }
 
-    public void update(float tslf, float x, float y) {
-        if (currentBrightness != brightness) {
-            if (currentBrightness - 20 * tslf < brightness) {
-                currentBrightness -= 20 * tslf;
-            } else if (currentBrightness + 20 * tslf > brightness) {
-                currentBrightness -= 20 * tslf;
-            } else {
-                currentBrightnessChanged = true;
-                currentBrightness = brightness;
-            }
-        }
-
+    public void update(float tslf, float x, float y)
+    {
         bounding.x = (int) x;
         bounding.y = (int) y;
     }
 
-    public void playerSteppedOn(Player player) {
-
+    public void playerSteppedOn(Player player)
+    {
+      
     }
 
-    public void setCurrentBrightness(int currentBrightness) {
+    public void setCurrentBrightness(int currentBrightness) 
+    {
         this.currentBrightness = currentBrightness;
         currentBrightnessChanged = true;
     }
 
     public void setBrightness(int brightness) {
         this.brightness = brightness;
+        this.currentBrightness=brightness;
         this.brightnessChanged = true;
+        System.out.println(currentBrightness);
     }
 
-    public BufferedImage getLook() {
-        return look;
+    public BufferedImage getLook() 
+    {
+      int i=(int)(((((float)currentBrightness+50)/100)*(look.length))+9)/2;
+      return look[i];
     }
 
     public Rectangle getBounding() {
         return bounding;
     }
 
-    public boolean isSolid() {
+    public boolean isSolid()
+    {
         return solid;
     }
 
