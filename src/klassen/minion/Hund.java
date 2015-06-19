@@ -32,12 +32,12 @@ import klassen.player.PlayerSpritzer;
  */
 public class Hund extends Minion{
   
-  private BufferedImage[][] attackingLook;
+  private transient BufferedImage[][] attackingLook=new BufferedImage[2][4];
   
   private LinkedList<Minion> minions;
   private final float maxAnimationTime=0.3f;
   private float animationTime=0f;
-  
+  private double attackingTurn=0;
   
   
   public enum Status
@@ -50,9 +50,10 @@ public class Hund extends Minion{
     super(x,y,speed,100,map,player,playerSpritzers);
     this.speed=speed;
     this.minions=minions;
-    super.setLook("hund", 30, 30, 3, 2);
+    super.setLook("hund", 30, 30, 2, 4);
     bounding=new Rectangle((int)x,(int)y,look[0][0].getWidth(),look[0][0].getHeight());
     damage=1000;
+    setLookAttacking("hund", 2,30, 30);
   }
 
   @Override
@@ -67,6 +68,21 @@ public class Hund extends Minion{
       this.y = y;
   }
 
+  
+  protected void setLookAttacking(String imageName,int startX,int width,int height)
+  {
+    attackingLook=new BufferedImage[2][4];
+    for (int i = 0; i < 2; i++)
+    {
+      for (int j = 0; j < 4; j++)
+      {
+        attackingLook[i][j]=ImageFactory.getIF().getLook(imageName).getSubimage(startX*width+i*width, j*height, width, height);
+      }
+    }
+    bounding.width=width;
+    bounding.height=height;
+  }
+  
   @Override
   public void collideMap(float tslf)
   {
@@ -122,7 +138,6 @@ public class Hund extends Minion{
     drawHealthBar(g);
     g.drawImage(getLook(),null, (int)x,(int)y);
   }
-  private boolean attacking=false;
   private float zielSpeedX;
   private float zielSpeedY;
   @Override
@@ -179,32 +194,7 @@ public class Hund extends Minion{
       
       animationTime=0;
       
-      double turn=getTurn();
-//      if(turn>=-Math.PI*0.25&&turn<=Math.PI*0.25)
-//      {
-//        for (int i = 1; i < look.length+1; i++)
-//        {
-//          look[i-1]=ImageFactory.getIF().getLook("DogGhoul_seite_0"+i+"_attacking");
-//        }
-//      }
-//      else if(turn>=Math.PI*0.25&&turn<=Math.PI*0.5){
-//        for (int i = 1; i < look.length+1; i++) {
-//          look[i-1]=ImageFactory.getIF().getLook("DogGhoul_vorne_0"+i+"_attacking");
-//        }
-//      }
-//      else if(turn>=Math.PI*0.50&&turn<=Math.PI*1){
-//        for (int i = 1; i < look.length+1; i++) {
-//          look[i-1]=ImageFactory.getIF().getLook("DogGhoul_seite2_0"+i+"_attacking");
-//        }
-//      }
-//      else{
-//        for (int i = 1; i < look.length+1; i++) 
-//        {
-//          look[i-1]=ImageFactory.getIF().getLook("DogGhoul_hinten_0"+i+"_attacking");
-//        }
-//      }
-      
-//      maxAnimationTime*=2;
+      attackingTurn=getTurn();
       
       return true;
     }
@@ -295,36 +285,26 @@ public class Hund extends Minion{
   {
     if(!attacking)return super.getLook();
     int j=-1;
-    double turn=getTurn();
-    if(turn>=-Math.PI*0.25&&turn<=Math.PI*0.25)
+    if(attackingTurn>=-Math.PI*0.25&&attackingTurn<=Math.PI*0.25)
     {
       j=1;
     }
-    else if(turn>=Math.PI*0.25&&turn<=Math.PI*0.5){
+    else if(attackingTurn>=Math.PI*0.25&&attackingTurn<=Math.PI*0.5){
       j=0;
     }
-    else if(turn>=Math.PI*0.50&&turn<=Math.PI*1){
+    else if(attackingTurn>=Math.PI*0.50&&attackingTurn<=Math.PI*1){
       j=2;
     }
     else{
       j=3;
     }
-    if(moving&&speedX!=0||speedY!=0)
+    for(int i = 0; i < look.length; i++) 
     {
-      for(int i = 0; i < look.length; i++) 
+      if(animationTime<(float)maxAnimationTime/look.length*(i+1))
       {
-        if(animationTime<(float)maxAnimationTime/look.length*(i+1))
-        {
-          return look[i][j];
-        } 
-      }
+        return attackingLook[i][j];
+      } 
     }
-    else if(j!=-1)
-    {
-      return look[0][j];
-    }
-    System.out.println("No image found! " + j);
-    return look[0][0];
+    return attackingLook[0][j];
   }
-  
 }

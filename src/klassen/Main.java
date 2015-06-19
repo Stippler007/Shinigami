@@ -60,9 +60,9 @@ public class Main
     LinkedList<Minion> minions=new LinkedList<Minion>();
     Player player=new Player(width,height,300,playerSpritzers,npcs,bg.getMap(),minions);
     
-    LevelDesign ld=new LevelDesign(player,bg,minions,npcs,playerSpritzers);
-    
-    
+//    LevelDesign ld=new LevelDesign(player,bg,minions,npcs,playerSpritzers);
+    LevelDesign ld=LevelDesign.getLevelDesign();
+    ld.setLevelDesign(player, bg, minions, npcs, playerSpritzers);
     
     // BackX -847 BackY -1045
     // SpawnX -582 SpawnY -529
@@ -78,7 +78,7 @@ public class Main
     npcs.add(new OldMan(800, 800, 100, bg.getMap(), player, "Willst mein dick?"));
     npcs.add(new Sign(900, 800, bg.getMap(), player, "Willst mein dick?"));
     npcs.add(new Guard(100, 100, 100, bg.getMap(), player, "Willst mein dick?"));
-//    minions.add(new Hund(500, 500, 100, bg.getMap(), player, playerSpritzers, minions));
+    minions.add(new Hund(500, 500, 100, bg.getMap(), player, playerSpritzers, minions));
 //    minions.add(new Hund(1000,1400,110,bg.getMap(),player,playerSpritzers));
     
     GUI f=new GUI(player,playerSpritzers,boss,bossSpritzer,minions,minionSpritzer,npcs,bg,ld);
