@@ -20,8 +20,8 @@ public class Gras extends GameObjects {
       bounding = new Rectangle(0, 0, 25, 25);
       solid = false;
 //        setBrightness(0);
-      setImage("GrasBrightness",20);
-      setBrightness(100);
+      setImage("GrasBrightness",5);
+      setBrightness(0);
     }
 
 //    @Override

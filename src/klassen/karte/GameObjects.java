@@ -102,9 +102,9 @@ public abstract class GameObjects implements Serializable {
         System.out.println(currentBrightness);
     }
 
-    public BufferedImage getLook() 
+    public BufferedImage getLook()
     {
-      int i=(int)(((((float)currentBrightness+50)/100)*(look.length))+9)/2;
+      int i=(int)(((float)currentBrightness)/25);
       return look[i];
     }
 
