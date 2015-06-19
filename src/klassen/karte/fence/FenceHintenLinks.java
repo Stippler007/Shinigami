@@ -21,7 +21,7 @@ public class FenceHintenLinks extends GameObjects
   {
     super(brightness);
     setImage("FenceHintenLinks");
-    bounding = new Rectangle(0, 0, look.getWidth(), look.getHeight());
+    
     solid = true;
   }
   
@@ -31,10 +31,6 @@ public class FenceHintenLinks extends GameObjects
         bounding.y = (int) y;
     }
 
-    @Override
-    public BufferedImage getLook() {
-        return look;
-    }
 
     @Override
     public boolean isSolid() {
