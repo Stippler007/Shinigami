@@ -212,13 +212,13 @@ public abstract class NPC implements Serializable
   }
   
   public double getTurn()
-  {   
-      double a=(player.getBounding().x+player.getBounding().width/2)-(bounding.x+bounding.width/2);
+  {
+    double a=(player.getBounding().x+player.getBounding().width/2)-(bounding.x+bounding.width/2);
     double b=(player.getBounding().y+player.getBounding().height/2)-(bounding.y+bounding.height/2);
 
     double turn=Math.atan(b/a);
     if(a<0){
-      turn+=Math.PI;
+      turn+=2.3561944901923;
     }
     return turn; 
   }
