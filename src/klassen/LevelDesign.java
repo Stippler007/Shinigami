@@ -733,7 +733,6 @@ public class LevelDesign implements Runnable {
         }
     }
 
-<<<<<<< HEAD
     public void grass(float startX, float startY) 
     {
       GameObjects[][] map = new GameObjects[100][100];
@@ -763,39 +762,36 @@ public class LevelDesign implements Runnable {
       }
     }
     
-    public void test(float startX, float startY) 
-    {
-      clear();
-=======
-    public void grass(float startX, float startY) {
-        GameObjects[][] map = new GameObjects[100][100];
-
-        for (int i = 0; i < map.length; i++) {
-            for (int j = 0; j < map[i].length; j++) {
-                map[i][j] = new Gras(brightness);
-            }
-        }
-
-        Background.x = startX + 400;
-        Background.y = startY + 300;
-
-        player.setMap(map);
-        bg.setMap(map);
-
-        for (NPC npc : npcs) {
-            npc.setMap(map);
-        }
-
-        try {
-            dumpMap(map, "gras");
-        } catch (Exception ex) {
-            System.out.println("Error: " + ex.getMessage());
-        }
-    }
+//    public void test(float startX, float startY) 
+//    {
+//      clear();
+//        GameObjects[][] map = new GameObjects[100][100];
+//
+//        for (int i = 0; i < map.length; i++) {
+//            for (int j = 0; j < map[i].length; j++) {
+//                map[i][j] = new Gras(brightness);
+//            }
+//        }
+//
+//        Background.x = startX + 400;
+//        Background.y = startY + 300;
+//
+//        player.setMap(map);
+//        bg.setMap(map);
+//
+//        for (NPC npc : npcs) {
+//            npc.setMap(map);
+//        }
+//
+//        try {
+//            dumpMap(map, "gras");
+//        } catch (Exception ex) {
+//            System.out.println("Error: " + ex.getMessage());
+//        }
+//    }
 
     public void test(float startX, float startY) {
         clear();
->>>>>>> 650f0265db6df4eec8dccbc52b473a89ec7c734d
 
       GameObjects map[][] = new GameObjects[100][100];
       for (int i = 0; i < 10; i++) {
@@ -826,13 +822,13 @@ public class LevelDesign implements Runnable {
           minions.add(new Hund(Background.x + 1476 + 400, Background.y + 400 + i * 30, 200, map, player, playerSpritzers, minions));
       }
 
-<<<<<<< HEAD
       for (int i = 0; i < map.length-1; i++) 
       {
         for (int j = 0; j < map[i].length-1; j++) 
         {
           map[i][j].setBrightness(-100);
-=======
+        }
+      }
 //    for (int i = 0; i < map.length-1; i++) 
 //    {
 //      for (int j = 0; j < map.length-1; j++) 
@@ -850,9 +846,8 @@ public class LevelDesign implements Runnable {
             dumpMap(map, "test");
         } catch (Exception ex) {
             System.out.println("Error: " + ex.getMessage());
->>>>>>> 650f0265db6df4eec8dccbc52b473a89ec7c734d
         }
-      }
+      
       
       player.setMap(map);
       bg.setMap(map);
