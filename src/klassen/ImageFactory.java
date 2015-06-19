@@ -30,9 +30,11 @@ public class ImageFactory {
       for (int i = 0; i < 1; i++) 
       {
           looks.put("Player"+i, ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/player/player/Player"+i+".png")));
+        
       }
       for (int i = 0; i < 1; i++) {
           looks.put("BasicShot"+i, ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/player/player/basicSpritzer/BasicShot"+i+".png")));
+         
       }
       for (int i = 0; i < 14; i++) {
           looks.put("FireShot"+i, ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/player/player/fireShot/Fire_Shot_0"+i+".png")));
@@ -42,9 +44,11 @@ public class ImageFactory {
       }
       for (int i = 0; i < 1; i++) {
           looks.put("BasicShot"+i, ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/player/player/basicSpritzer/BasicShot"+i+".png")));
+  
       }
       for (int i = 0; i < 1; i++) {
           looks.put("HundeGhoul"+i, ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/minion/hundeGhoul/hundeGhoul/HundeGhoul"+i+".png")));
+         
       }
       loadMinions();
       loadPlayer();
@@ -152,9 +156,11 @@ public class ImageFactory {
     }
     for (int i = 0; i < 1; i++) {
         looks.put("GrasSteppedOn"+i, ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/gameObjects/gras/GrasSteppedOn"+i+".png")));
+        setBrightness("GrasSteppedOn"+i);
     }
     for (int i = 0; i < 1; i++) {
         looks.put("Weg"+i, ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/gameObjects/weg/Weg"+i+".png")));
+        setBrightness("Weg"+i);
     }
     for (int i = 0; i < 1; i++) {
         looks.put("Wand"+i, ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/gameObjects/wand/Wand"+i+".png")));
@@ -166,36 +172,45 @@ public class ImageFactory {
     for (int i = 0; i < 1; i++)
     {
       looks.put("blueFlower"+i, ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/gameObjects/flowers/blueFlower/blueFlower"+i+".jpg")));
+      setBrightness("blueFlower"+i);
     }
     for (int i = 0; i < 1; i++)
     {
       looks.put("FenceSeite", ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/gameObjects/fence/FenceSeite.jpg")));
+      setBrightness("FenceSeite"+i);
     }
     for (int i = 0; i < 1; i++)
     {
       looks.put("FenceVorneMid", ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/gameObjects/fence/FenceVorneMid.jpg")));
+      setBrightness("FenceVorneMid"+i);
     }
     for (int i = 0; i < 1; i++)
     {
       looks.put("FenceVorneLinks", ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/gameObjects/fence/FenceVorneLinks.jpg")));
+      setBrightness("FenceVorneLinks"+i);
     }
     for (int i = 0; i < 1; i++)
     {
       looks.put("FenceVorneRechts", ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/gameObjects/fence/FenceVorneRechts.jpg")));
+      setBrightness("FenceVorneRechts"+i);
     }
     
     looks.put("FenceHintenMid", ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/gameObjects/fence/FenceHintenMid.jpg")));
+    setBrightness("FenceHintenMid");
     
     for (int i = 0; i < 1; i++)
     {
       looks.put("FenceHintenLinks", ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/gameObjects/fence/FenceHintenLinks.jpg")));
+      setBrightness("FenceHintenLinks"+i);
     }
     for (int i = 0; i < 1; i++)
     {
       looks.put("FenceHintenRechts", ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/gameObjects/fence/FenceHintenRechts.jpg")));
+      setBrightness("FenceHintenRechts"+i);
     }
     
     looks.put("Ground_Wood_Planks", ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/gameObjects/haus/boden/Ground_Wood_Planks.png")));
+    setBrightness("Ground_Wood_Planks");
     looks.put("Haus", ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/gameObjects/haus/Haus.jpg")));
     looks.put("Haus2", ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/gameObjects/haus/Haus2.png")));
     looks.put("Haus3", ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/gameObjects/haus/Haus3.png")));
