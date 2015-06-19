@@ -67,6 +67,7 @@ public class LevelEditor extends JFrame {
 
                         lp.setCurrentGameObject(null);
                         lp.setCurrentMinion(null);
+                        lp.setCurrentBoss(null);
                         lp.setState(LevelPanel.State.NPC);
 
                         cbSet.removeAllItems();
@@ -79,6 +80,7 @@ public class LevelEditor extends JFrame {
 
                         lp.setCurrentGameObject(null);
                         lp.setCurrentNPC(null);
+                        lp.setCurrentBoss(null);
                         lp.setState(LevelPanel.State.MINION);
 
                         cbSet.removeAllItems();
@@ -87,11 +89,25 @@ public class LevelEditor extends JFrame {
                         }
                         break;
                     case "Minions":
+                        btState.setText("Boss");
+
+                        lp.setCurrentGameObject(null);
+                        lp.setCurrentNPC(null);
+                        lp.setCurrentMinion(null);
+                        lp.setState(LevelPanel.State.BOSS);
+
+                        cbSet.removeAllItems();
+                        for (Boss b : Boss.values()) {
+                            cbSet.addItem(b);
+                        }
+                        break;
+                    case "Boss":
                         btState.setText("Config");
 
                         lp.setCurrentGameObject(null);
                         lp.setCurrentNPC(null);
                         lp.setCurrentMinion(null);
+                        lp.setCurrentBoss(null);
                         lp.setState(LevelPanel.State.CONFIG);
 
                         cbSet.removeAllItems();
@@ -103,6 +119,7 @@ public class LevelEditor extends JFrame {
                         lp.setCurrentGameObject(GO.GRAS);
                         lp.setCurrentNPC(null);
                         lp.setCurrentMinion(null);
+                        lp.setCurrentBoss(null);
                         lp.setState(LevelPanel.State.GAMEOBJECT);
 
                         cbSet.setEnabled(true);

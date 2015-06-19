@@ -61,6 +61,10 @@ public class Level implements Serializable {
         return npcs;
     }
 
+    public void setBoss(Boss boss) {
+        this.boss = boss;
+    }
+    
     public Boss getBoss() {
         return boss;
     }

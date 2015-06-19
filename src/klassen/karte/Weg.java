@@ -15,7 +15,7 @@ public class Weg extends GameObjects {
 
     public Weg(int brightness) {
         super(brightness);
-        setImage("Weg0",25,5);
+        setImage("Weg0Brightness",25,5);
     }
 
 

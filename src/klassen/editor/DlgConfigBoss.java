@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package klassen.editor;
 
+import static java.awt.Component.CENTER_ALIGNMENT;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.lang.reflect.Parameter;
@@ -16,22 +18,20 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
-import klassen.karte.GameObjects;
 
 /**
  *
  * @author Julian
  */
-class DlgConfigGO extends JDialog {
-
+public class DlgConfigBoss extends JDialog {
     private List<String> types = new ArrayList<>();
     private List<JTextField> inputs = new ArrayList<>();
-    private GameObjects go;
+    private klassen.boss.Boss boss;
     private boolean ready = false;
-
-    public DlgConfigGO(JFrame owner, GameObjects obj) {
-        super(owner, "Configure GameObject", true);
-        this.go = obj;
+    
+    public DlgConfigBoss(JFrame owner, klassen.boss.Boss obj) {
+        super(owner, "Configure NPC", true);
+        boss = obj;
         
         JButton btConfig = new JButton();
         JButton btCancel = new JButton();
@@ -71,20 +71,20 @@ class DlgConfigGO extends JDialog {
                 }
                 
                 try {
-                    go = (GameObjects) go.getClass().getConstructors()[0].newInstance(values.toArray());
+                    boss = (klassen.boss.Boss) boss.getClass().getConstructors()[0].newInstance(values.toArray());
                     ready = true;
                 } catch (Exception ex) {
                     System.out.println(ex.getMessage());
                 }
-                System.out.println(go);
-                DlgConfigGO.this.setVisible(false);
+                System.out.println(boss);
+                DlgConfigBoss.this.setVisible(false);
             }
         });
         btCancel.setAction(new AbstractAction() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                DlgConfigGO.this.setVisible(false);
+                DlgConfigBoss.this.setVisible(false);
             }
         });
 
@@ -98,12 +98,12 @@ class DlgConfigGO extends JDialog {
         this.add(btConfig);
         this.add(btCancel);
     }
-
+    
     public boolean isReady() {
         return ready;
     }
 
-    public GameObjects getGO() {
-        return go;
+    public klassen.boss.Boss getBoss() {
+        return boss;
     }
 }
