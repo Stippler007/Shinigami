@@ -51,7 +51,7 @@ public class ImageFactory {
       loadPlayer();
       loadGameObjects();
       loadNPC();
-      setBrightness("Gras");
+      setBrightness("Gras",25,25);
     } catch (IOException ex) {
       System.out.println("funkt nicht");
     }
@@ -153,11 +153,11 @@ public class ImageFactory {
     }
     for (int i = 0; i < 1; i++) {
         looks.put("GrasSteppedOn"+i, ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/gameObjects/gras/GrasSteppedOn"+i+".png")));
-        setBrightness("GrasSteppedOn"+i);
+        setBrightness("GrasSteppedOn"+i,25,25);
     }
     for (int i = 0; i < 1; i++) {
         looks.put("Weg"+i, ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/gameObjects/weg/Weg"+i+".png")));
-        setBrightness("Weg"+i);
+        setBrightness("Weg"+i,25,25);
     }
     for (int i = 0; i < 1; i++) {
         looks.put("Wand"+i, ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/gameObjects/wand/Wand"+i+".png")));
@@ -169,45 +169,45 @@ public class ImageFactory {
     for (int i = 0; i < 1; i++)
     {
       looks.put("blueFlower"+i, ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/gameObjects/flowers/blueFlower/blueFlower"+i+".jpg")));
-      setBrightness("blueFlower"+i);
+      setBrightness("blueFlower"+i,25,25);
     }
     for (int i = 0; i < 1; i++)
     {
       looks.put("FenceSeite", ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/gameObjects/fence/FenceSeite.jpg")));
-      setBrightness("FenceSeite"+i);
+      setBrightness("FenceSeite"+i,25,25);
     }
     for (int i = 0; i < 1; i++)
     {
       looks.put("FenceVorneMid", ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/gameObjects/fence/FenceVorneMid.jpg")));
-      setBrightness("FenceVorneMid"+i);
+      setBrightness("FenceVorneMid"+i,25,25);
     }
     for (int i = 0; i < 1; i++)
     {
       looks.put("FenceVorneLinks", ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/gameObjects/fence/FenceVorneLinks.jpg")));
-      setBrightness("FenceVorneLinks"+i);
+      setBrightness("FenceVorneLinks"+i,25,25);
     }
     for (int i = 0; i < 1; i++)
     {
       looks.put("FenceVorneRechts", ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/gameObjects/fence/FenceVorneRechts.jpg")));
-      setBrightness("FenceVorneRechts"+i);
+      setBrightness("FenceVorneRechts"+i,25,25);
     }
     
     looks.put("FenceHintenMid", ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/gameObjects/fence/FenceHintenMid.jpg")));
-    setBrightness("FenceHintenMid");
+    setBrightness("FenceHintenMid",25,25);
     
     for (int i = 0; i < 1; i++)
     {
       looks.put("FenceHintenLinks", ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/gameObjects/fence/FenceHintenLinks.jpg")));
-      setBrightness("FenceHintenLinks"+i);
+      setBrightness("FenceHintenLinks"+i,25,25);
     }
     for (int i = 0; i < 1; i++)
     {
       looks.put("FenceHintenRechts", ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/gameObjects/fence/FenceHintenRechts.jpg")));
-      setBrightness("FenceHintenRechts"+i);
+      setBrightness("FenceHintenRechts"+i,25,25);
     }
     
     looks.put("Ground_Wood_Planks", ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/gameObjects/haus/boden/Ground_Wood_Planks.png")));
-    setBrightness("Ground_Wood_Planks");
+    setBrightness("Ground_Wood_Planks",25,25);
     looks.put("Haus", ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/gameObjects/haus/Haus.jpg")));
     looks.put("Haus2", ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/gameObjects/haus/Haus2.png")));
     looks.put("Haus3", ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/gameObjects/haus/Haus3.png")));
@@ -216,14 +216,14 @@ public class ImageFactory {
     looks.put("FootCarpet", ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/gameObjects/carpet/Foot_Carpet.png")));
     looks.put("Stone_Floor_Full", ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/gameObjects/carpet/Stone_Floor_Full.png")));
   }
-  public void setBrightness(String str)
+  public void setBrightness(String str,int width,int height)
   {
     BufferedImage look=looks.get(str);
-    BufferedImage help[] = new BufferedImage[21];
+    BufferedImage help[] = new BufferedImage[5];
     int startBrightness=-100;
     for (int i = 0; i < help.length; i++)
     {
-      help[i] = new BufferedImage(25, 25, BufferedImage.TYPE_INT_ARGB);
+      help[i] = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
       help[i].createGraphics().drawImage(look, 0, 0, null);
       RescaleOp rescaleOp = new RescaleOp(1f, 10*i+startBrightness, null);
       rescaleOp.filter(help[i], help[i]);
@@ -233,10 +233,11 @@ public class ImageFactory {
     Graphics g=cool.getGraphics();
     for (int i = 0; i < help.length; i++)
     {
-      g.drawImage(help[i],i*25, 0,null);
+      g.drawImage(help[i],width*i, 0,null);
     }
     looks.put(str+"Brightness", cool);
   }
+  
   public static ImageFactory getIF()
   {
       if(imageFactory==null)imageFactory=new ImageFactory();

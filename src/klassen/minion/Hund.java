@@ -33,7 +33,7 @@ import klassen.player.PlayerSpritzer;
  */
 public class Hund extends Minion{
   
-  private transient BufferedImage[][] attackingLook=new BufferedImage[2][4];
+//  private transient BufferedImage[][] attackingLook=new BufferedImage[2][4];
   
   private List<Minion> minions;
   private final float maxAnimationTime=0.3f;
@@ -41,20 +41,14 @@ public class Hund extends Minion{
   private double attackingTurn=0;
   
   
-  public enum Status
-  {
-    
-  }
-  
   public Hund(float x, float y,float speed,
           GameObjects[][] map,Player player,List<PlayerSpritzer> playerSpritzers,List<Minion> minions) {
     super(x,y,speed,100,map,player,playerSpritzers);
     this.speed=speed;
     this.minions=minions;
-    super.setLook("hund", 30, 30, 2, 4);
+    super.setLook("hund", 30, 30, 4, 4);
     bounding=new Rectangle((int)x,(int)y,look[0][0].getWidth(),look[0][0].getHeight());
     damage=1000;
-    setLookAttacking("hund", 2,30, 30);
   }
 
   @Override
@@ -70,19 +64,19 @@ public class Hund extends Minion{
   }
 
   
-  protected void setLookAttacking(String imageName,int startX,int width,int height)
-  {
-    attackingLook=new BufferedImage[2][4];
-    for (int i = 0; i < 2; i++)
-    {
-      for (int j = 0; j < 4; j++)
-      {
-        attackingLook[i][j]=ImageFactory.getIF().getLook(imageName).getSubimage(startX*width+i*width, j*height, width, height);
-      }
-    }
-    bounding.width=width;
-    bounding.height=height;
-  }
+//  protected void setLookAttacking(String imageName,int startX,int width,int height)
+//  {
+//    attackingLook=new BufferedImage[2][4];
+//    for (int i = 0; i < 2; i++)
+//    {
+//      for (int j = 0; j < 4; j++)
+//      {
+//        attackingLook[i][j]=ImageFactory.getIF().getLook(imageName).getSubimage(startX*width+i*width, j*height, width, height);
+//      }
+//    }
+//    bounding.width=width;
+//    bounding.height=height;
+//  }
   
   @Override
   public void collideMap(float tslf)
@@ -299,13 +293,13 @@ public class Hund extends Minion{
     else{
       j=3;
     }
-    for(int i = 0; i < look.length; i++) 
+    for(int i = 0; i < 2; i++) 
     {
-      if(animationTime<(float)maxAnimationTime/look.length*(i+1))
+      if(animationTime<(float)maxAnimationTime/2*(i))
       {
-        return attackingLook[i][j];
+        return look[i+2][j];
       } 
     }
-    return attackingLook[0][j];
+    return look[3][j];
   }
 }

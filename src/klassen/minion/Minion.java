@@ -57,7 +57,7 @@ public abstract class Minion implements Serializable
   protected Rectangle bounding;
   
   protected GameObjects[][] map;
-  protected transient BufferedImage look[][]=new BufferedImage[2][4];
+  protected transient BufferedImage look[][]=new BufferedImage[4][4];
   protected String imageTag;
   
   
@@ -87,9 +87,9 @@ public abstract class Minion implements Serializable
   public void setLook(String imageName,int width,int height)
   {
     imageTag = imageName;
-      for (int i = 0; i < 2; i++)
+    for (int i = 0; i < look.length; i++)
     {
-      for (int j = 0; j < 4; j++)
+      for (int j = 0; j < look[i].length; j++)
       {
           System.out.println(look[i][j]);
           System.out.println(imageName);
@@ -371,9 +371,9 @@ public abstract class Minion implements Serializable
     }
     if(moving&&speedX!=0||speedY!=0)
     {
-      for(int i = 0; i < look.length; i++) 
+      for(int i = 0; i < 2; i++) 
       {
-        if(animationTime<(float)maxAnimationTime/look.length*(i+1))
+        if(animationTime<(float)maxAnimationTime/(2)*(i+1))
         {
           return look[i][j];
         } 
