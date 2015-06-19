@@ -28,7 +28,7 @@ public class Arrow extends GameObjects {
         this.startY = startY;
         this.id = id;
         this.ld = ld;
-        setImage("Gras0");
+        setImage("GrasBrightness");
     }
 
     @Override

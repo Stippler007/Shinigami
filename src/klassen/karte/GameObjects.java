@@ -63,15 +63,10 @@ public abstract class GameObjects implements Serializable {
         setImage(imageTag);
     }
 
-    public void setImage(String tag) {
-        imageTag = tag;
-        look=new BufferedImage[1];
-        look[0] = ImageFactory.getIF().getLook(imageTag).getSubimage(subX * 25, subY * 25, 25, 25);
-    }
-    public void setImage(String tag, int amount)
+    public void setImage(String tag)
     {
       imageTag = tag;
-      look=new BufferedImage[amount];
+      look=new BufferedImage[5];
       for (int i = 0; i < look.length; i++)
       {
         look[i]=ImageFactory.getIF().getLook(tag).getSubimage(i*25, 0, 25, 25);
