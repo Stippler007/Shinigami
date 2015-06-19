@@ -222,6 +222,10 @@ class LevelPanel extends JPanel {
         public boolean isOutOfMap(int x, int y) {
             return (level == null || x < 0 || y < 0 || x > width || y > height);
         }
+        
+        private boolean isOut() {
+            return isOutOfMap(mouseX, mouseY);
+        }
 
         private void setGO(MouseEvent e) {
 
@@ -248,6 +252,11 @@ class LevelPanel extends JPanel {
         }
 
         private void setNPC(MouseEvent e) {
+            
+            if(isOut()) {
+                return;
+            }
+            
             klassen.npc.NPC n = NPC.getNPCs(currentNPC);
             n.setX(mouseX * 25 + padding);
             n.setY(mouseY * 25 + padding);

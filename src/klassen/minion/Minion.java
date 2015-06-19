@@ -9,6 +9,8 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.Serializable;
 import java.util.LinkedList;
 import klassen.Background;
@@ -54,7 +56,9 @@ public abstract class Minion implements Serializable
   protected Rectangle bounding;
   
   protected GameObjects[][] map;
-  protected BufferedImage look[][]=new BufferedImage[2][4];
+  protected transient BufferedImage look[][]=new BufferedImage[2][4];
+  protected String imageTag;
+  
   
   
   public Minion(float x, float y,float speed,float maxLive,
@@ -73,6 +77,26 @@ public abstract class Minion implements Serializable
     isAlive=true;
     bounding=new Rectangle((int)x, (int)y, 30, 30);
   }
+  
+  private void readObject(ObjectInputStream stream) throws IOException, ClassNotFoundException {
+        stream.defaultReadObject();
+        setLook(imageTag, 50, 50);
+    }
+  
+  public void setLook(String imageName,int width,int height)
+  {
+    imageTag = imageName;
+      for (int i = 0; i < 3; i++)
+    {
+      for (int j = 0; j < 4; j++)
+      {
+        look[i][j]=ImageFactory.getIF().getLook(imageTag).getSubimage(i*width, j*height, width, height);
+      }
+    }
+    bounding.width=width;
+    bounding.height=height;
+  }
+  
   // So Act 1, S1: Overture Paul Shapera
   public void setX(float x) 
   {
