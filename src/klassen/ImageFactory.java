@@ -155,6 +155,7 @@ public class ImageFactory {
     }
     for (int i = 0; i < 1; i++) {
         looks.put("Weg"+i, ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/gameObjects/weg/Weg"+i+".png")));
+        setBrightness("Weg0");
     }
     for (int i = 0; i < 1; i++) {
         looks.put("Wand"+i, ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/gameObjects/wand/Wand"+i+".png")));
