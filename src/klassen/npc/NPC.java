@@ -139,10 +139,10 @@ public abstract class NPC implements Serializable
               y+=vonunten;
             }
           }
-        }
-        if(map[i][j].getBounding().intersects(bounding.x+bounding.width/2, bounding.y+bounding.height/2, 2, 1))
-        {
+          if(map[i][j].getBounding().intersects(bounding.x+bounding.width/2, bounding.y+bounding.height/2, 2, 1))
+          {
           map[i][j].steppedOn(true);
+          }
         }
       }
     }
@@ -192,12 +192,10 @@ public abstract class NPC implements Serializable
     x+=knockbackX*tslf;
     y+=knockbackY*tslf;
   }
+  
   public void draw(Graphics2D g)
   {
-    g.rotate( getTurn(),  bounding.x+bounding.width/2,  bounding.y+bounding.height/2);
-    g.setColor(Color.black);
-    g.fill(bounding);
-    g.rotate(-getTurn(),  bounding.x+bounding.width/2,  bounding.y+bounding.height/2);
+    g.drawImage(getLook(), (int)x, (int)y, null);
   }
   
   public double getTurn()

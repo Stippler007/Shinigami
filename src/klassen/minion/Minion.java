@@ -29,6 +29,7 @@ public abstract class Minion implements Serializable
   
   protected Player player;
   protected LinkedList<PlayerSpritzer> playerSpritzers;
+  protected boolean attacking=false;
   
   protected float x;
   protected float y;
@@ -53,7 +54,7 @@ public abstract class Minion implements Serializable
   protected Rectangle bounding;
   
   protected GameObjects[][] map;
-  protected BufferedImage look[][]=new BufferedImage[3][4];
+  protected BufferedImage look[][]=new BufferedImage[2][4];
   
   
   public Minion(float x, float y,float speed,float maxLive,
@@ -70,6 +71,7 @@ public abstract class Minion implements Serializable
     this.map=map;
     this.aggroBox=new Rectangle((int)x-300, (int)y-200, 600, 400);
     isAlive=true;
+    bounding=new Rectangle((int)x, (int)y, 30, 30);
   }
   // So Act 1, S1: Overture Paul Shapera
   public void setX(float x) 
@@ -89,16 +91,21 @@ public abstract class Minion implements Serializable
   }
   public void update(float tslf)
   {
+    if(!attacking)
+    {
+      if(animationTime<=maxAnimationTime-maxAnimationTime/10)animationTime+=tslf;
+      else if(animationTime>maxAnimationTime-maxAnimationTime/10)animationTime-=maxAnimationTime;
+    }
     if(aggro)
     {
       playerSpritzerCollision(tslf);
-
+      
       speedX*=tslf;
       speedY*=tslf;
-
+      
       x+=speedX;
       y+=speedY;
-
+      
       bounding.x=(int)x;
       bounding.y=(int)y;
     }
@@ -276,6 +283,7 @@ public abstract class Minion implements Serializable
         look[i][j]=ImageFactory.getIF().getLook(imageName).getSubimage(i*width, j*height, width, height);
       }
     }
+    
     bounding.width=width;
     bounding.height=height;
   }

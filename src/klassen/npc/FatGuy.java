@@ -5,10 +5,6 @@
  */
 package klassen.npc;
 
-import java.awt.Graphics2D;
-import java.awt.Rectangle;
-import java.awt.image.BufferedImage;
-import klassen.ImageFactory;
 import klassen.karte.GameObjects;
 import klassen.player.Player;
 
@@ -16,22 +12,20 @@ import klassen.player.Player;
  *
  * @author Christian
  */
-public class Guard extends NPC
+public class FatGuy extends NPC
 {
-  
-  public Guard(float x, float y, float speed, GameObjects[][] map, Player player, String text)
-  {
-    super(x, y, speed,map, player, text);
-    setLook("guard", 50, 50);
-    speedY=50;
-  }
 
+  public FatGuy(float x, float y, float speed, GameObjects[][] map, Player player, String text)
+  {
+    super(x, y, speed, map, player, text);
+    setLook("guard", 50, 50);
+  }
   @Override
   public void update(float tslf)
   {
+    speedX=0;
     speedY=0;
     speedY=50;
     super.update(tslf);
   }
-  
 }
