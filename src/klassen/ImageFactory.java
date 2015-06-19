@@ -30,11 +30,9 @@ public class ImageFactory {
       for (int i = 0; i < 1; i++) 
       {
           looks.put("Player"+i, ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/player/player/Player"+i+".png")));
-        
       }
       for (int i = 0; i < 1; i++) {
           looks.put("BasicShot"+i, ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/player/player/basicSpritzer/BasicShot"+i+".png")));
-         
       }
       for (int i = 0; i < 14; i++) {
           looks.put("FireShot"+i, ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/player/player/fireShot/Fire_Shot_0"+i+".png")));
@@ -44,7 +42,6 @@ public class ImageFactory {
       }
       for (int i = 0; i < 1; i++) {
           looks.put("BasicShot"+i, ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/player/player/basicSpritzer/BasicShot"+i+".png")));
-  
       }
       for (int i = 0; i < 1; i++) {
           looks.put("HundeGhoul"+i, ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/minion/hundeGhoul/hundeGhoul/HundeGhoul"+i+".png")));
