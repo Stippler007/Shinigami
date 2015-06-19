@@ -6,6 +6,7 @@
 package klassen;
 
 import java.awt.Rectangle;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -58,7 +59,11 @@ public class LevelDesign implements Runnable {
 
     private boolean pause;
 
-    public LevelDesign(Player player, Background bg, LinkedList<Minion> minions,
+  private LevelDesign()
+  {
+  }
+  
+    public void setLevelDesign(Player player, Background bg, LinkedList<Minion> minions,
             LinkedList<NPC> npcs, LinkedList<PlayerSpritzer> playerSpritzers) {
         this.bg = bg;
         this.player = player;
@@ -66,7 +71,18 @@ public class LevelDesign implements Runnable {
         this.npcs = npcs;
         this.playerSpritzers = playerSpritzers;
     }
-
+    
+    private static LevelDesign levelDesign;
+    
+    public static LevelDesign getLevelDesign()
+    {
+      if(levelDesign==null)
+      {
+        levelDesign=new LevelDesign();
+      }
+      return levelDesign;
+    }
+    
     public void update() throws Exception {
 //    GameObjects[][] map=bg.getMap();
 //    

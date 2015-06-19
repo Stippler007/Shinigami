@@ -60,9 +60,9 @@ public class Main
     LinkedList<Minion> minions=new LinkedList<Minion>();
     Player player=new Player(width,height,300,playerSpritzers,npcs,bg.getMap(),minions);
     
-    LevelDesign ld=new LevelDesign(player,bg,minions,npcs,playerSpritzers);
-    
-    
+//    LevelDesign ld=new LevelDesign(player,bg,minions,npcs,playerSpritzers);
+    LevelDesign ld=LevelDesign.getLevelDesign();
+    ld.setLevelDesign(player, bg, minions, npcs, playerSpritzers);
     
     // BackX -847 BackY -1045
     // SpawnX -582 SpawnY -529
