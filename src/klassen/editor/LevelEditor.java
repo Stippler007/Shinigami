@@ -166,7 +166,9 @@ public class LevelEditor extends JFrame {
                         lp.setLevel((Level) ois.readObject());
                         ois.close();
                         lp.repaint();
-                    } catch (Exception ex) {
+                    } catch (IOException ex) {
+                        System.out.println("IOException: "+ex.getMessage());
+                    } catch (ClassNotFoundException ex) {
                         System.out.println("Could not load\n" + ex.getMessage());
                     }
                 }

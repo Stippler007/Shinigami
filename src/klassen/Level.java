@@ -6,6 +6,8 @@
 
 package klassen;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +34,12 @@ public class Level implements Serializable {
         this.map = map;
         this.minions = minions;
         this.npcs = npcs;
+    }
+    
+    private void readObject(ObjectInputStream stream) throws IOException, ClassNotFoundException {
+        System.out.println(stream);
+        stream.defaultReadObject();
+        System.out.println(stream);
     }
 
     public String getId() {

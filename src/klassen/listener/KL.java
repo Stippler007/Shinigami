@@ -9,6 +9,7 @@ import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.LinkedList;
+import java.util.List;
 import klassen.TextManager;
 import klassen.npc.NPC;
 import klassen.player.Player;
@@ -22,9 +23,9 @@ public class KL implements KeyListener{
 
   public static boolean[] keys=new boolean[1024];
   private Player player;
-  private LinkedList<NPC> npcs;
+  private List<NPC> npcs;
 
-  public KL(Player player, LinkedList<NPC> npcs) {
+  public KL(Player player, List<NPC> npcs) {
     this.player = player;
     this.npcs = npcs;
   }

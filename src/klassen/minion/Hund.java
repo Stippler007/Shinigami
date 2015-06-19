@@ -13,6 +13,7 @@ import java.awt.geom.Line2D;
 import java.awt.image.BufferedImage;
 import java.awt.image.RescaleOp;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Random;
 import javax.sound.sampled.Control;
 import javax.sound.sampled.Line;
@@ -34,7 +35,7 @@ public class Hund extends Minion{
   
   private transient BufferedImage[][] attackingLook=new BufferedImage[2][4];
   
-  private LinkedList<Minion> minions;
+  private List<Minion> minions;
   private final float maxAnimationTime=0.3f;
   private float animationTime=0f;
   private double attackingTurn=0;
@@ -46,7 +47,7 @@ public class Hund extends Minion{
   }
   
   public Hund(float x, float y,float speed,
-          GameObjects[][] map,Player player,LinkedList<PlayerSpritzer> playerSpritzers,LinkedList<Minion> minions) {
+          GameObjects[][] map,Player player,List<PlayerSpritzer> playerSpritzers,List<Minion> minions) {
     super(x,y,speed,100,map,player,playerSpritzers);
     this.speed=speed;
     this.minions=minions;

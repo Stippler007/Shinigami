@@ -9,8 +9,11 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.Serializable;
 import java.util.LinkedList;
+import java.util.List;
 import klassen.Background;
 import klassen.ImageFactory;
 import klassen.karte.GameObjects;
@@ -28,7 +31,7 @@ public abstract class Minion implements Serializable
   protected boolean isAlive;
   
   protected Player player;
-  protected LinkedList<PlayerSpritzer> playerSpritzers;
+  protected List<PlayerSpritzer> playerSpritzers;
   protected boolean attacking=false;
   
   protected float x;
@@ -54,16 +57,17 @@ public abstract class Minion implements Serializable
   protected Rectangle bounding;
   
   protected GameObjects[][] map;
-  protected BufferedImage look[][]=new BufferedImage[2][4];
+  protected transient BufferedImage look[][]=new BufferedImage[2][4];
+  protected String imageTag;
+  
   
   
   public Minion(float x, float y,float speed,float maxLive,
-          GameObjects[][] map,Player player,LinkedList<PlayerSpritzer> playerSpritzers) 
+          GameObjects[][] map,Player player,List<PlayerSpritzer> playerSpritzers) 
   {
     this.x = x;
     this.y = y;
     this.speed=speed;
-    this.bounding=bounding;
     this.player=player;
     this.playerSpritzers=playerSpritzers;
     this.live=maxLive;
@@ -73,6 +77,36 @@ public abstract class Minion implements Serializable
     isAlive=true;
     bounding=new Rectangle((int)x, (int)y, 30, 30);
   }
+  
+  private void readObject(ObjectInputStream stream) throws IOException, ClassNotFoundException {
+        stream.defaultReadObject();
+        look=new BufferedImage[2][4];
+        setLook(imageTag, 50, 50);
+    }
+  
+  public void setLook(String imageName,int width,int height)
+  {
+    imageTag = imageName;
+      for (int i = 0; i < 2; i++)
+    {
+      for (int j = 0; j < 4; j++)
+      {
+          System.out.println(look[i][j]);
+          System.out.println(imageName);
+          System.out.println(imageTag);
+          BufferedImage bi = ImageFactory.getIF().getLook(imageTag);
+          System.out.println(bi);
+          look[i][j]=ImageFactory.getIF().getLook(imageTag).getSubimage(i*width, j*height, width, height);
+      }
+    }
+    bounding.width=width;
+    bounding.height=height;
+  }
+  
+  public void setMap(GameObjects[][] map) {
+      this.map = map;
+  }
+  
   // So Act 1, S1: Overture Paul Shapera
   public void setX(float x) 
   {
@@ -316,7 +350,11 @@ public abstract class Minion implements Serializable
   }
   public BufferedImage getLook()
   {
-    int j=-1;
+    if(player == null) {
+        return look[0][0];
+    }
+      
+      int j=-1;
     double turn=getTurn();
     if(turn>=-Math.PI*0.25&&turn<=Math.PI*0.25)
     {

@@ -6,7 +6,6 @@
 package klassen;
 
 import java.awt.Rectangle;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -15,9 +14,12 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.Scanner;
-import klassen.minion.Hund;
+import java.util.List;
+import java.util.Map;
+import java.util.logging.Logger;
 import klassen.karte.*;
 import klassen.karte.GameObjects;
 import klassen.karte.arrow.Arrow;
@@ -30,6 +32,7 @@ import klassen.karte.flowers.BlueFlower;
 import klassen.karte.flowers.YellowFlower;
 import klassen.karte.haus.Door;
 import klassen.karte.haus.Haus;
+import klassen.minion.Hund;
 import klassen.minion.Minion;
 import klassen.minion.evilguard.EvilGuard;
 import klassen.npc.Guard;
@@ -57,12 +60,16 @@ public class LevelDesign implements Runnable {
 
     private int brightness = -500;
 
+    private List<String> IDs = new ArrayList<>();
+    private List<Level> levels = new ArrayList<Level>();
+
+    private Map<String, Level> world = new HashMap<String, Level>();
+    
     private boolean pause;
 
-  private LevelDesign()
-  {
-  }
-  
+    private LevelDesign() {
+    }
+
     public void setLevelDesign(Player player, Background bg, LinkedList<Minion> minions,
             LinkedList<NPC> npcs, LinkedList<PlayerSpritzer> playerSpritzers) {
         this.bg = bg;
@@ -71,18 +78,64 @@ public class LevelDesign implements Runnable {
         this.npcs = npcs;
         this.playerSpritzers = playerSpritzers;
     }
-    
+
     private static LevelDesign levelDesign;
-    
-    public static LevelDesign getLevelDesign()
-    {
-      if(levelDesign==null)
-      {
-        levelDesign=new LevelDesign();
-      }
-      return levelDesign;
+
+    public static LevelDesign getLevelDesign() {
+        if (levelDesign == null) {
+            levelDesign = new LevelDesign();
+        }
+        return levelDesign;
+    }
+
+    public List<String> getIDs() {
+        return IDs;
+    }
+
+    public List<Level> getLevels() {
+        return levels;
     }
     
+    public void loadLevels() {
+
+        File file = new File(levelDesign.getClass().getResource("../level").getPath());
+
+        System.out.println(LevelDesign.class.getResource("../level").getPath());
+        System.out.println(levelDesign.getClass().getResource("../level").getPath());
+        System.out.println(file.isDirectory());
+
+        for (String f : file.list()) {
+            System.out.println(f);
+        }
+
+        for (File f : file.listFiles()) {
+            try {
+                ObjectInputStream stream = new ObjectInputStream(new FileInputStream(f));
+                Level l = (Level) stream.readObject();
+                world.put(l.getId(), l);
+                stream.close();
+            } catch (FileNotFoundException ex) {
+                System.out.println("File not found: "+ex.getMessage());
+            } catch (IOException ex) {
+                System.out.println("Exception: "+ex.getMessage());
+            } catch (ClassNotFoundException ex) {
+                System.out.println("Class not found: "+ex.getMessage());
+            } catch (ClassCastException ex) {
+                System.out.println("Not a Level file: "+ex.getMessage());
+            }
+        }
+        
+        for (String id : world.keySet()) {
+            System.out.println(id);
+        }
+        
+        System.out.println("all levels loaded...");
+    }
+    
+    public Level getLevel(String id) {
+        return world.get(id);
+    }
+
     public void update() throws Exception {
 //    GameObjects[][] map=bg.getMap();
 //    
@@ -142,14 +195,14 @@ public class LevelDesign implements Runnable {
         }
         pause = false;
     }
-    
+
     public void buildMap(int id) {
         clear();
-        
+
         String name = "";
         pause = true;
-        
-        switch(id) {
+
+        switch (id) {
             case 0:
                 name = "test";
                 break;
@@ -157,7 +210,7 @@ public class LevelDesign implements Runnable {
                 name = "tutorial";
                 break;
             case 2:
-                name= "haus";
+                name = "haus";
                 break;
             case 3:
                 name = "route101";
@@ -166,20 +219,20 @@ public class LevelDesign implements Runnable {
                 name = "route202";
                 break;
         }
-        
+
         GameObjects[][] map;
 //        File f = new File(getClass().getResource("../level/").getPath()+name+".lvl");
-        File f = new File(getClass().getResource("../level/").getPath()+name+".map");
-        
+        File f = new File(getClass().getResource("../level/").getPath() + name + ".map");
+
         try {
             ObjectInputStream ois = new ObjectInputStream(new FileInputStream(f));
             map = (GameObjects[][]) ois.readObject();
             ois.close();
-        } catch(Exception ex) {
+        } catch (Exception ex) {
             System.out.println(ex.getMessage());
             return;
         }
-        
+
         player.setMap(map);
         bg.setMap(map);
         for (NPC npc : npcs) {
@@ -187,7 +240,7 @@ public class LevelDesign implements Runnable {
         }
         Background.x = -700;
         Background.y = -600;
-        
+
 //        try {
 //            Scanner sc = new Scanner(f);
 //            String level = sc.nextLine();
@@ -284,63 +337,62 @@ public class LevelDesign implements Runnable {
 //        } catch (Exception ex) {
 //            
 //        }
-        
     }
-    
+
     private void dumpMap(GameObjects[][] map, String name) throws FileNotFoundException, IOException {
-        File f = new File(getClass().getResource("../level/").getPath()+name+".lvl");
-        f.createNewFile(); 
+        File f = new File(getClass().getResource("../level/").getPath() + name + ".lvl");
+        f.createNewFile();
         System.out.println(f);
         PrintWriter pw = new PrintWriter(f);
-        pw.println(name+":"+map.length+"x"+map[0].length);
+        pw.println(name + ":" + map.length + "x" + map[0].length);
         for (int i = 0; i < map.length; i++) {
             for (int j = 0; j < map[i].length; j++) {
                 GameObjects go = map[j][i];
                 System.out.println(go);
-                if(go instanceof Boden) {
+                if (go instanceof Boden) {
                     pw.print("b");
-                } else if(go instanceof Gras) {
+                } else if (go instanceof Gras) {
                     pw.print("g");
-                } else if(go instanceof Tree) {
+                } else if (go instanceof Tree) {
                     pw.print("t");
-                } else if(go instanceof Wand) {
+                } else if (go instanceof Wand) {
                     pw.print("W");
-                } else if(go instanceof Weg) {
+                } else if (go instanceof Weg) {
                     pw.print("w");
-                } else if(go instanceof Door) {
+                } else if (go instanceof Door) {
                     pw.print("d");
-                } else if(go instanceof Haus) {
+                } else if (go instanceof Haus) {
                     pw.print("h");
-                } else if(go instanceof BlueFlower) {
+                } else if (go instanceof BlueFlower) {
                     pw.print("B");
-                } else if(go instanceof YellowFlower) {
+                } else if (go instanceof YellowFlower) {
                     pw.print("Y");
-                } else if(go instanceof Carpet_Full) {
+                } else if (go instanceof Carpet_Full) {
                     pw.print("c");
-                } else if(go instanceof FootCarpet) {
+                } else if (go instanceof FootCarpet) {
                     pw.print("f");
-                } else if(go instanceof Arrow) {
+                } else if (go instanceof Arrow) {
                     pw.print("a");
-                } else if(go instanceof FenceSeite) {
+                } else if (go instanceof FenceSeite) {
                     pw.print("S");
-                } else if(go instanceof FenceVorneLinks) {
+                } else if (go instanceof FenceVorneLinks) {
                     pw.print("L");
-                } else if(go instanceof FenceVorneMid) {
+                } else if (go instanceof FenceVorneMid) {
                     pw.print("M");
-                } else if(go instanceof FenceVorneRechts) {
+                } else if (go instanceof FenceVorneRechts) {
                     pw.print("R");
                 } else {
                     pw.print("X");
-                    System.out.println("Unknown, null:"+(go == null));
+                    System.out.println("Unknown, null:" + (go == null));
                 }
             }
             pw.println();
         }
         pw.close();
-        
-        File fs = new File(getClass().getResource("../level/").getPath()+name+".map");
+
+        File fs = new File(getClass().getResource("../level/").getPath() + name + ".map");
         fs.createNewFile();
-        
+
         ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(fs));
         oos.writeObject(map);
         oos.close();
@@ -358,7 +410,7 @@ public class LevelDesign implements Runnable {
                 }
             }
         }
-    //links oben 20/19
+        //links oben 20/19
         //rechts unten 71/69
 
         for (int i = 20; i < 72; i++) {
@@ -456,7 +508,7 @@ public class LevelDesign implements Runnable {
         map[33][64] = new Weg(brightness);
         map[34][64] = new Weg(brightness);
 
-    // Baum Deko
+        // Baum Deko
         for (int i = 0; i < 2; i++) {
             for (int j = 0; j < 3; j++) {
                 map[i + 40][j + 45] = new Tree(brightness, i, j);
@@ -480,7 +532,7 @@ public class LevelDesign implements Runnable {
                 map[i + 31][j + 64] = new Tree(brightness, i, j);
             }
         }
-    // Deko Blumen
+        // Deko Blumen
 
         map[32][49] = new BlueFlower(brightness);
         map[32][50] = new BlueFlower(brightness);
@@ -512,14 +564,14 @@ public class LevelDesign implements Runnable {
         for (NPC npc : npcs) {
             npc.setMap(map);
         }
-        
+
         try {
             dumpMap(map, "tutorial");
         } catch (Exception ex) {
-            System.out.println("Error: "+ex.getMessage());
+            System.out.println("Error: " + ex.getMessage());
         }
     }
-    
+
     public void route101(float startX, float startY) {
         clear();
         GameObjects map[][] = new GameObjects[100][100];
@@ -559,8 +611,8 @@ public class LevelDesign implements Runnable {
                 map[j][i] = new Arrow(brightness, 1, -700, -250, this);
             }
         }
-        
-        for (int i = 0; i <= 15; i++)  {
+
+        for (int i = 0; i <= 15; i++) {
             for (int j = 73; j < 79; j++) {
                 map[j][i] = new Arrow(brightness, 4, -800, -500, this);
             }
@@ -568,24 +620,24 @@ public class LevelDesign implements Runnable {
 
         minions.add(new EvilGuard(210, 150, 50, 10, new Rectangle(210, 150), map, player, playerSpritzers));
         minions.add(new Hund(200, 100, 50, map, player, playerSpritzers, minions));
-        
+
         player.setMap(map);
         bg.setMap(map);
         for (NPC npc : npcs) {
             npc.setMap(map);
         }
-        
+
         try {
             dumpMap(map, "route101");
         } catch (Exception ex) {
-            System.out.println("Error: route101 "+ex.getMessage());
+            System.out.println("Error: route101 " + ex.getMessage());
         }
     }
-    
+
     public void route202(float startX, float startY) {
         clear();
         GameObjects map[][] = new GameObjects[100][100];
-        
+
         for (int i = 0; i < 2; i++) {
             for (int j = 0; j < 3; j++) {
                 for (int k = 0; k < map.length - 1; k += 2) {
@@ -595,13 +647,13 @@ public class LevelDesign implements Runnable {
                 }
             }
         }
-        
-        for (int i = 20; i < map.length-20; i++) {
-            for (int j = 21; j < map.length-19; j++) {
+
+        for (int i = 20; i < map.length - 20; i++) {
+            for (int j = 21; j < map.length - 19; j++) {
                 map[i][j] = new Gras(brightness);
             }
         }
-        
+
         Background.x = startX + 400;
         Background.y = startY + 300;
 
@@ -610,19 +662,17 @@ public class LevelDesign implements Runnable {
                 map[i][j].setBrightness(-100);
             }
         }
-        
-        
-        
+
         player.setMap(map);
         bg.setMap(map);
         for (NPC npc : npcs) {
             npc.setMap(map);
         }
-        
+
         try {
             dumpMap(map, "route202");
         } catch (Exception ex) {
-            System.out.println("Error: "+ex.getMessage());
+            System.out.println("Error: " + ex.getMessage());
         }
     }
 
@@ -647,7 +697,7 @@ public class LevelDesign implements Runnable {
         map[32][27] = new FootCarpet(brightness, 0, 0, backX, backY, 1, this);
         map[33][27] = new FootCarpet(brightness, 1, 0, backX, backY, 1, this);
 
-    // 13 14
+        // 13 14
         for (int i = 1; i <= 5; i++) {
             for (int j = 4; j <= 7; j++) {
                 map[i + 20][j + 15] = new Carpet_Full(brightness, 1, 1);
@@ -675,14 +725,15 @@ public class LevelDesign implements Runnable {
         for (NPC npc : npcs) {
             npc.setMap(map);
         }
-        
+
         try {
             dumpMap(map, "haus");
         } catch (Exception ex) {
-            System.out.println("Error: "+ex.getMessage());
+            System.out.println("Error: " + ex.getMessage());
         }
     }
 
+<<<<<<< HEAD
     public void grass(float startX, float startY) 
     {
       GameObjects[][] map = new GameObjects[100][100];
@@ -715,6 +766,36 @@ public class LevelDesign implements Runnable {
     public void test(float startX, float startY) 
     {
       clear();
+=======
+    public void grass(float startX, float startY) {
+        GameObjects[][] map = new GameObjects[100][100];
+
+        for (int i = 0; i < map.length; i++) {
+            for (int j = 0; j < map[i].length; j++) {
+                map[i][j] = new Gras(brightness);
+            }
+        }
+
+        Background.x = startX + 400;
+        Background.y = startY + 300;
+
+        player.setMap(map);
+        bg.setMap(map);
+
+        for (NPC npc : npcs) {
+            npc.setMap(map);
+        }
+
+        try {
+            dumpMap(map, "gras");
+        } catch (Exception ex) {
+            System.out.println("Error: " + ex.getMessage());
+        }
+    }
+
+    public void test(float startX, float startY) {
+        clear();
+>>>>>>> 650f0265db6df4eec8dccbc52b473a89ec7c734d
 
       GameObjects map[][] = new GameObjects[100][100];
       for (int i = 0; i < 10; i++) {
@@ -745,11 +826,31 @@ public class LevelDesign implements Runnable {
           minions.add(new Hund(Background.x + 1476 + 400, Background.y + 400 + i * 30, 200, map, player, playerSpritzers, minions));
       }
 
+<<<<<<< HEAD
       for (int i = 0; i < map.length-1; i++) 
       {
         for (int j = 0; j < map[i].length-1; j++) 
         {
           map[i][j].setBrightness(-100);
+=======
+//    for (int i = 0; i < map.length-1; i++) 
+//    {
+//      for (int j = 0; j < map.length-1; j++) 
+//      {
+//        map[i][j].setBrightness(-100);
+//      }
+//    }
+        player.setMap(map);
+        bg.setMap(map);
+        for (NPC npc : npcs) {
+            npc.setMap(map);
+        }
+
+        try {
+            dumpMap(map, "test");
+        } catch (Exception ex) {
+            System.out.println("Error: " + ex.getMessage());
+>>>>>>> 650f0265db6df4eec8dccbc52b473a89ec7c734d
         }
       }
       

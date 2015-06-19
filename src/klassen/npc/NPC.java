@@ -1,10 +1,11 @@
 
 package klassen.npc;
 
-import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.Serializable;
 import klassen.Background;
 import klassen.ImageFactory;
@@ -15,7 +16,7 @@ public abstract class NPC implements Serializable
 {
   protected String text;
   
-  protected Player player;
+  protected transient Player player;
   
   protected float x;
   protected float y;
@@ -27,6 +28,7 @@ public abstract class NPC implements Serializable
   protected Rectangle bounding;
   protected transient BufferedImage look[][]=new BufferedImage[3][4];
   protected GameObjects[][] map;
+  protected String imageTag;
   
   protected float animationTime;
   protected float maxAnimationTime=0.9f;
@@ -44,6 +46,12 @@ public abstract class NPC implements Serializable
     this.text=text;
   }
 
+  private void readObject(ObjectInputStream stream) throws IOException, ClassNotFoundException {
+        stream.defaultReadObject();
+        look = new BufferedImage[3][4];
+        setLook(imageTag, 50, 50);
+    }
+  
   public void setX(float x) 
   {
     this.x = x;
@@ -59,17 +67,22 @@ public abstract class NPC implements Serializable
     this.map = map;
   }
   
+  public void setPlayer(Player p) {
+      player = p;
+  }
+  
   public Rectangle getBounding(){
     return bounding;
   }
 
   public void setLook(String imageName,int width,int height)
   {
-    for (int i = 0; i < 3; i++)
+    imageTag = imageName;
+      for (int i = 0; i < 3; i++)
     {
       for (int j = 0; j < 4; j++)
       {
-        look[i][j]=ImageFactory.getIF().getLook(imageName).getSubimage(i*width, j*height, width, height);
+          look[i][j]=ImageFactory.getIF().getLook(imageTag).getSubimage(i*width, j*height, width, height);
       }
     }
     bounding.width=width;
@@ -199,8 +212,8 @@ public abstract class NPC implements Serializable
   }
   
   public double getTurn()
-  {
-    double a=(player.getBounding().x+player.getBounding().width/2)-(bounding.x+bounding.width/2);
+  {   
+      double a=(player.getBounding().x+player.getBounding().width/2)-(bounding.x+bounding.width/2);
     double b=(player.getBounding().y+player.getBounding().height/2)-(bounding.y+bounding.height/2);
 
     double turn=Math.atan(b/a);
@@ -225,7 +238,11 @@ public abstract class NPC implements Serializable
   }
   public BufferedImage getLook()
   {
-    int j=-1;
+    if(player == null) {
+        return look[0][0];
+    }
+      
+      int j=-1;
     double turn=getTurn();
     if(turn>=-Math.PI*0.25&&turn<=Math.PI*0.25)
     {

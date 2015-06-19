@@ -9,6 +9,7 @@ import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.util.LinkedList;
+import java.util.List;
 import javax.swing.text.StyleConstants;
 import klassen.Background;
 import klassen.ImageFactory;
@@ -26,9 +27,9 @@ import klassen.npc.NPC;
  */
 public class Player {
   
-  private LinkedList<PlayerSpritzer> playerSpritzer;
-  private LinkedList<NPC> npcs;
-  private LinkedList<Minion> minions;
+  private List<PlayerSpritzer> playerSpritzer;
+  private List<NPC> npcs;
+  private List<Minion> minions;
   private Rectangle bounding;
   
   private float health=100;
@@ -66,7 +67,7 @@ public class Player {
       ICESHOT,
       ENERGYSHOT;
   }
-  public Player(int width,int height,float speed,LinkedList<PlayerSpritzer> playerSpritzer,LinkedList<NPC> npcs,GameObjects[][] map,LinkedList<Minion> minions)
+  public Player(int width,int height,float speed,List<PlayerSpritzer> playerSpritzer,List<NPC> npcs,GameObjects[][] map,List<Minion> minions)
   {
     for (int i = 0; i < look.length; i++) 
     {
