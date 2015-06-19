@@ -147,7 +147,9 @@ public class ImageFactory {
   {
 //    looks.put(null, null)
     looks.put("Carpet_Full", ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/gameObjects/carpet/Carpet_Full.png")));
+    setBrightness("Carpet_Full",75,75);
     looks.put("Door", ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/gameObjects/haus/Door.png")));
+    setBrightness("Door",50,50);
     for (int i = 0; i < 1; i++) {
         looks.put("Gras", ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/gameObjects/gras/Gras"+i+".png")));
     }
@@ -161,10 +163,12 @@ public class ImageFactory {
     }
     for (int i = 0; i < 1; i++) {
         looks.put("Wand"+i, ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/gameObjects/wand/Wand"+i+".png")));
+        setBrightness("Wand"+i,25,25);
     }
-    for (int i = 0; i < 2; i++)
+    for (int i = 0; i < 1; i++)
     {
       looks.put("yellowFlower"+i, ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/gameObjects/flowers/yellowFlower/yellowFlower"+i+".jpg")));
+      setBrightness("yellowFlower"+i,25,25);
     }
     for (int i = 0; i < 1; i++)
     {
@@ -209,12 +213,19 @@ public class ImageFactory {
     looks.put("Ground_Wood_Planks", ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/gameObjects/haus/boden/Ground_Wood_Planks.png")));
     setBrightness("Ground_Wood_Planks",25,25);
     looks.put("Haus", ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/gameObjects/haus/Haus.jpg")));
+    setBrightness("Haus",275,275);
     looks.put("Haus2", ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/gameObjects/haus/Haus2.png")));
+    setBrightness("Haus2",275,275);
     looks.put("Haus3", ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/gameObjects/haus/Haus3.png")));
+    setBrightness("Haus3",275,275);
     looks.put("Haus4", ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/gameObjects/haus/Haus4.png")));
+    setBrightness("Haus4",275,275);
     looks.put("Tree", ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/gameObjects/tree/Tree.jpg")));
+    setBrightness("Tree",50,75);
     looks.put("FootCarpet", ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/gameObjects/carpet/Foot_Carpet.png")));
+    setBrightness("FootCarpet",50,25);
     looks.put("Stone_Floor_Full", ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/gameObjects/carpet/Stone_Floor_Full.png")));
+    setBrightness("Stone_Floor_Full",75,75);
   }
   public void setBrightness(String str,int width,int height)
   {
