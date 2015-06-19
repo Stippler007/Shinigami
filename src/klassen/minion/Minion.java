@@ -67,7 +67,6 @@ public abstract class Minion implements Serializable
     this.x = x;
     this.y = y;
     this.speed=speed;
-    this.bounding=bounding;
     this.player=player;
     this.playerSpritzers=playerSpritzers;
     this.live=maxLive;
@@ -87,15 +86,24 @@ public abstract class Minion implements Serializable
   public void setLook(String imageName,int width,int height)
   {
     imageTag = imageName;
-      for (int i = 0; i < 3; i++)
+      for (int i = 0; i < 2; i++)
     {
       for (int j = 0; j < 4; j++)
       {
-        look[i][j]=ImageFactory.getIF().getLook(imageTag).getSubimage(i*width, j*height, width, height);
+          System.out.println(look[i][j]);
+          System.out.println(imageName);
+          System.out.println(imageTag);
+          BufferedImage bi = ImageFactory.getIF().getLook(imageTag);
+          System.out.println(bi);
+          look[i][j]=ImageFactory.getIF().getLook(imageTag).getSubimage(i*width, j*height, width, height);
       }
     }
     bounding.width=width;
     bounding.height=height;
+  }
+  
+  public void setMap(GameObjects[][] map) {
+      this.map = map;
   }
   
   // So Act 1, S1: Overture Paul Shapera

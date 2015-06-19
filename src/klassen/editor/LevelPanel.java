@@ -119,6 +119,10 @@ class LevelPanel extends JPanel {
             for (klassen.npc.NPC npc : level.getNpcs()) {
                 g2d.drawImage(npc.getLook(), (int) npc.getX(), (int) npc.getY(), null);
             }
+            
+            for( klassen.minion.Minion minion : level.getMinions()) {
+                g2d.drawImage(minion.getLook(), (int) minion.getX(), (int) minion.getY(), null);
+            }
 
             switch (state) {
                 case CONFIG:
@@ -131,7 +135,7 @@ class LevelPanel extends JPanel {
                     g2d.drawImage(NPC.getNPCs(currentNPC).getLook(), mouseX * 25 + padding, mouseY * 25 + padding, null);
                     break;
                 case MINION:
-                    //g2d.drawImage(Minion.getMinions(currentMinion).getLook(), mouseX * 25 + padding, mouseY  * 25 + padding, null);
+                    g2d.drawImage(Minion.getMinions(currentMinion).getLook(), mouseX * 25 + padding, mouseY  * 25 + padding, null);
                     break;
                 default:
                     break;
@@ -263,6 +267,18 @@ class LevelPanel extends JPanel {
             n.setMap(level.getMap());
             level.getNpcs().add(n);
         }
+        
+        private void setMinion(MouseEvent e) {
+            if(isOut()) {
+                return;
+            }
+            
+            klassen.minion.Minion m = Minion.getMinions(currentMinion);
+            m.setX(mouseX * 25 + padding);
+            m.setY(mouseY * 25 + padding);
+            m.setMap(level.getMap());
+            level.getMinions().add(m);
+        }
 
         @Override
         public void mouseClicked(MouseEvent e) {
@@ -286,7 +302,7 @@ class LevelPanel extends JPanel {
                     setNPC(e);
                     break;
                 case MINION:
-                    //g2d.drawImage(Minion.getMinions(currentMinion).getLook(), mouseX * 25 + padding, mouseY  * 25 + padding, null);
+                    setMinion(e);
                     break;
                 default:
                     break;
