@@ -164,6 +164,8 @@ public class GUI extends JFrame implements Runnable{
 //        g.rotate(+4*haha,400,300);
 //        
 //        g.drawString("Gerd",200, this.getHeight()-50);
+//      System.out.println(ImageFactory.getIF().getLook("Gras0Brightness"));
+//    g.drawImage(ImageFactory.getIF().getLook("Gras0Brightness"), null,0, 30);
   }
   private void drawLoadingScreen(Graphics2D g)
   {

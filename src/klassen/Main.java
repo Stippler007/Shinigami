@@ -237,9 +237,9 @@ public class Main
           int k=0;
           while(k<playerSpritzers.size())
           {
-            if(map[i][j].isSolid()&&playerSpritzers.get(k).getBounding().intersects(map[i][j].getBounding()))
+            if(playerSpritzers.get(k).getBounding().intersects(map[i][j].getBounding()))
             {
-              if(playerSpritzers.get(k) instanceof BasicShot)
+              if(playerSpritzers.get(k) instanceof BasicShot&&map[i][j].isSolid())
               {
                 BasicShot b=(BasicShot)playerSpritzers.get(k);
                 if(b.getStatus()==BasicShot.Status.SHOOTING)
@@ -251,9 +251,22 @@ public class Main
                   k++;
                 }
               }
-              else
+              else if(playerSpritzers.get(k) instanceof FireShot)
+              {
+                FireShot f=(FireShot)playerSpritzers.get(k);
+                
+                map[i][j].setBrightness(100);
+                
+                if(map[i][j].isSolid())playerSpritzers.remove(k);
+                else k++;
+              }
+              else if(map[i][j].isSolid())
               {
                 playerSpritzers.remove(k);
+              }
+              else
+              {
+                k++;
               }
             }
             else
