@@ -59,7 +59,7 @@ public abstract class Boss implements Serializable
   protected String imageName;
   
   public Boss(float x, float y,float speed,float maxLive,
-          GameObjects[][] map,Player player,LinkedList<PlayerSpritzer> playerSpritzers) 
+          GameObjects[][] map,Player player,List<PlayerSpritzer> playerSpritzers) 
   {
     this.x = x;
     this.y = y;

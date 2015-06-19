@@ -19,7 +19,7 @@ enum Boss {
     private static Map<Boss, klassen.boss.Boss> m;
     
     static {
-        m.put(HUNDEGHOUL, new HundeGhoul(10, 10, 10, null, null, null, null, null, null));
+        m.put(HUNDEGHOUL, new HundeGhoul(10, 10, 10, null, null, 10, null, null, null));
     }
     
     public static klassen.boss.Boss getBoss(Boss g) {

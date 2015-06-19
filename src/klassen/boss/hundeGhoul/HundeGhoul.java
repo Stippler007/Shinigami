@@ -10,6 +10,7 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.util.LinkedList;
+import java.util.List;
 import klassen.Background;
 import klassen.ImageFactory;
 import klassen.boss.Boss;
@@ -28,14 +29,14 @@ public class HundeGhoul extends Boss
   
   private float speed;
   
-  private LinkedList<Minion> minions;
+  private List<Minion> minions;
   
   private float attackPatternSwitchTimer=0;
   private float attackPatternSwitchTimerMax=30;
   
-  private LinkedList<BossSpritzer> bossSpritzer;
+  private List<BossSpritzer> bossSpritzer;
   
-  public HundeGhoul(float x, float y, float speed,GameObjects map[][],Player player, float maxAnimationTime,LinkedList<BossSpritzer> bossSpritzer, LinkedList<Minion> minions,LinkedList<PlayerSpritzer> playerSpritzers)
+  public HundeGhoul(float x, float y, float speed,GameObjects map[][],Player player, float maxAnimationTime,List<BossSpritzer> bossSpritzer, List<Minion> minions,List<PlayerSpritzer> playerSpritzers)
   {
     super(x, y, speed, 200,
             map,player, playerSpritzers);
