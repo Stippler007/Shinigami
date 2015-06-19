@@ -225,12 +225,48 @@ class LevelPanel extends JPanel {
             return (int) ((e.getY() - padding - translationY) / (25 * scale));
         }
 
-        private void showConfig(int x, int y) {
-            DlgConfigGO dlg = new DlgConfigGO(null, level.getMap()[x][y]);
+        private void showConfig() {
+            for(int i = 0; i<level.getNpcs().size(); i++) {
+                if((int) level.getNpcs().get(i).getX()/25 == mouseX && (int) level.getNpcs().get(i).getY()/25 == mouseY) {
+                    DlgConfigNPC dlg = new DlgConfigNPC(null, level.getNpcs().get(i));
+                    dlg.setVisible(true);
+                    
+                    if(dlg.isReady()) {
+                        level.getNpcs().set(i, dlg.getNPC());
+                    }
+                    return;
+                }
+            }
+            
+            for (int i = 0; i < level.getMinions().size(); i++) {
+                if((int) level.getMinions().get(i).getX()/25 == mouseX && (int) level.getMinions().get(i).getY()/25 == mouseY) {
+                    DlgConfigMinion dlg = new DlgConfigMinion(null, level.getMinions().get(i));
+                    dlg.setVisible(true);
+                    
+                    if(dlg.isReady()) {
+                        level.getMinions().set(i, dlg.getMinion());
+                    }
+                    return;
+                }
+            }
+            
+            if(level.getBoss() != null)
+            if((int) level.getBoss().getX()/25 == mouseX && (int) level.getBoss().getY()/25 == mouseY) {
+                DlgConfigBoss dlg = new DlgConfigBoss(null, level.getBoss());
+                dlg.setVisible(true);
+                
+                if(dlg.isReady()) {
+                    level.setBoss(dlg.getBoss());
+                }
+                System.out.println("end");
+                return;
+            }
+            
+            DlgConfigGO dlg = new DlgConfigGO(null, level.getMap()[mouseX][mouseY]);
             dlg.setVisible(true);
 
             if (dlg.isReady()) {
-                level.getMap()[x][y] = dlg.getGO();
+                level.getMap()[mouseX][mouseY] = dlg.getGO();
             }
         }
 
@@ -316,7 +352,7 @@ class LevelPanel extends JPanel {
 
             switch (state) {
                 case CONFIG:
-                    showConfig(mouseX, mouseY);
+                    showConfig();
                     break;
                 case GAMEOBJECT:
                     setGO(e);
