@@ -13,6 +13,7 @@ import java.awt.HeadlessException;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferStrategy;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -38,15 +39,15 @@ public class GUI extends JFrame implements Runnable{
   private LevelDesign ld;
 
   private Player player;
-  private LinkedList<PlayerSpritzer> playerSpritzer;
+  private List<PlayerSpritzer> playerSpritzer;
 
-  private LinkedList<Boss> boss;
-  private LinkedList<BossSpritzer> bossSpritzer;
+  private List<Boss> boss;
+  private List<BossSpritzer> bossSpritzer;
 
-  private LinkedList<Minion> minions;
-  private LinkedList<MinionSpritzer> minionSpritzer;
+  private List<Minion> minions;
+  private List<MinionSpritzer> minionSpritzer;
 
-  private LinkedList<NPC> npcs;
+  private List<NPC> npcs;
 
   private Background bg;
 
@@ -54,10 +55,10 @@ public class GUI extends JFrame implements Runnable{
 
   private double haha=0;
 
-  public GUI(Player player, LinkedList<PlayerSpritzer> playerSpritzer,
-          LinkedList<Boss> boss, LinkedList<BossSpritzer> bossSpritzer,
-          LinkedList<Minion> minion, LinkedList<MinionSpritzer> minionSpritzer,
-          LinkedList<NPC> npcs,Background bg,LevelDesign ld){
+  public GUI(Player player, List<PlayerSpritzer> playerSpritzer,
+          List<Boss> boss, List<BossSpritzer> bossSpritzer,
+          List<Minion> minion, List<MinionSpritzer> minionSpritzer,
+          List<NPC> npcs,Background bg,LevelDesign ld){
       this.player = player;
       this.playerSpritzer = playerSpritzer;
       this.boss = boss;

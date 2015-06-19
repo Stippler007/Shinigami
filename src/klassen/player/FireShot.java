@@ -8,6 +8,7 @@ package klassen.player;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.util.LinkedList;
+import java.util.List;
 import klassen.ImageFactory;
 import klassen.listener.MML;
 import klassen.minion.Minion;
@@ -21,14 +22,14 @@ public class FireShot extends PlayerSpritzer
   private boolean alive=true;
   
   private BufferedImage look[]=new BufferedImage[14];
-  private LinkedList<PlayerSpritzer> spritzers;
-  private LinkedList<Minion> minions;
+  private List<PlayerSpritzer> spritzers;
+  private List<Minion> minions;
   
   private int zielX;
   private int zielY;
   private int n;
   
-  public FireShot(float x, float y, float speed, float damage,Player player,LinkedList<PlayerSpritzer> spritzers,LinkedList<Minion> minions)
+  public FireShot(float x, float y, float speed, float damage,Player player,List<PlayerSpritzer> spritzers,List<Minion> minions)
   {
     super(x, y, new Rectangle((int)x, (int)y,ImageFactory.getIF().getLook("FireShot0").getWidth(),
             ImageFactory.getIF().getLook("FireShot0").getHeight()), damage);
@@ -57,7 +58,7 @@ public class FireShot extends PlayerSpritzer
     maxAnimationTime=0.3f;
   }
 
-  public FireShot(float x, float y, float speedX, float speedY, int n, float damage,LinkedList<PlayerSpritzer> spritzers) 
+  public FireShot(float x, float y, float speedX, float speedY, int n, float damage,List<PlayerSpritzer> spritzers) 
   {
     super(x, y, new Rectangle((int)x, (int)y,ImageFactory.getIF().getLook("FireShot0").getWidth(),
             ImageFactory.getIF().getLook("FireShot0").getHeight()), damage/2);

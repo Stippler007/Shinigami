@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.Serializable;
 import java.util.LinkedList;
+import java.util.List;
 import klassen.Background;
 import klassen.ImageFactory;
 import klassen.karte.GameObjects;
@@ -30,7 +31,7 @@ public abstract class Minion implements Serializable
   protected boolean isAlive;
   
   protected Player player;
-  protected LinkedList<PlayerSpritzer> playerSpritzers;
+  protected List<PlayerSpritzer> playerSpritzers;
   protected boolean attacking=false;
   
   protected float x;
@@ -62,7 +63,7 @@ public abstract class Minion implements Serializable
   
   
   public Minion(float x, float y,float speed,float maxLive,
-          GameObjects[][] map,Player player,LinkedList<PlayerSpritzer> playerSpritzers) 
+          GameObjects[][] map,Player player,List<PlayerSpritzer> playerSpritzers) 
   {
     this.x = x;
     this.y = y;
