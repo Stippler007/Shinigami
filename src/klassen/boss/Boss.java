@@ -72,6 +72,7 @@ public abstract class Boss implements Serializable
     this.map=map;
     this.aggroBox=new Rectangle((int)x-300, (int)y-200, 600, 400);
     isAlive=true;
+    
   }
   
   private void readObject(ObjectInputStream stream) throws IOException, ClassNotFoundException {
@@ -113,10 +114,12 @@ public abstract class Boss implements Serializable
   {
     this.length=length;
     this.imageName = imageName;
-      for (int i = 0; i < length; i++)
+    look=new BufferedImage[length][4];
+    for (int i = 0; i < length; i++)
     {
       for (int j = 0; j < 4; j++)
       {
+        System.out.println(ImageFactory.getIF().getLook(imageName));
         look[i][j]=ImageFactory.getIF().getLook(imageName).getSubimage(i*width, j*height, width, height);
       }
     }
@@ -129,6 +132,9 @@ public abstract class Boss implements Serializable
   }
   public void update(float tslf)
   {
+    if(animationTime<=maxAnimationTime)animationTime+=tslf;
+    else if(animationTime>maxAnimationTime)animationTime-=maxAnimationTime;
+    
     x+=Player.speedX;
     y+=Player.speedY;
     
@@ -303,24 +309,24 @@ public abstract class Boss implements Serializable
   }
   public BufferedImage getLook()
   {
-    int i=-1;
+    int j=-1;
     double turn=getTurn();
-      if(turn>=-Math.PI*0.25&&turn<=Math.PI*0.25)
-      {
-        i=0;
-      }
-      else if(turn>=Math.PI*0.25&&turn<=Math.PI*0.5){
-        i=1;
-      }
-      else if(turn>=Math.PI*0.50&&turn<=Math.PI*1){
-        i=2;
-      }
-      else{
-        i=3;
-      }
-    for (int j = 0; j < look.length; j++) 
+    if(turn>=-Math.PI*0.25&&turn<=Math.PI*0.25)
     {
-      if(animationTime<(float)maxAnimationTime/(look.length-1)*(i+1))return look[i][j];
+      j=1;
+    }
+    else if(turn>=Math.PI*0.25&&turn<=Math.PI*0.5){
+      j=0;
+    }
+    else if(turn>=Math.PI*0.50&&turn<=Math.PI*1){
+      j=2;
+    }
+    else{
+      j=3;
+    }
+    for (int i = 0; i < look.length; i++) 
+    {
+      if(animationTime<(float)maxAnimationTime/(look.length)*(i))return look[i][j];
     }
     return look[0][0];
   }

@@ -42,11 +42,11 @@ public class MusicPlayer implements Runnable {
 
     @Override
     public void run() {
-        try {
-            player.play();
-        } catch (JavaLayerException ex) {
-            System.out.println("False path");
-        }
+//        try {
+//            player.play();
+//        } catch (JavaLayerException ex) {
+//            System.out.println("False path");
+//        }
     }
 
 }

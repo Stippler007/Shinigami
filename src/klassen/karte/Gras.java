@@ -41,7 +41,14 @@ public class Gras extends GameObjects {
     public void playerSteppedOn(Player player)
     {
         if (player.isMove()) {
-            Music.play().randomGrasStep();
+          try
+          {
+//            Music.play().randomGrasStep();
+          }
+          catch (Exception ex)
+          {
+            System.out.println(ex.getMessage());
+          }
         }
     }
 

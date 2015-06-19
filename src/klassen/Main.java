@@ -47,7 +47,7 @@ public class Main
     
     Background bg=new Background(-847+400,-1045+300);
     
-    Music.play().canonInD();
+//    Music.play().canonInD();
     
     LinkedList<NPC> npcs=new LinkedList<>();
     
@@ -106,6 +106,7 @@ public class Main
 //    Thread gui=new Thread(f);
 //    gui.start();
 //////    
+    boss.add(new HundeGhoul(0, 0,100, bg.getMap(), player,0.5f, bossSpritzer, minions, playerSpritzers));
     Thread levelDesign=new Thread(ld);
     levelDesign.start();
 //    

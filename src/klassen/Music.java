@@ -34,24 +34,25 @@ public class Music {
         return music;
     }
 
-    public void canonInD() {
-        //String path="C:\\Users\\Christian\\Desktop\\TheGame\\src\\sounds\\blabla\\CanonInD.mp3";
-//    String path=System.getProperty("user.dir")+File.separator+"sounds"+File.separator+"blabla"+File.separator+"CanonInD.mp3";
-        URL path = getClass().getResource("../sounds/PlayerSounds/Fireshot.mp3");
-        System.out.println(path.toString());
-        MusicPlayer mp = new MusicPlayer(path.getFile());
-        Thread t = new Thread(mp);
-        t.start();
-    }
-
-    public void randomGrasStep() {
-//    String path=System.getProperty("user.dir")+File.separator+"sounds"+File.separator+"blabla"+File.separator+"Grassstep_"+(r.nextInt(5)+1)+".mp3";
-        if (randomGrasStep == null || !randomGrasStep.isAlive()) {
-            URL path = getClass().getResource("../sounds/PlayerSounds/Grassstep_" + (r.nextInt(5) + 1) + ".mp3");
-            MusicPlayer mp = new MusicPlayer(path.getFile());
-            Thread t = new Thread(mp);
-            randomGrasStep = t;
-            t.start();
-        }
-    }
+//    public void canonInD() {
+//        //String path="C:\\Users\\Christian\\Desktop\\TheGame\\src\\sounds\\blabla\\CanonInD.mp3";
+////    String path=System.getProperty("user.dir")+File.separator+"sounds"+File.separator+"blabla"+File.separator+"CanonInD.mp3";
+//        URL path = getClass().getResource("../sounds/PlayerSounds/Fireshot.mp3");
+//        System.out.println(path.toString());
+//        MusicPlayer mp = new MusicPlayer(path.getFile());
+//        Thread t = new Thread(mp);
+//        t.start();
+//    }
+//
+//    public void randomGrasStep() throws Exception
+//    {
+////    String path=System.getProperty("user.dir")+File.separator+"sounds"+File.separator+"blabla"+File.separator+"Grassstep_"+(r.nextInt(5)+1)+".mp3";
+//        if (randomGrasStep == null || !randomGrasStep.isAlive()) {
+//            URL path = getClass().getResource("../sounds/PlayerSounds/Grassstep_" + (r.nextInt(5) + 1) + ".mp3");
+//            MusicPlayer mp = new MusicPlayer(path.getFile());
+//            Thread t = new Thread(mp);
+//            randomGrasStep = t;
+//            t.start();
+//        }
+//    }
 }

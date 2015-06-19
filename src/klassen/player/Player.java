@@ -219,7 +219,6 @@ public class Player {
           {
             map[i][j].steppedOn(true);
             map[i][j].playerSteppedOn(this);
-
           }
         }
         else

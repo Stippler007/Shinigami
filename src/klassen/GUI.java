@@ -166,7 +166,8 @@ public class GUI extends JFrame implements Runnable{
 //        
 //        g.drawString("Gerd",200, this.getHeight()-50);
 //      System.out.println(ImageFactory.getIF().getLook("Gras0Brightness"));
-    g.drawImage(ImageFactory.getIF().getLook("GrasBrightness"), null,0, 30);
+//    g.drawImage(ImageFactory.getIF().getLook("GrasBrightness"), null,0, 30);
+//    g.drawImage(ImageFactory.getIF().getLook("BigMama"), null, 0,0);
   }
   private void drawLoadingScreen(Graphics2D g)
   {

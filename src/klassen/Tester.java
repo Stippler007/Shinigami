@@ -45,7 +45,7 @@ public class Tester {
         ld.loadLevels();
         Level l = ld.getLevel("house");
         
-        Music.play().canonInD();
+//        Music.play().canonInD();
 
         Background bg = new Background(13*25, 10*25);
         bg.setMap(l.getMap());
