@@ -57,6 +57,7 @@ public abstract class Boss implements Serializable
   protected float maxAnimationTime;
   
   protected String imageName;
+  protected int length;
   
   public Boss(float x, float y,float speed,float maxLive,
           GameObjects[][] map,Player player,List<PlayerSpritzer> playerSpritzers) 
@@ -76,7 +77,7 @@ public abstract class Boss implements Serializable
   private void readObject(ObjectInputStream stream) throws IOException, ClassNotFoundException {
         stream.defaultReadObject();
         BufferedImage img = ImageFactory.getIF().getLook(imageName);
-        setLook(imageName, img.getWidth(), img.getHeight());
+        setLook(imageName, img.getWidth(), img.getHeight(),3);
     }
   
   // So Act 1, S1: Overture Paul Shapera
@@ -93,10 +94,11 @@ public abstract class Boss implements Serializable
     this.isAlive = isAlive;
   }
 
-  public void setLook(String imageName,int width,int height)
+  public void setLook(String imageName,int width,int height,int length)
   {
+    this.length=length;
     this.imageName = imageName;
-      for (int i = 0; i < 3; i++)
+      for (int i = 0; i < length; i++)
     {
       for (int j = 0; j < 4; j++)
       {
