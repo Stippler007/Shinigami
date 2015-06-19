@@ -48,7 +48,7 @@ public class HundeGhoul extends Boss
     this.bossSpritzer=bossSpritzer;
     setLook("BigMama", 50, 50,3);
   }
-
+  
   @Override
   public void update(float tslf)
   {

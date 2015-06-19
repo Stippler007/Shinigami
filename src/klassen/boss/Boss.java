@@ -79,6 +79,21 @@ public abstract class Boss implements Serializable
         BufferedImage img = ImageFactory.getIF().getLook(imageName);
         setLook(imageName, img.getWidth(), img.getHeight(),3);
     }
+
+  public void setPlayer(Player player)
+  {
+    this.player = player;
+  }
+
+  public void setPlayerSpritzers(List<PlayerSpritzer> playerSpritzers)
+  {
+    this.playerSpritzers = playerSpritzers;
+  }
+
+  public void setMap(GameObjects[][] map)
+  {
+    this.map = map;
+  }
   
   // So Act 1, S1: Overture Paul Shapera
   public void setX(float x) 
