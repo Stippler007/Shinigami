@@ -6,6 +6,7 @@
 
 package klassen.editor;
 
+import java.util.HashMap;
 import java.util.Map;
 import klassen.boss.hundeGhoul.HundeGhoul;
 
@@ -16,7 +17,7 @@ import klassen.boss.hundeGhoul.HundeGhoul;
 enum Boss {
     HUNDEGHOUL;
     
-    private static Map<Boss, klassen.boss.Boss> m;
+    private static Map<Boss, klassen.boss.Boss> m = new HashMap<>();
     
     static {
         m.put(HUNDEGHOUL, new HundeGhoul(10, 10, 10, null, null, 10, null, null, null));

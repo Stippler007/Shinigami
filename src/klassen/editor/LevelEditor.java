@@ -54,6 +54,8 @@ public class LevelEditor extends JFrame {
                     lp.setCurrentNPC((NPC) cbSet.getSelectedItem());
                 } else if (lp.getState() == LevelPanel.State.MINION) {
                     lp.setCurrentMinion((Minion) cbSet.getSelectedItem());
+                } else if (lp.getState() == LevelPanel.State.BOSS) {
+                    lp.setCurrentBoss((Boss) cbSet.getSelectedItem());
                 }
             }
         });
@@ -97,9 +99,9 @@ public class LevelEditor extends JFrame {
                         lp.setState(LevelPanel.State.BOSS);
 
                         cbSet.removeAllItems();
-//                        for (Boss b : Boss.values()) {
-//                            cbSet.addItem(b);
-//                        }
+                        for (Boss b : Boss.values()) {
+                            cbSet.addItem(b);
+                        }
                         break;
                     case "Boss":
                         btState.setText("Config");
