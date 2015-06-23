@@ -13,12 +13,14 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.AbstractAction;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JDialog;
-import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import klassen.LevelDesign;
 import klassen.karte.GameObjects;
+import klassen.karte.arrow.Arrow;
 
 /**
  *
@@ -28,6 +30,8 @@ class DlgConfigGO extends JDialog {
 
     private List<String> types = new ArrayList<>();
     private List<JTextField> inputs = new ArrayList<>();
+    private JComboBox cb;
+    private int constructorInput = 0;
     private GameObjects go;
     private boolean ready = false;
 
@@ -38,10 +42,34 @@ class DlgConfigGO extends JDialog {
         JButton btConfig = new JButton();
         JButton btCancel = new JButton();
 
+        Parameter[] params = obj.getClass().getConstructors()[0].getParameters();
+        
+        for (int i = 0; i < params.length; i++) {
+            Parameter p = params[i];
+            this.types.add(p.getParameterizedType().getTypeName());
+            JLabel lb = new JLabel(p.getParameterizedType().getTypeName());
+            lb.setAlignmentY(CENTER_ALIGNMENT);
+            this.add(lb);
+            inputs.add(new JTextField());
+            this.add(inputs.get(i));
+            constructorInput++;
+        }
+        
         Method[] methods = obj.getClass().getMethods();
 
         for (int i = 0; i < methods.length; i++) {
             Method m = methods[i];
+            
+            if(m.getName().contains("ID")) {
+                LevelDesign.getLevelDesign().loadLevels();
+                cb = new JComboBox(LevelDesign.getLevelDesign().getIDs().toArray());
+                JLabel lb = new JLabel("ID");
+                this.types.add("ID");
+                this.add(lb);
+                this.add(cb);
+                continue;
+            }
+            
             if (m.getName().startsWith("set") && m.getParameterCount() == 1) {
                 this.types.add(m.getName());
                 JLabel lb = new JLabel(m.getParameters()[0].getParameterizedType().getTypeName() + " " + m.getName().substring(3));
@@ -58,7 +86,29 @@ class DlgConfigGO extends JDialog {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                for (int i = 0; i < inputs.size(); i++) {
+                List values = new ArrayList();
+                
+                for (int i = 0; i < constructorInput; i++) {
+                    switch(types.get(i)) {
+                        case "float":
+                            values.add(Float.parseFloat(inputs.get(i).getText()));
+                            break;
+                        case "int":
+                            values.add(Integer.parseInt(inputs.get(i).getText()));
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                
+                try {
+                    go = (klassen.karte.GameObjects) go.getClass().getConstructors()[0].newInstance(values.toArray());
+                } catch (Exception ex) {
+                    System.out.println(ex.getMessage());
+                }
+                System.out.println(go);
+                
+                for (int i = constructorInput; i < inputs.size(); i++) {
                     if (!inputs.get(i).getText().isEmpty()) {
                         String parse = inputs.get(i).getText();
                         if (types.get(i).contains("Brigthness")) {
@@ -71,6 +121,8 @@ class DlgConfigGO extends JDialog {
                             go.setSubY(Integer.parseInt(parse));
                         } else if (types.get(i).contains("Thorny")) {
                             go.setThorny(Boolean.parseBoolean(parse));
+                        } else if (types.get(i).contains("ID")) {
+                            ((Arrow) go).setID((String) cb.getSelectedItem());
                         }
                     }
                 }

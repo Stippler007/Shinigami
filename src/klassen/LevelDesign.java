@@ -125,6 +125,7 @@ public class LevelDesign implements Runnable {
         }
         
         for (String id : world.keySet()) {
+            IDs.add(id);
             System.out.println(id);
         }
         
