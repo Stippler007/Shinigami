@@ -14,6 +14,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import javafx.application.Platform;
 import javax.swing.AbstractAction;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -156,11 +157,18 @@ public class LevelEditor extends JFrame {
 
             @Override
             public void actionPerformed(ActionEvent e) {
+                File dir = new File("src/level");
                 JFileChooser fc = new JFileChooser();
-                fc.showSaveDialog(LevelEditor.this);
+                
+                System.out.println(dir.getAbsoluteFile());
+                
+                fc.setCurrentDirectory(dir);
+                fc.setSelectedFile(new File(lp.getLevel().getId()+".level"));
+                int option = fc.showSaveDialog(LevelEditor.this);
+                
                 File f = fc.getSelectedFile();
 
-                if (f != null) {
+                if (f != null && option == JFileChooser.APPROVE_OPTION) {
                     try {
                         ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(f));
                         oos.writeObject(lp.getLevel());
@@ -175,11 +183,16 @@ public class LevelEditor extends JFrame {
 
             @Override
             public void actionPerformed(ActionEvent e) {
+                File dir = new File("src/level");
                 JFileChooser fc = new JFileChooser();
-                fc.showOpenDialog(LevelEditor.this);
+                
+                fc.setCurrentDirectory(dir);
+                int option = fc.showOpenDialog(LevelEditor.this);
+                
                 File f = fc.getSelectedFile();
+                
 
-                if (f != null) {
+                if (f != null && option == JFileChooser.APPROVE_OPTION) {
                     try {
                         ObjectInputStream ois = new ObjectInputStream(new FileInputStream(f));
                         lp.setLevel((Level) ois.readObject());

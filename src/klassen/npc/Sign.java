@@ -9,11 +9,9 @@ package klassen.npc;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
-import java.util.LinkedList;
 import klassen.ImageFactory;
 import klassen.karte.GameObjects;
 import klassen.player.Player;
-import klassen.player.PlayerSpritzer;
 
 /**
  *
@@ -25,8 +23,9 @@ public class Sign extends NPC
   public Sign(float x, float y, GameObjects[][] map, Player player,String str) 
   {
     super(x, y, 0, map, player,str);
-    look=new BufferedImage[1][1];
-    look[0][0]=ImageFactory.getIF().getLook("sign");
+//    look=new BufferedImage[1][1];
+//    look[0][0]=ImageFactory.getIF().getLook("sign");
+      setLook(imageTag, 25, 25);
     bounding=new Rectangle((int)x,(int)y,25,25);
   }
   

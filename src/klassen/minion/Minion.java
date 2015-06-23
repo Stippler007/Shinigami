@@ -81,7 +81,9 @@ public abstract class Minion implements Serializable
   private void readObject(ObjectInputStream stream) throws IOException, ClassNotFoundException {
         stream.defaultReadObject();
         look=new BufferedImage[4][4];
-        setLook(imageTag, 50, 50, 4, 4);
+        System.out.println(imageTag);
+        BufferedImage bi = ImageFactory.getIF().getLook(imageTag);
+        setLook(imageTag, bi.getWidth()/4, bi.getHeight()/4, 4, 4);
     }
   
   public void setLook(String imageName,int width,int height)

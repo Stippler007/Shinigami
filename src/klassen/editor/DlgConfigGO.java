@@ -50,7 +50,7 @@ class DlgConfigGO extends JDialog {
             JLabel lb = new JLabel(p.getParameterizedType().getTypeName());
             lb.setAlignmentY(CENTER_ALIGNMENT);
             this.add(lb);
-            inputs.add(new JTextField());
+            inputs.add(new JTextField("0"));
             this.add(inputs.get(i));
             constructorInput++;
         }
@@ -89,6 +89,7 @@ class DlgConfigGO extends JDialog {
                 List values = new ArrayList();
                 
                 for (int i = 0; i < constructorInput; i++) {
+                    if(!inputs.get(i).getText().isEmpty())
                     switch(types.get(i)) {
                         case "float":
                             values.add(Float.parseFloat(inputs.get(i).getText()));
@@ -142,7 +143,7 @@ class DlgConfigGO extends JDialog {
         btCancel.setText("Cancel");
 
         this.setSize(300, 400);
-        this.setLayout(new GridLayout(inputs.size() + 1, 2, 5, 5));
+        this.setLayout(new GridLayout(inputs.size() + 2, 2, 5, 5));
         this.setLocationRelativeTo(null);
 
         this.add(btConfig);
