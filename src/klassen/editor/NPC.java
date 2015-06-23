@@ -23,11 +23,11 @@ enum NPC {
     public static klassen.npc.NPC getNPCs(NPC g) {
         switch (g) {
             case GUARD:
-                return new Guard(0, 0, 0, null, null, null);
+                return new Guard(0, 0, 0, null, null, "");
             case OLDMAN:
-                return new OldMan(0, 0, 0, null, null, null);
+                return new OldMan(0, 0, 0, null, null, "");
             case SIGN:
-                return new Sign(0, 0, null, null, null);
+                return new Sign(0, 0, null, null, "");
             default:
                 return null;
         }
