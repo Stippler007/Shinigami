@@ -73,7 +73,6 @@ public class DlgConfigMinion extends JDialog {
                 } catch (Exception ex) {
                     System.out.println(ex.getMessage());
                 }
-                System.out.println(minion);
                 DlgConfigMinion.this.setVisible(false);
             }
         });

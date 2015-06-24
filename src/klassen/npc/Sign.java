@@ -25,7 +25,7 @@ public class Sign extends NPC
     super(x, y, 0, map, player,str);
 //    look=new BufferedImage[1][1];
 //    look[0][0]=ImageFactory.getIF().getLook("sign");
-      setLook(imageTag, 25, 25);
+      setLook("sign", 25, 25);
     bounding=new Rectangle((int)x,(int)y,25,25);
   }
   

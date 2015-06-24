@@ -38,12 +38,6 @@ public class Level implements Serializable {
         this.npcs = npcs;
         this.boss = boss;
     }
-    
-    private void readObject(ObjectInputStream stream) throws IOException, ClassNotFoundException {
-        System.out.println(stream);
-        stream.defaultReadObject();
-        System.out.println(stream);
-    }
 
     public String getId() {
         return id;

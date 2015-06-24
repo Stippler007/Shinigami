@@ -38,6 +38,18 @@ public class Arrow extends GameObjects {
     public void setStartY(float y) {
         this.startY = y;
     }
+
+    public String getId() {
+        return id;
+    }
+
+    public float getStartX() {
+        return startX;
+    }
+
+    public float getStartY() {
+        return startY;
+    }
     
     @Override
     public void playerSteppedOn(Player player) {

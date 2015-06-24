@@ -72,7 +72,7 @@ public abstract class NPC implements Serializable {
 
     public void setLook(String imageName, int width, int height) {
         imageTag = imageName;
-        System.out.println(imageName);
+        
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 4; j++) {
                 look[i][j] = ImageFactory.getIF().getLook(imageTag).getSubimage(i * width, j * height, width, height);

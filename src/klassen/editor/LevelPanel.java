@@ -355,13 +355,11 @@ class LevelPanel extends JPanel {
             System.out.println(e.getWhen() + " " + e.getClickCount() + " " + e.getButton());
 
             if (isOutOfMap(mouseX, mouseY)) {
-                System.out.println("out");
                 return;
             }
-            System.out.println("state");
+            
             switch (state) {
                 case CONFIG:
-                    System.out.println("switch");
                     showConfig();
                     break;
                 case GAMEOBJECT:
@@ -410,12 +408,10 @@ class LevelPanel extends JPanel {
             mouseY = getMapY(e);
 
             if (isOutOfMap(mouseX, mouseY)) {
-                System.out.println("out");
                 return;
             }
 
             if (e.isControlDown()) {
-                System.out.println("set");
                 mapX = this.getMapX(e);
                 mapY = this.getMapY(e);
             } else {

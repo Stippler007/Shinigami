@@ -91,6 +91,10 @@ public abstract class GameObjects implements Serializable {
       }
     }
 
+    public String getImageTag() {
+        return imageTag;
+    }
+    
     public void update(float tslf, float x, float y)
     {
       bounding.x = (int) x;

@@ -107,7 +107,6 @@ class DlgConfigGO extends JDialog {
                 } catch (Exception ex) {
                     System.out.println(ex.getMessage());
                 }
-                System.out.println(go);
                 
                 for (int i = constructorInput; i < inputs.size(); i++) {
                     if (!inputs.get(i).getText().isEmpty()) {

@@ -43,7 +43,7 @@ public class Tester {
 
         LevelDesign ld = LevelDesign.getLevelDesign();
         ld.loadLevels();
-        Level l = ld.getLevel("level1");
+        Level l = ld.getLevel("test1");
         
 //        Music.play().canonInD();
 

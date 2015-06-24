@@ -46,29 +46,29 @@ import klassen.player.PlayerSpritzer;
  * @author Christian
  */
 public class LevelDesign implements Runnable {
-
+    
     private Player player;
     private List<Minion> minions;
     private List<NPC> npcs;
-
+    
     private Background bg;
-
+    
     private float backX = -847;
     private float backY = -1045;
     private List<PlayerSpritzer> playerSpritzers;
-
+    
     private int brightness = -500;
-
+    
     private List<String> IDs = new ArrayList<>();
     private List<Level> levels = new ArrayList<Level>();
-
+    
     private Map<String, Level> world = new HashMap<String, Level>();
     
     private boolean pause;
-
+    
     private LevelDesign() {
     }
-
+    
     public void setLevelDesign(Player player, Background bg, List<Minion> minions,
             List<NPC> npcs, List<PlayerSpritzer> playerSpritzers) {
         this.bg = bg;
@@ -77,59 +77,47 @@ public class LevelDesign implements Runnable {
         this.npcs = npcs;
         this.playerSpritzers = playerSpritzers;
     }
-
+    
     private static LevelDesign levelDesign;
-
+    
     public static LevelDesign getLevelDesign() {
         if (levelDesign == null) {
             levelDesign = new LevelDesign();
         }
         return levelDesign;
     }
-
+    
     public List<String> getIDs() {
         return IDs;
     }
-
+    
     public List<Level> getLevels() {
         return levels;
     }
     
     public void loadLevels() {
-
+        
         File file = new File(levelDesign.getClass().getResource("../level").getPath());
-
-        System.out.println(LevelDesign.class.getResource("../level").getPath());
-        System.out.println(levelDesign.getClass().getResource("../level").getPath());
-        System.out.println(file.isDirectory());
-
-        for (String f : file.list()) {
-            System.out.println(f);
-        }
-
+        
         for (File f : file.listFiles()) {
             try {
                 ObjectInputStream stream = new ObjectInputStream(new FileInputStream(f));
                 Level l = (Level) stream.readObject();
-                world.put(l.getId(), l);
+                if (!IDs.contains(l.getId())) {
+                    world.put(l.getId(), l);
+                    IDs.add(l.getId());
+                }
                 stream.close();
             } catch (FileNotFoundException ex) {
-                System.out.println("File not found: "+ex.getMessage());
+                System.out.println("File not found: " + ex.getMessage());
             } catch (IOException ex) {
-                System.out.println("Exception: "+ex.getMessage());
+                System.out.println("Exception: " + ex.getMessage());
             } catch (ClassNotFoundException ex) {
-                System.out.println("Class not found: "+ex.getMessage());
+                System.out.println("Class not found: " + ex.getMessage());
             } catch (ClassCastException ex) {
-                System.out.println("Not a Level file: "+ex.getMessage());
+                System.out.println("Not a Level file: " + ex.getMessage());
             }
         }
-        
-        for (String id : world.keySet()) {
-            IDs.add(id);
-            System.out.println(id);
-        }
-        
-        System.out.println("all levels loaded...");
     }
     
     public void loadNext(String id) {
@@ -145,7 +133,7 @@ public class LevelDesign implements Runnable {
     public Level getLevel(String id) {
         return world.get(id);
     }
-
+    
     public void update() throws Exception {
 //    GameObjects[][] map=bg.getMap();
 //    
@@ -171,16 +159,16 @@ public class LevelDesign implements Runnable {
 //    }
 
     }
-
+    
     public boolean isPause() {
         return pause;
     }
-
+    
     @Override
     public void run() {
-
+        
     }
-
+    
     public void loadLevel(int i, float startX, float startY) {
         pause = true;
         switch (i) {
@@ -205,13 +193,13 @@ public class LevelDesign implements Runnable {
         }
         pause = false;
     }
-
+    
     public void buildMap(int id) {
         clear();
-
+        
         String name = "";
         pause = true;
-
+        
         switch (id) {
             case 0:
                 name = "test";
@@ -229,11 +217,11 @@ public class LevelDesign implements Runnable {
                 name = "route202";
                 break;
         }
-
+        
         GameObjects[][] map;
 //        File f = new File(getClass().getResource("../level/").getPath()+name+".lvl");
         File f = new File(getClass().getResource("../level/").getPath() + name + ".map");
-
+        
         try {
             ObjectInputStream ois = new ObjectInputStream(new FileInputStream(f));
             map = (GameObjects[][]) ois.readObject();
@@ -242,7 +230,7 @@ public class LevelDesign implements Runnable {
             System.out.println(ex.getMessage());
             return;
         }
-
+        
         player.setMap(map);
         bg.setMap(map);
         for (NPC npc : npcs) {
@@ -348,7 +336,7 @@ public class LevelDesign implements Runnable {
 //            
 //        }
     }
-
+    
     private void dumpMap(GameObjects[][] map, String name) throws FileNotFoundException, IOException {
         File f = new File(getClass().getResource("../level/").getPath() + name + ".lvl");
         f.createNewFile();
@@ -399,18 +387,18 @@ public class LevelDesign implements Runnable {
             pw.println();
         }
         pw.close();
-
+        
         File fs = new File(getClass().getResource("../level/").getPath() + name + ".map");
         fs.createNewFile();
-
+        
         ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(fs));
         oos.writeObject(map);
         oos.close();
     }
-
+    
     public void tutorial(float startX, float startY, GameObjects map[][]) {
         clear();
-
+        
         for (int i = 0; i < 2; i++) {
             for (int j = 0; j < 3; j++) {
                 for (int k = 0; k < map.length - 1; k += 2) {
@@ -478,37 +466,37 @@ public class LevelDesign implements Runnable {
 //    map[4+30][10+53]=new Door(1, 1,this,-380,-575,2);
 
         map[50][50] = new Weg(brightness);
-
+        
         for (int k = 0; k < 10; k += 1) {
             map[51][41 + k] = new Weg(brightness);
         }
         for (int k = 0; k < 10; k += 1) {
             map[52][41 + k] = new Weg(brightness);
         }
-
+        
         for (int k = 0; k < 20; k += 1) {
             map[33 + k][50] = new Weg(brightness);
         }
         for (int k = 0; k < 20; k += 1) {
             map[33 + k][49] = new Weg(brightness);
         }
-
+        
         for (int k = 0; k < 10; k += 1) {
             map[33][41 + k] = new Weg(brightness);
         }
-
+        
         for (int k = 0; k < 10; k += 1) {
             map[34][41 + k] = new Weg(brightness);
         }
-
+        
         for (int k = 0; k < 15; k += 1) {
             map[41][51 + k] = new Weg(brightness);
         }
-
+        
         for (int k = 0; k < 15; k += 1) {
             map[42][51 + k] = new Weg(brightness);
         }
-
+        
         for (int k = 0; k < 10; k += 1) {
             map[33 + k][65] = new Weg(brightness);
         }
@@ -524,19 +512,19 @@ public class LevelDesign implements Runnable {
                 map[i + 40][j + 45] = new Tree(brightness, i, j);
             }
         }
-
+        
         for (int i = 0; i < 2; i++) {
             for (int j = 0; j < 3; j++) {
                 map[i + 43][j + 55] = new Tree(brightness, i, j);
             }
         }
-
+        
         for (int i = 0; i < 2; i++) {
             for (int j = 0; j < 3; j++) {
                 map[i + 31][j + 43] = new Tree(brightness, i, j);
             }
         }
-
+        
         for (int i = 0; i < 2; i++) {
             for (int j = 0; j < 3; j++) {
                 map[i + 31][j + 64] = new Tree(brightness, i, j);
@@ -546,52 +534,52 @@ public class LevelDesign implements Runnable {
 
         map[32][49] = new BlueFlower(brightness);
         map[32][50] = new BlueFlower(brightness);
-
+        
         map[53][49] = new BlueFlower(brightness);
         map[53][50] = new BlueFlower(brightness);
-
+        
         map[41][67] = new BlueFlower(brightness);
         map[42][67] = new BlueFlower(brightness);
-
+        
         Background.x = startX;
         Background.y = startY;
-
+        
         npcs.add(new Sign(Background.x + 1175, Background.y + 550, map, player, "Beyond this gateway formed out of trees there is a wild and uncharted plane called\n"
                 + "route 101. Stories of magical creatures, relentless enemies and mysteries are told\n"
                 + "round this place. If, you are in search of honor and glory earnd by deafting\n"
                 + "powerfull enemies, this is the way to go for you. BUT be warned, you could be \n"
                 + "forced to pay the ultimate prize during your adventure on this mystical plane."));
         npcs.add(new Guard(Background.x + 1175, Background.y + 600, 0, map, player, "Riesencock"));
-
+        
         for (int i = 0; i < map.length - 1; i++) {
             for (int j = 0; j < map.length - 1; j++) {
                 map[i][j].setBrightness(-100);
             }
         }
-
+        
         player.setMap(map);
         bg.setMap(map);
         for (NPC npc : npcs) {
             npc.setMap(map);
         }
-
+        
         try {
             dumpMap(map, "tutorial");
         } catch (Exception ex) {
             System.out.println("Error: " + ex.getMessage());
         }
     }
-
+    
     public void route101(float startX, float startY) {
         clear();
         GameObjects map[][] = new GameObjects[100][100];
-
+        
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {
                 map[i][j] = new Wand(brightness);
             }
         }
-
+        
         for (int i = 0; i < 2; i++) {
             for (int j = 0; j < 3; j++) {
                 for (int k = 0; k < map.length - 1; k += 2) {
@@ -606,48 +594,48 @@ public class LevelDesign implements Runnable {
                 map[i][j] = new Gras(brightness);
             }
         }
-
+        
         Background.x = startX + 400;
         Background.y = startY + 300;
-
+        
         for (int i = 0; i < map.length - 1; i++) {
             for (int j = 0; j < map.length - 1; j++) {
                 map[i][j].setBrightness(-100);
             }
         }
-
+        
         for (int i = 84; i <= 95; i++) {
             for (int j = 28; j <= 31; j++) {
                 //map[j][i] = new Arrow(brightness, 1, -700, -250, this);
             }
         }
-
+        
         for (int i = 0; i <= 15; i++) {
             for (int j = 73; j < 79; j++) {
                 //map[j][i] = new Arrow(brightness, 4, -800, -500, this);
             }
         }
-
+        
         minions.add(new EvilGuard(210, 150, 50, 10, new Rectangle(210, 150), map, player, playerSpritzers));
         minions.add(new Hund(200, 100, 50, map, player, playerSpritzers, minions));
-
+        
         player.setMap(map);
         bg.setMap(map);
         for (NPC npc : npcs) {
             npc.setMap(map);
         }
-
+        
         try {
             dumpMap(map, "route101");
         } catch (Exception ex) {
             System.out.println("Error: route101 " + ex.getMessage());
         }
     }
-
+    
     public void route202(float startX, float startY) {
         clear();
         GameObjects map[][] = new GameObjects[100][100];
-
+        
         for (int i = 0; i < 2; i++) {
             for (int j = 0; j < 3; j++) {
                 for (int k = 0; k < map.length - 1; k += 2) {
@@ -657,41 +645,41 @@ public class LevelDesign implements Runnable {
                 }
             }
         }
-
+        
         for (int i = 20; i < map.length - 20; i++) {
             for (int j = 21; j < map.length - 19; j++) {
                 map[i][j] = new Gras(brightness);
             }
         }
-
+        
         Background.x = startX + 400;
         Background.y = startY + 300;
-
+        
         for (int i = 0; i < map.length - 1; i++) {
             for (int j = 0; j < map.length - 1; j++) {
                 map[i][j].setBrightness(-100);
             }
         }
-
+        
         player.setMap(map);
         bg.setMap(map);
         for (NPC npc : npcs) {
             npc.setMap(map);
         }
-
+        
         try {
             dumpMap(map, "route202");
         } catch (Exception ex) {
             System.out.println("Error: " + ex.getMessage());
         }
     }
-
+    
     public void haus(float startX, float startY) {
         clear();
-
+        
         backX = Background.x;
         backY = Background.y - 25;
-
+        
         GameObjects map[][] = new GameObjects[60][60];
         for (int i = 0; i < map.length; i++) {
             for (int j = 0; j < map.length; j++) {
@@ -703,7 +691,7 @@ public class LevelDesign implements Runnable {
                 map[i][j] = new Boden(brightness);
             }
         }
-
+        
         map[32][27] = new FootCarpet(brightness, 0, 0, backX, backY, 1, this);
         map[33][27] = new FootCarpet(brightness, 1, 0, backX, backY, 1, this);
 
@@ -723,55 +711,52 @@ public class LevelDesign implements Runnable {
         for (int i = 1; i <= 5; i++) {
             map[i + 20][8 + 15] = new Carpet_Full(brightness, 1, 2);
         }
-
+        
         Background.x = startX + 400;
         Background.y = startY + 300;
-
+        
         npcs.add(new OldMan(1000 - 400, 550 - 300, 0, map, player, "You wanna suuu my donga?"));
-
+        
         player.setMap(map);
         bg.setMap(map);
-
+        
         for (NPC npc : npcs) {
             npc.setMap(map);
         }
-
+        
         try {
             dumpMap(map, "haus");
         } catch (Exception ex) {
             System.out.println("Error: " + ex.getMessage());
         }
     }
-
-    public void grass(float startX, float startY) 
-    {
-      GameObjects[][] map = new GameObjects[100][100];
-
-      for (int i = 0; i < map.length; i++) {
-          for (int j = 0; j < map[i].length; j++) {
-              map[i][j] = new Gras(brightness);
-          }
-      }
-
-      Background.x = startX + 400;
-      Background.y = startY + 300;
-
-
-
-      player.setMap(map);
-      bg.setMap(map);
-
-      for (NPC npc : npcs) {
-          npc.setMap(map);
-      }
-
-      try {
-          dumpMap(map, "gras");
-      } catch (Exception ex) {
-          System.out.println("Error: "+ex.getMessage());
-      }
-    }
     
+    public void grass(float startX, float startY) {
+        GameObjects[][] map = new GameObjects[100][100];
+        
+        for (int i = 0; i < map.length; i++) {
+            for (int j = 0; j < map[i].length; j++) {
+                map[i][j] = new Gras(brightness);
+            }
+        }
+        
+        Background.x = startX + 400;
+        Background.y = startY + 300;
+        
+        player.setMap(map);
+        bg.setMap(map);
+        
+        for (NPC npc : npcs) {
+            npc.setMap(map);
+        }
+        
+        try {
+            dumpMap(map, "gras");
+        } catch (Exception ex) {
+            System.out.println("Error: " + ex.getMessage());
+        }
+    }
+
 //    public void test(float startX, float startY) 
 //    {
 //      clear();
@@ -799,46 +784,43 @@ public class LevelDesign implements Runnable {
 //            System.out.println("Error: " + ex.getMessage());
 //        }
 //    }
-
     public void test(float startX, float startY) {
         clear();
-
-      GameObjects map[][] = new GameObjects[100][100];
-      for (int i = 0; i < 10; i++) {
-          for (int j = 0; j < 10; j++) {
-              map[i][j] = new Wand(brightness);
-          }
-      }
-
-      for (int i = 0; i < 2; i++) {
-          for (int j = 0; j < 3; j++) {
-              for (int k = 0; k < map.length - 1; k += 2) {
-                  for (int l = 0; l < map.length - 2; l += 3) {
-                      map[i + k][j + l] = new Tree(brightness, i, j);
-                  }
-              }
-          }
-      }
-      for (int i = 20; i < map.length - 20; i++) {
-          for (int j = 15; j < map[0].length - 16; j++) {
-              map[i][j] = new Gras(brightness);
-          }
-      }
-
-      Background.x = startX + 400;
-      Background.y = startY + 300;
-
-      for (int i = 0; i < 60; i++) {
-          minions.add(new Hund(Background.x + 1476 + 400, Background.y + 400 + i * 30, 200, map, player, playerSpritzers, minions));
-      }
-
-      for (int i = 0; i < map.length-1; i++) 
-      {
-        for (int j = 0; j < map[i].length-1; j++) 
-        {
-          map[i][j].setBrightness(-100);
+        
+        GameObjects map[][] = new GameObjects[100][100];
+        for (int i = 0; i < 10; i++) {
+            for (int j = 0; j < 10; j++) {
+                map[i][j] = new Wand(brightness);
+            }
         }
-      }
+        
+        for (int i = 0; i < 2; i++) {
+            for (int j = 0; j < 3; j++) {
+                for (int k = 0; k < map.length - 1; k += 2) {
+                    for (int l = 0; l < map.length - 2; l += 3) {
+                        map[i + k][j + l] = new Tree(brightness, i, j);
+                    }
+                }
+            }
+        }
+        for (int i = 20; i < map.length - 20; i++) {
+            for (int j = 15; j < map[0].length - 16; j++) {
+                map[i][j] = new Gras(brightness);
+            }
+        }
+        
+        Background.x = startX + 400;
+        Background.y = startY + 300;
+        
+        for (int i = 0; i < 60; i++) {
+            minions.add(new Hund(Background.x + 1476 + 400, Background.y + 400 + i * 30, 200, map, player, playerSpritzers, minions));
+        }
+        
+        for (int i = 0; i < map.length - 1; i++) {
+            for (int j = 0; j < map[i].length - 1; j++) {
+                map[i][j].setBrightness(-100);
+            }
+        }
 //    for (int i = 0; i < map.length-1; i++) 
 //    {
 //      for (int j = 0; j < map.length-1; j++) 
@@ -851,31 +833,28 @@ public class LevelDesign implements Runnable {
         for (NPC npc : npcs) {
             npc.setMap(map);
         }
-
+        
         try {
             dumpMap(map, "test");
         } catch (Exception ex) {
             System.out.println("Error: " + ex.getMessage());
         }
-      
-      
-      player.setMap(map);
-      bg.setMap(map);
-      
-      for (NPC npc : npcs)
-      {
-        npc.setMap(map);
-      }
-
-      try {
-          dumpMap(map, "test");
-      } catch (Exception ex) {
-          System.out.println("Error: "+ex.getMessage());
-      }
+        
+        player.setMap(map);
+        bg.setMap(map);
+        
+        for (NPC npc : npcs) {
+            npc.setMap(map);
+        }
+        
+        try {
+            dumpMap(map, "test");
+        } catch (Exception ex) {
+            System.out.println("Error: " + ex.getMessage());
+        }
     }
-
-    private void clear() 
-    {
+    
+    private void clear() {
         minions.clear();
         npcs.clear();
     }

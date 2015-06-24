@@ -31,9 +31,7 @@ public class Hund extends Minion {
         super(x, y, speed, 100, map, player, playerSpritzers);
         this.speed = speed;
         this.minions = minions;
-        System.out.println("set");
         setLook("hund", 30, 30, 4, 4);
-        System.out.println("img: "+imageTag);
         bounding = new Rectangle((int) x, (int) y, look[0][0].getWidth(), look[0][0].getHeight());
         damage = 1000;
     }
