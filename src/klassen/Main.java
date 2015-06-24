@@ -68,7 +68,7 @@ public class Main
     // BackX -847 BackY -1045
     // SpawnX -582 SpawnY -529
     // ld.loadLevel(0, -800, -800);
-    ld.loadLevel(5, -582, -529);
+    ld.loadLevel(0, -582, -529);
 //    ld.buildMap(3);
 //     ld.loadLevel(0, -800, -800);
 //     boss.add(new HundeGhoul(0, 0, 300, bg.getMap(), player, 3, minions, playerSpritzers));
@@ -76,10 +76,10 @@ public class Main
     //ld.buildMap(2);
 //    boss.add(new HundeGhoul(tslf, tslf, tslf, map, player, tslf, minions, playerSpritzers))
     
-    npcs.add(new OldMan(800, 800, 100, bg.getMap(), player, "Willst mein dick?"));
-    npcs.add(new Sign(900, 800, bg.getMap(), player, "Willst mein dick?"));
-    npcs.add(new Guard(100, 100, 100, bg.getMap(), player, "Willst mein dick?"));
-    minions.add(new Hund(500, 500, 100, bg.getMap(), player, playerSpritzers, minions));
+//    npcs.add(new OldMan(800, 800, 100, bg.getMap(), player, "Willst mein dick?"));
+//    npcs.add(new Sign(900, 800, bg.getMap(), player, "Willst mein dick?"));
+//    npcs.add(new Guard(100, 100, 100, bg.getMap(), player, "Willst mein dick?"));
+//    minions.add(new Hund(500, 500, 100, bg.getMap(), player, playerSpritzers, minions));
 //    minions.add(new Hund(1000,1400,110,bg.getMap(),player,playerSpritzers));
     
     GUI f=new GUI(player,playerSpritzers,boss,bossSpritzer,minions,minionSpritzer,npcs,bg,ld);
@@ -90,7 +90,7 @@ public class Main
     f.setResizable(false);
     f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     f.setLocationRelativeTo(null);
-//    f.setFullscreen();
+    f.setFullscreen();
 //    
 ////    try
 ////    {
@@ -107,7 +107,7 @@ public class Main
 //    Thread gui=new Thread(f);
 //    gui.start();
 //////    
-    boss.add(new HundeGhoul(0, 0,100, bg.getMap(), player,0.5f, bossSpritzer, minions, playerSpritzers));
+//    boss.add(new HundeGhoul(0, 0,100, bg.getMap(), player,0.5f, bossSpritzer, minions, playerSpritzers));
     Thread levelDesign=new Thread(ld);
     levelDesign.start();
 //    
