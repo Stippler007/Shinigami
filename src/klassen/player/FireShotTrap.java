@@ -34,10 +34,16 @@ public class FireShotTrap extends PlayerSpritzer
     {
       float speedX = (float)Math.cos(x1) * 300;
       float speedY = (float)Math.sin(x1) * 300;
-      spritzers.add(new FireShot(x,y,speedX/3,speedY/3,4,damage/2,spritzers));
+      spritzers.add(new FireShot(x,y,speedX/3,speedY/3,0,damage/2,spritzers));
     }
     alive=false;
   }
+
+  public boolean isAlive()
+  {
+    return alive;
+  }
+  
   @Override
   public BufferedImage getLook()
   {

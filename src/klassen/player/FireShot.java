@@ -121,7 +121,7 @@ public class FireShot extends PlayerSpritzer
   @Override
   public BufferedImage getLook()
   {
-    for (int i = 0; i < look.length; i++) 
+    for (int i = 0; i < look.length; i++)
     {
       if(animationTime<(float)maxAnimationTime/(look.length-1)*(i+1))return look[i];
     }

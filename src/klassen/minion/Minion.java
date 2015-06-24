@@ -20,6 +20,7 @@ import klassen.karte.GameObjects;
 import klassen.player.BasicShot;
 import klassen.player.FireShot;
 import klassen.player.FireShotTrap;
+import klassen.player.IceShot;
 import klassen.player.Player;
 import klassen.player.PlayerSpritzer;
 
@@ -205,6 +206,12 @@ public abstract class Minion implements Serializable
           live-=playerSpritzer.getDamage()*tslf;
           i++;
         }
+        if(playerSpritzer instanceof IceShot)
+        {
+          live-=playerSpritzer.getDamage()*tslf;
+          speed/=2;
+          i++;
+        }
         else if(playerSpritzer instanceof FireShotTrap)
         {
           ((FireShotTrap)playerSpritzer).explode();
@@ -363,13 +370,14 @@ public abstract class Minion implements Serializable
         return look[0][0];
     }
       
-      int j=-1;
+    int j=-1;
     double turn=getTurn();
     if(turn>=-Math.PI*0.25&&turn<=Math.PI*0.25)
     {
       j=1;
     }
-    else if(turn>=Math.PI*0.25&&turn<=Math.PI*0.5){
+    else if(turn>=Math.PI*0.25&&turn<=Math.PI*0.5)
+    {
       j=0;
     }
     else if(turn>=Math.PI*0.50&&turn<=Math.PI*1){

@@ -22,6 +22,7 @@ import klassen.npc.OldMan;
 import klassen.npc.Sign;
 import klassen.player.BasicShot;
 import klassen.player.FireShot;
+import klassen.player.FireShotTrap;
 import klassen.player.IceShot;
 import klassen.player.Player;
 import klassen.player.PlayerSpritzer;
@@ -148,6 +149,7 @@ public class Main
 //      Main.collideMinionPlayerSpritzer(minionSpritzer, playerSpritzers);
       Main.collidePlayerSpritzerMap(bg.getMap(), playerSpritzers);
       deleteShit(playerSpritzers,minionSpritzer, minions);
+      System.out.println("penis");
       f.repaintScreen();
 //      System.out.println(tslf);
       
@@ -177,6 +179,17 @@ public class Main
       else if(playerSpritzers.get(i) instanceof IceShot)
       {
         if(!((IceShot)playerSpritzers.get(i)).isAlive())
+        {
+          playerSpritzers.remove(i);
+        }
+        else
+        {
+          i++;
+        }
+      }
+      else if(playerSpritzers.get(i) instanceof FireShotTrap)
+      {
+        if(!((FireShotTrap)playerSpritzers.get(i)).isAlive())
         {
           playerSpritzers.remove(i);
         }

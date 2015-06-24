@@ -552,7 +552,7 @@ public class Player {
                                       (float)(speed)*2,damage,this,playerSpritzer,minions));
       realodTime-=maxRealodTime;
     }
-    if(realodTime<=maxRealodTime)
+    else if(realodTime<=maxRealodTime)
     {
       realodTime+=tslf;
     }
