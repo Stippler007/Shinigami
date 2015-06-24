@@ -548,7 +548,7 @@ public class Player {
     moveCockBack(tslf);
     if(ML.leftMousePressed&&realodTime>maxRealodTime)
     {
-      playerSpritzer.add(new FireShot((float)(400-8),(float)(300-8),
+      playerSpritzer.add(new FireShotTrap((float)(400-8),(float)(300-8),
                                       (float)(speed)*2,damage,this,playerSpritzer,minions));
       realodTime-=maxRealodTime;
     }
@@ -617,22 +617,10 @@ public class Player {
     double vonrechts=help2.x+help2.width-help1.x;
     double vonunten=help2.y + help2.height - help1.y;
 
-    if(vonlinks<vonoben&&vonlinks<vonrechts&&vonlinks<vonunten)
-    {
-      speedX+=vonlinks;
-    }
-    else if(vonoben<vonrechts&&vonoben<vonunten)
-    {
-      speedY+=vonoben;
-    }
-    else if(vonrechts<vonunten)
-    {
-      speedX-=vonrechts;
-    }
-    else
-    {
-      speedY-=vonunten;
-    }
+    if(vonlinks<vonoben&&vonlinks<vonrechts&&vonlinks<vonunten)speedX+=vonlinks;
+    else if(vonoben<vonrechts&&vonoben<vonunten)speedY+=vonoben;
+    else if(vonrechts<vonunten)speedX-=vonrechts;
+    else speedY-=vonunten;
   }
   private void move(float tslf)
   {

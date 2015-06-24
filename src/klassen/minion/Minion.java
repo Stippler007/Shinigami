@@ -19,6 +19,7 @@ import klassen.ImageFactory;
 import klassen.karte.GameObjects;
 import klassen.player.BasicShot;
 import klassen.player.FireShot;
+import klassen.player.FireShotTrap;
 import klassen.player.Player;
 import klassen.player.PlayerSpritzer;
 
@@ -202,6 +203,11 @@ public abstract class Minion implements Serializable
         if(playerSpritzer instanceof FireShot)
         {
           live-=playerSpritzer.getDamage()*tslf;
+          i++;
+        }
+        else if(playerSpritzer instanceof FireShotTrap)
+        {
+          ((FireShotTrap)playerSpritzer).explode();
           i++;
         }
         else

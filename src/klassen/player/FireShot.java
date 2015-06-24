@@ -31,13 +31,13 @@ public class FireShot extends PlayerSpritzer
   
   public FireShot(float x, float y, float speed, float damage,Player player,List<PlayerSpritzer> spritzers,List<Minion> minions)
   {
-    super(x, y, new Rectangle((int)x, (int)y,ImageFactory.getIF().getLook("FireShot0").getWidth(),
-            ImageFactory.getIF().getLook("FireShot0").getHeight()), damage);
+    super(x, y, new Rectangle((int)x, (int)y,ImageFactory.getIF().getLook("FireMine").getWidth(),
+            ImageFactory.getIF().getLook("FireMine").getHeight()), damage);
     this.spritzers=spritzers;
     
     for (int i = 0; i < look.length; i++)
     {
-      look[i]=ImageFactory.getIF().getLook("FireShot"+i);
+      look[i]=ImageFactory.getIF().getLook("FireMine"+i);
     }
     
     super.speed=speed;
@@ -104,19 +104,19 @@ public class FireShot extends PlayerSpritzer
   private void explode()
   {
     if(n>0)
+    {
+      for(float x1 = 0; x1 <= Math.PI * 2; x1 += Math.PI / 6)
       {
-        for(float x1 = 0; x1 <= Math.PI * 2; x1 += Math.PI / 6)
-        {
-          float speedX = (float)Math.cos(x1) * 300;
-          float speedY = (float)Math.sin(x1) * 300;
-          spritzers.add(new FireShot(x,y,speedX/3,speedY/3,n-1,damage/2,spritzers));
-        }
+        float speedX = (float)Math.cos(x1) * 300;
+        float speedY = (float)Math.sin(x1) * 300;
+        spritzers.add(new FireShot(x,y,speedX/3,speedY/3,n-1,damage/2,spritzers));
       }
-      else
-      {
-        animationTime-=maxAnimationTime;
-      }
-      alive=false;
+    }
+    else
+    {
+      animationTime-=maxAnimationTime;
+    }
+    alive=false;
   }
   @Override
   public BufferedImage getLook()

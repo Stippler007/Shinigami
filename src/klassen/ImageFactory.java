@@ -45,7 +45,6 @@ public class ImageFactory {
       }
       for (int i = 0; i < 1; i++) {
           looks.put("HundeGhoul"+i, ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/minion/hundeGhoul/hundeGhoul/HundeGhoul"+i+".png")));
-         
       }
       loadMinions();
       loadPlayer();
@@ -142,6 +141,7 @@ public class ImageFactory {
     for (int i = 0; i < 1; i++) {
         looks.put("BasicShot", ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/player/player/basicSpritzer/BasicShot"+i+".png")));
     }
+    looks.put("FireMine", ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/player/player/fireShot/Fire_Miene.png")));
   }
   private void loadGameObjects() throws IOException
   {

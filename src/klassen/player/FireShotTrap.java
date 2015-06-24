@@ -7,6 +7,9 @@ package klassen.player;
 
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
+import java.util.List;
+import klassen.ImageFactory;
+import klassen.minion.Minion;
 
 /**
  *
@@ -14,16 +17,30 @@ import java.awt.image.BufferedImage;
  */
 public class FireShotTrap extends PlayerSpritzer
 {
-
-  public FireShotTrap(float x, float y, Rectangle bounding, float damage)
+  private BufferedImage look;
+  private List<PlayerSpritzer> spritzers;
+  public boolean alive=true;
+  
+  public FireShotTrap(float x, float y, float speed, float damage,Player player,List<PlayerSpritzer> spritzers,List<Minion> minions)
   {
-    super(x, y, bounding, damage);
+    super(x, y, new Rectangle((int)x, (int)y,ImageFactory.getIF().getLook("FireMine").getWidth(),
+            ImageFactory.getIF().getLook("FireMine").getHeight()), damage);
+    this.spritzers=spritzers;
+    look=ImageFactory.getIF().getLook("FireMine");
   }
-
+  public void explode()
+  {
+    for(float x1 = 0; x1 <= Math.PI * 2; x1 += Math.PI / 6)
+    {
+      float speedX = (float)Math.cos(x1) * 300;
+      float speedY = (float)Math.sin(x1) * 300;
+      spritzers.add(new FireShot(x,y,speedX/3,speedY/3,4,damage/2,spritzers));
+    }
+    alive=false;
+  }
   @Override
   public BufferedImage getLook()
   {
-    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    return look;
   }
-  
 }
