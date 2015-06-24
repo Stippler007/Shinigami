@@ -43,11 +43,11 @@ public class Tester {
 
         LevelDesign ld = LevelDesign.getLevelDesign();
         ld.loadLevels();
-        Level l = ld.getLevel("test1");
-        
+        Level l = ld.getLevel("abc");
+        System.out.println(l);
 //        Music.play().canonInD();
 
-        Background bg = new Background(-300, 500);
+        Background bg = new Background(-15*25+400, -15*25+300);
         bg.setMap(l.getMap());
         
         List<NPC> npcs = l.getNpcs();

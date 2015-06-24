@@ -123,6 +123,10 @@ class DlgConfigGO extends JDialog {
                             go.setThorny(Boolean.parseBoolean(parse));
                         } else if (types.get(i).contains("ID")) {
                             ((Arrow) go).setID((String) cb.getSelectedItem());
+                        } else if (types.get(i).contains("StartX")) {
+                            ((Arrow) go).setStartX(Float.parseFloat(inputs.get(i).getText())*25);
+                        } else if (types.get(i).contains("StartY")) {
+                            ((Arrow) go).setStartY(Float.parseFloat(inputs.get(i).getText())*25);
                         }
                     }
                 }
