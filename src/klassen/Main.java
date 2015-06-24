@@ -46,7 +46,7 @@ public class Main
     
 //    Music.m.playCanonInD();
     
-    Background bg=new Background(-847+400,-1045+300);
+    Background bg=new Background(0,0);
     
 //    Music.play().canonInD();
     
