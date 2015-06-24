@@ -44,10 +44,11 @@ public class Tester {
         LevelDesign ld = LevelDesign.getLevelDesign();
         ld.loadLevels();
         Level l = ld.getLevel("abc");
-        System.out.println(l);
+
+        
 //        Music.play().canonInD();
 
-        Background bg = new Background(-15*25+400, -15*25+300);
+        Background bg = new Background(15, 15);
         bg.setMap(l.getMap());
         
         List<NPC> npcs = l.getNpcs();
@@ -67,10 +68,10 @@ public class Tester {
         //ld.setLevelDesign(player, bg, minions, npcs, playerSpritzers);
         //ld.loadLevel(5, -582, -529);
 
-        npcs.add(new OldMan(800, 800, 100, bg.getMap(), player, "Willst mein dick?"));
-        npcs.add(new Sign(900, 800, bg.getMap(), player, "Willst mein dick?"));
-        npcs.add(new Guard(100, 100, 100, bg.getMap(), player, "Willst mein dick?"));
-        minions.add(new Hund(500, 500, 100, bg.getMap(), player, playerSpritzers, minions));
+//        npcs.add(new OldMan(800, 800, 100, bg.getMap(), player, "Willst mein dick?"));
+//        npcs.add(new Sign(900, 800, bg.getMap(), player, "Willst mein dick?"));
+//        npcs.add(new Guard(100, 100, 100, bg.getMap(), player, "Willst mein dick?"));
+//        minions.add(new Hund(500, 500, 100, bg.getMap(), player, playerSpritzers, minions));
 
 
         GUI f = new GUI(player, playerSpritzers, boss, bossSpritzer, minions, minionSpritzer, npcs, bg, ld);

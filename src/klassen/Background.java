@@ -21,10 +21,12 @@ public class Background
   public static float x;
   public static float y;
   
-  public Background(float x,float y)
+  public Background(int x,int y)
   {
-    this.x=x;
-    this.y=y;
+    this.x=(x*25)*-1+400;
+    this.y=(y*25)*-1+300;
+//    System.out.println("Background.x:"+x);
+//    System.out.println("Background.y: "+y);
   }
   
   public void setMap(GameObjects[][] map) 
