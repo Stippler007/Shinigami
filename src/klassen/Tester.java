@@ -43,7 +43,7 @@ public class Tester {
 
         LevelDesign ld = LevelDesign.getLevelDesign();
         ld.loadLevels();
-        Level l = ld.getLevel("abc1");
+        Level l = ld.getLevel("level1");
 
         
 //        Music.play().canonInD();
@@ -74,6 +74,10 @@ public class Tester {
 //        minions.add(new Hund(500, 500, 100, bg.getMap(), player, playerSpritzers, minions));
 
 
+        for (Minion minion : minions) {
+            minion.setPlayer(player);
+        }
+        
         GUI f = new GUI(player, playerSpritzers, boss, bossSpritzer, minions, minionSpritzer, npcs, bg, ld);
 
         f.setUndecorated(true);

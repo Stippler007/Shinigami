@@ -61,6 +61,7 @@ public abstract class GameObjects implements Serializable {
 
     private void readObject(ObjectInputStream stream) throws IOException, ClassNotFoundException {
         stream.defaultReadObject();
+        System.out.println(imageTag);
         setImage(imageTag,width,5);
     }
 

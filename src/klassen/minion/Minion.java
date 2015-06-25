@@ -111,6 +111,10 @@ public abstract class Minion implements Serializable
       this.map = map;
   }
   
+  public void setPlayer(Player p) {
+      this.player = p;
+  }
+  
   // So Act 1, S1: Overture Paul Shapera
   public void setX(float x) 
   {

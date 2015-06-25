@@ -78,7 +78,7 @@ public abstract class Boss implements Serializable
   private void readObject(ObjectInputStream stream) throws IOException, ClassNotFoundException {
         stream.defaultReadObject();
         BufferedImage img = ImageFactory.getIF().getLook(imageName);
-        setLook(imageName, img.getWidth(), img.getHeight(),3);
+        setLook(imageName, img.getWidth()/3, img.getHeight()/4, 3);
     }
 
   public void setPlayer(Player player)
