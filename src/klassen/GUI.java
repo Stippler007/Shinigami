@@ -103,13 +103,15 @@ public class GUI extends JFrame implements Runnable{
     g.setColor(Color.black);
     g.fillRect(0, 0,800, 600);
     bg.drawBG(g);
-
-    if(player.getHealth()>0)g.drawImage(player.getLook(), null,375,275);
-    else g.drawString("Game Over!", 300, 300);
-
+    
     for(PlayerSpritzer ps:playerSpritzer){
         g.drawImage(ps.getLook(), null, ps.getBounding().x, ps.getBounding().y);
     }
+    
+    if(player.getHealth()>0)g.drawImage(player.getLook(), null,375,275);
+    else g.drawString("Game Over!", 300, 300);
+
+    
     for(Minion m:minions){
         m.draw(g);
     }
@@ -150,6 +152,10 @@ public class GUI extends JFrame implements Runnable{
         {
           g.drawString(str[i], 110, 470+20*(i-TextManager.getInstance().getPosition()));
         }
+      }
+      if(player.getHealth()<0)
+      {
+        g.drawImage(ImageFactory.getIF().getLook("gameover"), null, 0, 0);
       }
 //      g.drawImage(ImageFactory.getIF().getLook("guard"), null, 0, 0);
       
